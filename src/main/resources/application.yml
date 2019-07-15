@@ -1,21 +1,26 @@
+#ç«¯å£å·
 server:
-  port: 8087
+  port: 8086
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/hbkj?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
-    data-username: root
+    username: root
     password: 123456
   devtools:
     restart:
-      enabled: true  #¿ªÆôÈÈ²¿Êğ
+      enabled: true  #å¼€å¯çƒ­éƒ¨ç½²
+  jpa:
+    hibernate:
+      ddl-auto: validate
 mybatis:
-  type-aliases-package: com.xdmd.environment
+  type-aliases-package: com.xdmd.hbkj
   mapper-locations: classpath:mappers/*.xml
   configuration:
-    map-underscore-to-camel-case: true  #¿ªÆôÍÕ·å×ª»»
+    map-underscore-to-camel-case: true   #å¼€å¯é©¼å³°è½¬æ¢
+
 logging:
   level:
     root: INFO
-    org.springframeword.web: EDBUG
-  file: D:\\xdmd_environment\\hbkj.log
+    org.springframework.web: EDBUG
+  file: D:\\xdmd_hbkj\\hbkj.log
