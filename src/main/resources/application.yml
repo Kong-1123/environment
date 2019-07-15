@@ -1,0 +1,21 @@
+server:
+  port: 8087
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hbkj?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    data-username: root
+    password: 123456
+  devtools:
+    restart:
+      enabled: true  #开启热部署
+mybatis:
+  type-aliases-package: com.xdmd.environment
+  mapper-locations: classpath:mappers/*.xml
+  configuration:
+    map-underscore-to-camel-case: true  #开启驼峰转换
+logging:
+  level:
+    root: INFO
+    org.springframeword.web: EDBUG
+  file: D:\\xdmd_environment\\hbkj.log
