@@ -13,7 +13,7 @@ public class DemoController {
 
     @Autowired
     private DemoService demoService;
-    ResultMap resultMap;
+    ResultMap resultMap = new ResultMap();
 
     @ResponseBody
     @RequestMapping("test")
