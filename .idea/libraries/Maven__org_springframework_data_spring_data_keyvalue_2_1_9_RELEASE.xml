@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.springframework.data:spring-data-keyvalue:2.1.9.RELEASE">
     <CLASSES>
-      <root url="jar://D:/Maven/apache-maven-3.6.1/repository/org/springframework/data/spring-data-keyvalue/2.1.9.RELEASE/spring-data-keyvalue-2.1.9.RELEASE.jar!/" />
+      <root url="jar://D:/Program Files/apache-maven-3.6.1/m.2/org/springframework/data/spring-data-keyvalue/2.1.9.RELEASE/spring-data-keyvalue-2.1.9.RELEASE.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://D:/Maven/apache-maven-3.6.1/repository/org/springframework/data/spring-data-keyvalue/2.1.9.RELEASE/spring-data-keyvalue-2.1.9.RELEASE-javadoc.jar!/" />
+      <root url="jar://D:/Program Files/apache-maven-3.6.1/m.2/org/springframework/data/spring-data-keyvalue/2.1.9.RELEASE/spring-data-keyvalue-2.1.9.RELEASE-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://D:/Maven/apache-maven-3.6.1/repository/org/springframework/data/spring-data-keyvalue/2.1.9.RELEASE/spring-data-keyvalue-2.1.9.RELEASE-sources.jar!/" />
+      <root url="jar://D:/Program Files/apache-maven-3.6.1/m.2/org/springframework/data/spring-data-keyvalue/2.1.9.RELEASE/spring-data-keyvalue-2.1.9.RELEASE-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
