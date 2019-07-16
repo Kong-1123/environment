@@ -28,10 +28,10 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        Contact contact = new Contact("Zhangyudelong", "联系人访问链接", "kong_9527@outlook.com");
+        Contact contact = new Contact("Kong", "暂无", "kong_9527@outlook.com");
         return new ApiInfoBuilder()
-                .title("Swagger API接口文档")
-                .description("这是swagger接口文档")
+                .title("Environment_API接口文档")
+                .description("环保科研课题系统接口文档")
                 .contact(contact)
                 .version("v1.0.0")
                 .build();

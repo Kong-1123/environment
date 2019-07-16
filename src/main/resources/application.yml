@@ -7,20 +7,45 @@ spring:
     url: jdbc:mysql://localhost:3306/hbkj?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: 123456
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    #热部署配置
   devtools:
     restart:
       enabled: true  #开启热部署
   jpa:
     hibernate:
       ddl-auto: validate
+
+#mybatis配置
 mybatis:
   type-aliases-package: com.xdmd.hbkj
   mapper-locations: classpath:mappers/*.xml
   configuration:
     map-underscore-to-camel-case: true   #开启驼峰转换
-
+#简单日志配置
 logging:
   level:
     root: INFO
     org.springframework.web: EDBUG
   file: D:\\xdmd_hbkj\\hbkj.log
+
+# 配置pageHelper分页插件的内容
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

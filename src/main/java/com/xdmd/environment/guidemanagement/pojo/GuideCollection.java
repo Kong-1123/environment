@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  *  guide_declaration
@@ -51,7 +52,7 @@ public class GuideCollection implements Serializable {
     private Integer durationResearch;
 
     @ApiModelProperty("研究经费测算（万元）")
-    private Double researchFundingEstimates;
+    private BigDecimal researchFundingEstimates;
 
     @ApiModelProperty("示范工程规模")
     private String demonstration;
