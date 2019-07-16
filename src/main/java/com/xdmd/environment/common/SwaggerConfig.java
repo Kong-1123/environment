@@ -19,7 +19,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                //.apis(RequestHandlerSelectors.basePackage("com.xdmd.environment.*"))
+                //.apis(RequestHandlerSelectors.basePackage("com.xdmd.environment.*.controller"))
                 .apis(RequestHandlerSelectors.any())
                 //筛选接口
                 .paths(PathSelectors.any())

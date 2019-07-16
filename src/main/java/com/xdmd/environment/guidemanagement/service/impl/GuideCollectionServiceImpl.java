@@ -16,7 +16,7 @@ import java.util.List;
  * @createDate: 2019/07/16
  * @description: 指南征集业务实现类
  */
-@Service(value = "guideCollectionService")
+@Service
 public class GuideCollectionServiceImpl implements GuideCollectionService {
     @Autowired
     GuideCollectionMapper guideCollectionMapper;

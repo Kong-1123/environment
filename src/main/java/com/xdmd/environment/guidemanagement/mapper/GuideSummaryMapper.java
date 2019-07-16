@@ -1,7 +1,6 @@
 package com.xdmd.environment.guidemanagement.mapper;
 
 import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +11,6 @@ import java.util.List;
  * @author Kong
  * @date 2019/07/15
  */
-@Mapper
 @Repository
 public interface GuideSummaryMapper {
 

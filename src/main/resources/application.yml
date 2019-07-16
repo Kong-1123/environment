@@ -8,20 +8,20 @@ spring:
     username: root
     password: 123456
     # 使用druid数据源
-    type: com.alibaba.druid.pool.DruidDataSource
-    filters: stat
-    maxActive: 20
-    initialSize: 1
-    maxWait: 60000
-    minIdle: 1
-    timeBetweenEvictionRunsMillis: 60000
-    minEvictableIdleTimeMillis: 300000
-    validationQuery: select 'x'
-    testWhileIdle: true
-    testOnBorrow: false
-    testOnReturn: false
-    poolPreparedStatements: true
-    maxOpenPreparedStatements: 20
+    # type: com.alibaba.druid.pool.DruidDataSource
+    # filters: stat
+    # maxActive: 20
+    # initialSize: 1
+    # maxWait: 60000
+    # minIdle: 1
+    # timeBetweenEvictionRunsMillis: 60000
+    # minEvictableIdleTimeMillis: 300000
+    # validationQuery: select 'x'
+    # testWhileIdle: true
+    # testOnBorrow: false
+    # testOnReturn: false
+    # poolPreparedStatements: true
+    # maxOpenPreparedStatements: 20
     #热部署配置
   devtools:
     restart:
@@ -40,7 +40,7 @@ mybatis:
 logging:
   level:
     root: INFO
-    org.springframework.web: EDBUG
+    org.springframework.web: debug
   file: D:\\xdmd_hbkj\\hbkj.log
 
 # 配置pageHelper分页插件的内容
