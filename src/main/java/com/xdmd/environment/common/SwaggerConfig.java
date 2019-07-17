@@ -19,9 +19,17 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                //.apis(RequestHandlerSelectors.basePackage("com.xdmd.environment.*.controller"))
-                .apis(RequestHandlerSelectors.any())
-                //筛选接口
+                /**
+                 * ----除了通过包路径配置扫描接口外，还可以通过配置其他方式扫描接口，这里注释一下所有的配置方式：
+                 * any() // 扫描所有，项目中的所有接口都会被扫描到
+                 * none() // 不扫描接口
+                 * withMethodAnnotation(final Class<? extends Annotation> annotation)// 通过方法上的注解扫描，如withMethodAnnotation(GetMapping.class)只扫描get请求
+                 * withClassAnnotation(final Class<? extends Annotation> annotation) // 通过类上的注解扫描，如.withClassAnnotation(Controller.class)只扫描有controller注解的类中的接口
+                 * basePackage(final String basePackage) // 根据包路径扫描接口
+                 */
+                .apis(RequestHandlerSelectors.basePackage("com.xdmd.environment.*.controller"))
+                //.apis(RequestHandlerSelectors.any())
+
                 .paths(PathSelectors.any())
                 .build();
 

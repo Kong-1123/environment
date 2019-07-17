@@ -17,11 +17,12 @@ public interface GuideCollectionService {
      * @param
      * @return
      */
-    List<GuideCollection> findAllGuideInfo(int pageNum, int pageSize);
+    List<GuideCollection> findAllGuideInfo(Integer pageNum, Integer pageSize);
 
     /**
      * 新增
      * @param guideCollection
+     * @return
      */
     Integer insertGuideInfo(GuideCollection guideCollection);
 }

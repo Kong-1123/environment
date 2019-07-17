@@ -8,9 +8,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,11 +25,11 @@ public class GuideCollectionController {
     ResultMap resultMap=new ResultMap();
 
     @ApiOperation(value = "获取信息",notes = "根据id获取信息")
-    @ApiImplicitParam(name = "id",value = "信息id",required = true,dataType = "integet",paramType = "path")
+    @ApiImplicitParam(name = "id",value = "信息id",required = true,dataType = "integer",paramType = "path")
     @ResponseBody
-    @RequestMapping(value = "/findOne")
-    public ResultMap findOneGuideInfo(@PathVariable("id") Integer id){
-        return guideCollectionService.findOneGuideInfo(id)!=null?resultMap.success():resultMap.fail();
+    @GetMapping(value = "/findOne")
+    public ResultMap findOneGuideInfo(@RequestParam("id") Integer id){
+        return guideCollectionService.findOneGuideInfo(id)!=null?resultMap.success().message(guideCollectionService.findOneGuideInfo(id)):resultMap.fail();
 
     }
     @ApiOperation(value = "展示所有信息",notes = "分页展示所有信息")
@@ -39,19 +37,18 @@ public class GuideCollectionController {
             @ApiImplicitParam(name = "pageNum", value = "当前显示页", required = true, dataType = "Integer", paramType = "path"),
             @ApiImplicitParam(name = "pageSize", value = "总页数", required = true, dataType = "Integer", paramType = "path")
     })
-
     @ResponseBody
-    @RequestMapping(value = "/findAll",produces = {"application/json;charset=UTF-8"})
-    public ResultMap findAllGuideInfo(@PathVariable("pageNum") Integer pageNum,@PathVariable("pageSize") Integer pageSize ){
+    @GetMapping(value = "/findAll",produces = {"application/json;charset=UTF-8"})
+    public ResultMap findAllGuideInfo(@RequestParam("pageNum") Integer pageNum,@RequestParam("pageSize") Integer pageSize,@RequestParam("guideCollection") GuideCollection guideCollection ){
         List<GuideCollection> guideCollectionList=guideCollectionService.findAllGuideInfo(pageNum,pageSize);
-        return guideCollectionList.size()>0?resultMap.success():resultMap.fail();
+        return guideCollectionList.size()>0?resultMap.success().message(guideCollectionList):resultMap.fail();
     }
 
     @ApiOperation(value = "新增信息")
     @ResponseBody
-    @RequestMapping(value = "/insertGuideInfo")
-    public ResultMap insertGuideInfo(GuideCollection guideCollection){
-        return guideCollectionService.insertGuideInfo(guideCollection)>0?resultMap.success():resultMap.fail();
+    @PostMapping(value = "/insertGuideInfo")
+    public ResultMap insertGuideInfo(@RequestParam("guideCollection") GuideCollection guideCollection){
+        return guideCollectionService.insertGuideInfo(guideCollection)>0?resultMap.success().message(guideCollectionService.insertGuideInfo(guideCollection)):resultMap.fail();
     }
 
 }
