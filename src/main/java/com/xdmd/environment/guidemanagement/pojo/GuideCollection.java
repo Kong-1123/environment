@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @author Kong 2019-07-15
  */
 @Data
-@ApiModel("guide_collection")
+@ApiModel(description="指南申报实体类")
 public class GuideCollection implements Serializable {
 
     @ApiModelProperty("主键")
@@ -34,7 +34,7 @@ public class GuideCollection implements Serializable {
     private String fillContacts;
 
     @ApiModelProperty("单位负责人(签字)")
-    private String headUnit;
+    private String unitPrincipal;
 
     @ApiModelProperty("建议理由及依据(300字以内)")
     private String reasonBasis;
@@ -43,25 +43,25 @@ public class GuideCollection implements Serializable {
     private String researchContentTechnology;
 
     @ApiModelProperty("预期目标和成果（200字以内）")
-    private String expectedGoalsResults;
+    private String expectedTargetOutcome;
 
     @ApiModelProperty("拟出标准、技术规范、法规名称")
     private String standardsSpecificationsRegulatory;
 
     @ApiModelProperty("研究期限")
-    private Integer durationResearch;
+    private Integer researchPeriod;
 
     @ApiModelProperty("研究经费测算（万元）")
-    private BigDecimal researchFundingEstimates;
+    private BigDecimal researchFund;
 
     @ApiModelProperty("示范工程规模")
-    private String demonstration;
+    private String demonstrationScale;
 
     @ApiModelProperty("示范工程点")
-    private String demonstrationEngineeringSites;
+    private String demonstrationPoint;
 
     @ApiModelProperty("省内从事该领域的主要研究机构")
-    private String provinceDomainInstitutions;
+    private String provinceDomainMechanism;
 
     @ApiModelProperty("联系电话(手机)")
     private String contactPhone;

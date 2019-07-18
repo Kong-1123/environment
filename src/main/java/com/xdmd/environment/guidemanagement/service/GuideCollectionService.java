@@ -1,8 +1,8 @@
 package com.xdmd.environment.guidemanagement.service;
 
+import com.github.pagehelper.Page;
+import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
-
-import java.util.List;
 
 
 public interface GuideCollectionService {
@@ -11,18 +11,18 @@ public interface GuideCollectionService {
      * 根據主鍵 id 查詢
      * @param id
      */
-    GuideCollection findOneGuideInfo(Integer id);
+    GuideCollection findOneGuideInfo(int id);
     /**
-     * 获取所有信息
+     * 获取所有信息分页展示
      * @param
      * @return
      */
-    List<GuideCollection> findAllGuideInfo(Integer pageNum, Integer pageSize);
+    Page<GuideCollection> findAllGuideInfo( int pageNum,  int pageSize);
 
     /**
      * 新增
      * @param guideCollection
      * @return
      */
-    Integer insertGuideInfo(GuideCollection guideCollection);
+    ResultMap insertGuideInfo( GuideCollection guideCollection);
 }

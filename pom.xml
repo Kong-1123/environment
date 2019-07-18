@@ -68,6 +68,12 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
+        <!-- alibaba的druid数据库连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>RELEASE</version>
+        </dependency>
     </dependencies>
 
 <!--打包springboot项目的插件-->

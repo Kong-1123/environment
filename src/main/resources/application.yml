@@ -1,27 +1,27 @@
-#端口号
 server:
   port: 8086
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/hbkj?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/hbkt?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
-    password: 123456
+    password: 1123
     # 使用druid数据源
-    # type: com.alibaba.druid.pool.DruidDataSource
-    # filters: stat
-    # maxActive: 20
-    # initialSize: 1
-    # maxWait: 60000
-    # minIdle: 1
-    # timeBetweenEvictionRunsMillis: 60000
-    # minEvictableIdleTimeMillis: 300000
-    # validationQuery: select 'x'
-    # testWhileIdle: true
-    # testOnBorrow: false
-    # testOnReturn: false
-    # poolPreparedStatements: true
-    # maxOpenPreparedStatements: 20
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
     #热部署配置
   devtools:
     restart:
@@ -32,7 +32,7 @@ spring:
 
 #mybatis配置
 mybatis:
-  type-aliases-package: com.xdmd.hbkj
+  type-aliases-package: com.xdmd.hbkt
   mapper-locations: classpath:mappers/*.xml
   configuration:
     map-underscore-to-camel-case: true   #开启驼峰转换

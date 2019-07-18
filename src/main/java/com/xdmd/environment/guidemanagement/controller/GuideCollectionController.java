@@ -17,38 +17,54 @@ import java.util.List;
  * @createDate: 2019/07/16
  * @description: 控制层接口
  */
+
 @Controller
-@RequestMapping("/environment/guidemanagement")
+@RequestMapping(value = "/environment/guide/")
 public class GuideCollectionController {
     @Autowired
     GuideCollectionService guideCollectionService;
     ResultMap resultMap=new ResultMap();
 
-    @ApiOperation(value = "获取信息",notes = "根据id获取信息")
-    @ApiImplicitParam(name = "id",value = "信息id",required = true,dataType = "integer",paramType = "path")
+    /**
+     * 根据id获取信息
+     * @param id
+     * @return
+     */
+    @ApiOperation(value = "根据id获取信息")
+    @ApiImplicitParam(name = "id",value = "信息id",required = true,dataType = "int",paramType = "path")
     @ResponseBody
-    @GetMapping(value = "/findOne")
-    public ResultMap findOneGuideInfo(@RequestParam("id") Integer id){
+    @GetMapping(value = "findOne/{id}")
+    public ResultMap findOneGuideInfo(@PathVariable("id") int id){
         return guideCollectionService.findOneGuideInfo(id)!=null?resultMap.success().message(guideCollectionService.findOneGuideInfo(id)):resultMap.fail();
 
     }
-    @ApiOperation(value = "展示所有信息",notes = "分页展示所有信息")
+
+    /**
+     * 分页展示所有信息
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @ApiOperation(value = "分页展示所有信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "当前显示页", required = true, dataType = "Integer", paramType = "path"),
-            @ApiImplicitParam(name = "pageSize", value = "总页数", required = true, dataType = "Integer", paramType = "path")
+            @ApiImplicitParam(name = "pageNum", value = "当前显示页", required = true, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "pageSize", value = "每页显示条数", required = true, dataType = "int", paramType = "path")
     })
     @ResponseBody
-    @GetMapping(value = "/findAll",produces = {"application/json;charset=UTF-8"})
-    public ResultMap findAllGuideInfo(@RequestParam("pageNum") Integer pageNum,@RequestParam("pageSize") Integer pageSize,@RequestParam("guideCollection") GuideCollection guideCollection ){
+    @GetMapping(value = "findAll/{pageNum}/{pageSize}",produces = {"application/json;charset=UTF-8"})
+    public ResultMap findAllGuideInfo(@PathVariable("pageNum")int pageNum,@PathVariable("pageSize") int pageSize){
         List<GuideCollection> guideCollectionList=guideCollectionService.findAllGuideInfo(pageNum,pageSize);
         return guideCollectionList.size()>0?resultMap.success().message(guideCollectionList):resultMap.fail();
     }
 
+    /**
+     * 新增信息
+     * @param guideCollection
+     * @return
+     */
     @ApiOperation(value = "新增信息")
-    @ResponseBody
-    @PostMapping(value = "/insertGuideInfo")
-    public ResultMap insertGuideInfo(@RequestParam("guideCollection") GuideCollection guideCollection){
-        return guideCollectionService.insertGuideInfo(guideCollection)>0?resultMap.success().message(guideCollectionService.insertGuideInfo(guideCollection)):resultMap.fail();
+    @RequestMapping(value = "insertGuideInfo",method=RequestMethod.POST)
+    public ResultMap insertGuideInfo(GuideCollection guideCollection){
+        return guideCollectionService.insertGuideInfo(guideCollection);
     }
-
 }

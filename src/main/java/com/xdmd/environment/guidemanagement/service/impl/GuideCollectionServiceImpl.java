@@ -1,14 +1,13 @@
 package com.xdmd.environment.guidemanagement.service.impl;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.mapper.GuideCollectionMapper;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import com.xdmd.environment.guidemanagement.service.GuideCollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * @author: Administrator
@@ -19,10 +18,9 @@ import java.util.List;
 public class GuideCollectionServiceImpl implements GuideCollectionService {
     @Autowired
     GuideCollectionMapper guideCollectionMapper;
-
+    ResultMap resultMap=new ResultMap();
     @Override
-    @Transactional
-    public GuideCollection findOneGuideInfo(Integer id) {
+    public GuideCollection findOneGuideInfo(int id) {
         return guideCollectionMapper.findOneGuideInfo(id);
     }
 
@@ -42,11 +40,10 @@ public class GuideCollectionServiceImpl implements GuideCollectionService {
      * @return
      */
     @Override
-    @Transactional
-    public List<GuideCollection> findAllGuideInfo(Integer pageNum, Integer pageSize) {
+    public Page<GuideCollection> findAllGuideInfo(int pageNum,  int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        List<GuideCollection> guideCollectionList=guideCollectionMapper.findAllGuideInfo();
-        return guideCollectionList;
+        Page<GuideCollection> guideCollectionPage=guideCollectionMapper.findAllGuideInfo();
+        return guideCollectionPage;
     }
 
     /**
@@ -55,9 +52,14 @@ public class GuideCollectionServiceImpl implements GuideCollectionService {
      * @return
      */
     @Override
-    @Transactional
-    public Integer insertGuideInfo(GuideCollection guideCollection) {
-        return guideCollectionMapper.insertGuideInfo(guideCollection);
+    public ResultMap insertGuideInfo(GuideCollection guideCollection) {
+          try {
+              guideCollectionMapper.insertGuideInfo(guideCollection);
+          }
+          catch (Exception e){
+              return resultMap.fail().message("新增失败");
+          }
+          return resultMap.success();
     }
 
 }
