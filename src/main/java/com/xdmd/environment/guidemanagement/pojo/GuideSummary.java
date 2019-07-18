@@ -36,7 +36,7 @@ public class GuideSummary implements Serializable {
     private Integer fillContactsId;
 
     @ApiModelProperty("研究期限id")
-    private Integer durationResearchId;
+    private Integer researchPeriodId;
 
     @ApiModelProperty("建议理由及依据id")
     private Integer reasonBasisId;
@@ -45,22 +45,22 @@ public class GuideSummary implements Serializable {
     private Integer researchContentTechnologyId;
 
     @ApiModelProperty("预期目标和成果id")
-    private Integer expectedGoalsResultsId;
+    private Integer expectedTargetOutcomeId;
 
     @ApiModelProperty("拟出标准、技术规范、法规名称id")
     private Integer standardsSpecificationsRegulatoryId;
 
     @ApiModelProperty("研究经费测算id")
-    private Integer researchFundingEstimateId;
+    private Integer researchFundId;
 
     @ApiModelProperty("示范工程规模id")
-    private Integer demonstrationProjectScaleId;
+    private Integer demonstrationScaleId;
 
     @ApiModelProperty("示范工程点id")
-    private Integer demonstrationEngineeringSitesId;
+    private Integer demonstrationPointId;
 
     @ApiModelProperty("省内从事该领域的主要研究机构id")
-    private Integer provinceDomainResearchinstitutionsId;
+    private Integer provinceDomainMechanismId;
 
     @ApiModelProperty("联系电话(手机)")
     private Integer contactPhoneId;
