@@ -63,6 +63,7 @@ public class GuideCollectionController {
      * @return
      */
     @ApiOperation(value = "新增信息")
+    @ResponseBody
     @RequestMapping(value = "insertGuideInfo",method=RequestMethod.POST)
     public ResultMap insertGuideInfo(GuideCollection guideCollection){
         return guideCollectionService.insertGuideInfo(guideCollection);

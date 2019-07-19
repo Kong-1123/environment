@@ -43,6 +43,7 @@ public class GuideCollectionServiceImpl implements GuideCollectionService {
     public Page<GuideCollection> findAllGuideInfo(int pageNum,  int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         Page<GuideCollection> guideCollectionPage=guideCollectionMapper.findAllGuideInfo();
+        System.out.println("0000");
         return guideCollectionPage;
     }
 
@@ -53,13 +54,13 @@ public class GuideCollectionServiceImpl implements GuideCollectionService {
      */
     @Override
     public ResultMap insertGuideInfo(GuideCollection guideCollection) {
-          try {
-              guideCollectionMapper.insertGuideInfo(guideCollection);
-          }
-          catch (Exception e){
-              return resultMap.fail().message("新增失败");
-          }
-          return resultMap.success();
-    }
+              try {
+                  int a = guideCollectionMapper.insertGuideInfo(guideCollection);
+              }
+              catch (Exception e){
+                  return resultMap.fail().message("新增失败");
+              }
+              return  resultMap.success().message("新增成功");
 
+}
 }
