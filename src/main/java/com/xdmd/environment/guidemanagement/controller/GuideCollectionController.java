@@ -26,20 +26,6 @@ public class GuideCollectionController {
     ResultMap resultMap=new ResultMap();
 
     /**
-     * 根据id获取信息
-     * @param id
-     * @return
-     */
-    @ApiOperation(value = "根据id获取信息")
-    @ApiImplicitParam(name = "id",value = "信息id",required = true,dataType = "int",paramType = "path")
-    @ResponseBody
-    @GetMapping(value = "findOne/{id}")
-    public ResultMap findOneGuideInfo(@PathVariable("id") int id){
-        return guideCollectionService.findOneGuideInfo(id)!=null?resultMap.success().message(guideCollectionService.findOneGuideInfo(id)):resultMap.fail();
-
-    }
-
-    /**
      * 分页展示所有信息
      * @param pageNum
      * @param pageSize
@@ -64,8 +50,15 @@ public class GuideCollectionController {
      */
     @ApiOperation(value = "新增信息")
     @ResponseBody
-    @RequestMapping(value = "insertGuideInfo",method=RequestMethod.POST)
+    @PostMapping(value = "insertGuideInfo")
     public ResultMap insertGuideInfo(GuideCollection guideCollection){
-        return guideCollectionService.insertGuideInfo(guideCollection);
+        return resultMap=guideCollectionService.insertGuideInfo(guideCollection);
+    }
+
+    @ApiOperation(value = "显示类别和领域信息")
+    @ResponseBody
+    @GetMapping(value = "findDic")
+    public ResultMap findDic(){
+        return guideCollectionService.findDic().size()>0?resultMap.success().message(guideCollectionService.findDic()):resultMap.fail();
     }
 }

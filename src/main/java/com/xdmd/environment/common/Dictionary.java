@@ -1,5 +1,7 @@
 package com.xdmd.environment.common;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +9,7 @@ import java.io.Serializable;
  * @createDate: 2019/7/18
  * @description: 字典类
  */
+@Data
 public class Dictionary implements Serializable {
     private static final long serialVersionUID = 1L;
 

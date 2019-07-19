@@ -1,6 +1,5 @@
 package com.xdmd.environment.guidemanagement.service.impl;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.mapper.GuideCollectionMapper;
@@ -8,6 +7,8 @@ import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import com.xdmd.environment.guidemanagement.service.GuideCollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author: Administrator
@@ -19,10 +20,6 @@ public class GuideCollectionServiceImpl implements GuideCollectionService {
     @Autowired
     GuideCollectionMapper guideCollectionMapper;
     ResultMap resultMap=new ResultMap();
-    @Override
-    public GuideCollection findOneGuideInfo(int id) {
-        return guideCollectionMapper.findOneGuideInfo(id);
-    }
 
     /*
      * 这个方法中用到了我们开头配置依赖的分页插件pagehelper
@@ -40,11 +37,10 @@ public class GuideCollectionServiceImpl implements GuideCollectionService {
      * @return
      */
     @Override
-    public Page<GuideCollection> findAllGuideInfo(int pageNum,  int pageSize) {
+    public List<GuideCollection> findAllGuideInfo(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        Page<GuideCollection> guideCollectionPage=guideCollectionMapper.findAllGuideInfo();
-        System.out.println("0000");
-        return guideCollectionPage;
+        List<GuideCollection> guideCollectionList=guideCollectionMapper.findAllGuideInfo();
+        return guideCollectionList;
     }
 
     /**
@@ -55,7 +51,7 @@ public class GuideCollectionServiceImpl implements GuideCollectionService {
     @Override
     public ResultMap insertGuideInfo(GuideCollection guideCollection) {
               try {
-                  int a = guideCollectionMapper.insertGuideInfo(guideCollection);
+                  guideCollectionMapper.insertGuideInfo(guideCollection);
               }
               catch (Exception e){
                   return resultMap.fail().message("新增失败");
@@ -63,4 +59,15 @@ public class GuideCollectionServiceImpl implements GuideCollectionService {
               return  resultMap.success().message("新增成功");
 
 }
+
+    @Override
+    public ResultMap findDic() {
+        try {
+           guideCollectionMapper.findDic();
+        }
+        catch (Exception e){
+            return resultMap.fail().message("失败");
+        }
+        return  resultMap.success().message("成功");
+    }
 }

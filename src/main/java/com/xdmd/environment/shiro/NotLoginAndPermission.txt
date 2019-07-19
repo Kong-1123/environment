@@ -1,0 +1,21 @@
+package com.xdmd.hbkj.Shiro;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+public class NotLoginAndPermission {
+
+    @RequestMapping("notLogin")
+    @ResponseBody
+    public String notLogin(){
+        return "您还未登陆，请先登陆";
+    }
+
+    @RequestMapping("notPermission")
+    @ResponseBody
+    public String notPermission(){
+        return "你没有此权限";
+    }
+}

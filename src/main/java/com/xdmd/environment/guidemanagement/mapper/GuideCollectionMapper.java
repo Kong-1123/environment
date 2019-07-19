@@ -1,10 +1,12 @@
 package com.xdmd.environment.guidemanagement.mapper;
 
-import com.github.pagehelper.Page;
+import com.xdmd.environment.common.Dictionary;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * guide_collection
@@ -20,7 +22,6 @@ public interface GuideCollectionMapper {
      * @author Kong
      * @date 2019/07/15
      **/
-//    @Insert(value = "INSERT INTO guide_collection (guide_name,domain,category,fill_unit,fill_contacts,unit_principal,reason_basis,research_content_technology,expected_target_outcome,standards_specifications_regulatory,research_period,research_fund,demonstration_scale,demonstration_point,province_domain_mechanism,contact_phone,declaration_status ) VALUES(#{guideName},#{domain},#{category},#{fillUnit},#{fillContacts},#{unitPrincipal},#{reasonBasis},#{researchContentTechnology},#{expectedTargetOutcome},#{standardsSpecificationsRegulatory}#{researchPeriod},#{researchFund},#{demonstrationScale},#{demonstrationPoint},#{provinceDomainMechanism},#{contactPhone},#{declarationStatus})")
         @Insert(value = "INSERT INTO guide_collection (\n" +
                 "\tguide_name,\n" +
                 "\tdomain,\n" +
@@ -62,34 +63,38 @@ public interface GuideCollectionMapper {
     int insertGuideInfo(GuideCollection guideCollection);
 
     /**
-     * [查詢] 根據主鍵 id 查詢（测试）
-     * @param id
-     * @return
-     */
-    @Select(value = "select gc.guide_name,d.content,dic.content,gc.research_fund,gc.research_period,gc.fill_unit,gc.fill_contacts,gc.contact_phone\n" +
-            "from guide_collection as gc\n" +
-            "inner join dictionary d on gc.Category=d.id\n" +
-            "inner join dictionary dic on gc.domain=dic.id where gc.id=#{id}")
-    GuideCollection findOneGuideInfo(int id);
-
-
-
-    /**
      * [查詢] 分页查询
      * @return
      */
-    @Select(value = "\tSELECT\n" +
-            "\t\tgc.guide_name,\n" +
-            "\t\tgc.d.content\n" +
-            "\t\tgc.dic.content \n" +
-            "\t\tgc.research_fund\n" +
-            "\t\tgc.research_period,\n" +
-            "\t\tgc.fill_unit,\n" +
-            "\t\tgc.fill_contacts,\n" +
-            "\t\tgc.contact_phone \n" +
-            "\tFROM\n" +
-            "\t\tguide_collection AS gc\n" +
-            "\t\tINNER JOIN dictionary d ON gc.Category = d.id\n" +
-            "\t\tINNER JOIN dictionary dic ON gc.domain = dic.id")
-    Page<GuideCollection> findAllGuideInfo();
+    @Select(value = "SELECT\n" +
+            "\tgc.guide_name,\n" +
+            "\tgc.domain,\n" +
+            "\tgc.category,\n" +
+            "\tgc.research_fund,\n" +
+            "\tgc.research_period,\n" +
+            "\tgc.fill_unit,\n" +
+            "\tgc.fill_contacts,\n" +
+            "\tgc.contact_phone \n" +
+            "FROM\n" +
+            "\tguide_collection AS gc")
+    List<GuideCollection> findAllGuideInfo();
+
+
+    @Select(value = "SELECT\n" +
+            "\td.id,\n" +
+            "\td.classification,\n" +
+            "\td.content \n" +
+            "FROM\n" +
+            "\tdictionary d \n" +
+            "WHERE\n" +
+            "\tclassification = '所属类别' UNION ALL\n" +
+            "SELECT\n" +
+            "\tdic.id,\n" +
+            "\tdic.classification,\n" +
+            "\tdic.content \n" +
+            "FROM\n" +
+            "\tdictionary dic \n" +
+            "WHERE\n" +
+            "\tclassification = '所属领域'")
+    List<Dictionary> findDic();
 }
