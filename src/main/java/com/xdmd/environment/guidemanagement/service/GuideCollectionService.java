@@ -2,6 +2,7 @@ package com.xdmd.environment.guidemanagement.service;
 
 import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
+import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface GuideCollectionService {
      * @param
      * @return
      */
-    List<GuideCollection> findAllGuideInfo(int pageNum, int pageSize);
+    List<GuideCollection> findAllGuideInfo(int id,int pageNum, int pageSize);
 
     /**
      * 新增
@@ -27,4 +28,11 @@ public interface GuideCollectionService {
      * @return
      */
     ResultMap findDic();
+
+    /**
+     * 更新限制时间
+     * @param guideCollectionLimitTime
+     * @return
+     */
+    ResultMap updateLimitTime(GuideCollectionLimitTime guideCollectionLimitTime);
 }

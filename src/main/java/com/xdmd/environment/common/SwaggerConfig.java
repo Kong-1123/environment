@@ -1,5 +1,6 @@
 package com.xdmd.environment.common;
 
+import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -33,6 +34,7 @@ public class SwaggerConfig {
                  */
                 //.apis(RequestHandlerSelectors.basePackage("com.xdmd.environment.*.controller"))
                 .apis(RequestHandlerSelectors.any())
+                .paths(Predicates.not(PathSelectors.regex("/error.*")))// 错误路径不监控
                 .paths(PathSelectors.any())
                 .build();
 

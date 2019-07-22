@@ -2,8 +2,10 @@ package com.xdmd.environment.guidemanagement.mapper;
 
 import com.xdmd.environment.common.Dictionary;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
+import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -65,7 +67,7 @@ public interface GuideCollectionMapper {
     /**
      * [查詢] 分页查询
      * @return
-     */
+
     @Select(value = "SELECT\n" +
             "\tgc.guide_name,\n" +
             "\tgc.domain,\n" +
@@ -76,10 +78,19 @@ public interface GuideCollectionMapper {
             "\tgc.fill_contacts,\n" +
             "\tgc.contact_phone \n" +
             "FROM\n" +
-            "\tguide_collection AS gc")
-    List<GuideCollection> findAllGuideInfo();
+            "\tguide_collection AS gc") */
+    @Select(value = "SELECT\n" +
+            "\tgc.*\n" +
+            "FROM\n" +
+            "\tguide_collection gc,unit_guide_collection ugc,shiro_company sc\n" +
+            "\twhere sc.id = ugc.unit_id\n" +
+            "\tand ugc.guide_collection_id = gc.id and sc.id =#{id}")
+    List<GuideCollection> findAllGuideInfo(int id);
 
-
+    /**
+     * 获取所有类别和领域
+     * @return
+     */
     @Select(value = "SELECT\n" +
             "\td.id,\n" +
             "\td.classification,\n" +
@@ -97,4 +108,13 @@ public interface GuideCollectionMapper {
             "WHERE\n" +
             "\tclassification = '所属领域'")
     List<Dictionary> findDic();
+
+    /**
+     * 更新限制时间
+     *
+     * @param guideCollectionLimitTime
+     * @return
+     */
+    @Update(value = "update from guide_collection_limit_time set guide_collection_start_time=")
+    int updateLimitTime(GuideCollectionLimitTime guideCollectionLimitTime);
 }

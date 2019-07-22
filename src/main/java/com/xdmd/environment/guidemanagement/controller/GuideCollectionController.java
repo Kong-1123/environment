@@ -2,6 +2,7 @@ package com.xdmd.environment.guidemanagement.controller;
 
 import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
+import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
 import com.xdmd.environment.guidemanagement.service.GuideCollectionService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -37,9 +38,9 @@ public class GuideCollectionController {
             @ApiImplicitParam(name = "pageSize", value = "每页显示条数", required = true, dataType = "int", paramType = "path")
     })
     @ResponseBody
-    @GetMapping(value = "findAll/{pageNum}/{pageSize}",produces = {"application/json;charset=UTF-8"})
-    public ResultMap findAllGuideInfo(@PathVariable("pageNum")int pageNum,@PathVariable("pageSize") int pageSize){
-        List<GuideCollection> guideCollectionList=guideCollectionService.findAllGuideInfo(pageNum,pageSize);
+    @GetMapping(value = "findAll/{id}/{pageNum}/{pageSize}",produces = {"application/json;charset=UTF-8"})
+    public ResultMap findAllGuideInfo(@PathVariable("id")int id,@PathVariable("pageNum")int pageNum,@PathVariable("pageSize") int pageSize){
+        List<GuideCollection> guideCollectionList=guideCollectionService.findAllGuideInfo(id,pageNum,pageSize);
         return guideCollectionList.size()>0?resultMap.success().message(guideCollectionList):resultMap.fail();
     }
 
@@ -60,5 +61,12 @@ public class GuideCollectionController {
     @GetMapping(value = "findDic")
     public ResultMap findDic(){
         return guideCollectionService.findDic().size()>0?resultMap.success().message(guideCollectionService.findDic()):resultMap.fail();
+    }
+
+    @ApiOperation(value = "更新限制时间")
+    @ResponseBody
+    @PostMapping(value = "update/limitime")
+    public ResultMap updateLimitTime(GuideCollectionLimitTime guideCollectionLimitTime){
+        return resultMap=guideCollectionService.updateLimitTime(guideCollectionLimitTime);
     }
 }

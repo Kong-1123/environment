@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.mapper.GuideCollectionMapper;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
+import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
 import com.xdmd.environment.guidemanagement.service.GuideCollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,9 +38,10 @@ public class GuideCollectionServiceImpl implements GuideCollectionService {
      * @return
      */
     @Override
-    public List<GuideCollection> findAllGuideInfo(int pageNum, int pageSize) {
+    public List<GuideCollection> findAllGuideInfo(int id,int pageNum, int pageSize) {
+        GuideCollection guideCollection=null;
         PageHelper.startPage(pageNum,pageSize);
-        List<GuideCollection> guideCollectionList=guideCollectionMapper.findAllGuideInfo();
+        List<GuideCollection> guideCollectionList=guideCollectionMapper.findAllGuideInfo(id);
         return guideCollectionList;
     }
 
@@ -69,5 +71,21 @@ public class GuideCollectionServiceImpl implements GuideCollectionService {
             return resultMap.fail().message("失败");
         }
         return  resultMap.success().message("成功");
+    }
+
+    /**
+     * 更新限制时间业务实现
+     * @param guideCollectionLimitTime
+     * @return
+     */
+    @Override
+    public ResultMap updateLimitTime(GuideCollectionLimitTime guideCollectionLimitTime) {
+        try {
+            guideCollectionMapper.updateLimitTime(guideCollectionLimitTime);
+        }
+        catch (Exception e){
+            return resultMap.fail().message("更新失败");
+        }
+        return  resultMap.success().message("更新成功");
     }
 }

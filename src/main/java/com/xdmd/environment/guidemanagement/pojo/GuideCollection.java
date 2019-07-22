@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  *  guide_declaration
@@ -68,6 +69,9 @@ public class GuideCollection implements Serializable {
 
     @ApiModelProperty("申报状态（0 未审核 1 审核通过 2 审核未通过）")
     private Integer declarationStatus;
+
+    @ApiModelProperty("create_time")
+    private Date createTime;
 
     public GuideCollection() {
     }
