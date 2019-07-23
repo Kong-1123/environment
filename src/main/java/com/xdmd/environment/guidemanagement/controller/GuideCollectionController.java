@@ -60,7 +60,7 @@ public class GuideCollectionController {
     @ResponseBody
     @GetMapping(value = "findDic")
     public ResultMap findDic(){
-        return guideCollectionService.findDic().size()>0?resultMap.success().message(guideCollectionService.findDic()):resultMap.fail();
+        return guideCollectionService.findDic().size()>0?resultMap.success():resultMap.fail();
     }
 
     @ApiOperation(value = "更新限制时间")

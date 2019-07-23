@@ -3,6 +3,7 @@ package com.xdmd.environment.guidemanagement.mapper;
 import com.xdmd.environment.common.Dictionary;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -41,7 +42,8 @@ public interface GuideCollectionMapper {
                 "\tdemonstration_point,\n" +
                 "\tprovince_domain_mechanism,\n" +
                 "\tcontact_phone,\n" +
-                "\tdeclaration_status \n" +
+                "\tdeclaration_status,\n" +
+                "\tcreate_time\n" +
                 ")\n" +
                 "VALUES\n" +
                 "\t(\n" +
@@ -61,7 +63,7 @@ public interface GuideCollectionMapper {
                 "\t\t#{demonstrationPoint},\n" +
                 "\t\t#{provinceDomainMechanism},\n" +
                 "\t#{contactPhone},\n" +
-                "\t#{declarationStatus})")
+                "\t#{declarationStatus},default)")
     int insertGuideInfo(GuideCollection guideCollection);
 
     /**
@@ -111,10 +113,24 @@ public interface GuideCollectionMapper {
 
     /**
      * 更新限制时间
-     *
      * @param guideCollectionLimitTime
      * @return
      */
-    @Update(value = "update from guide_collection_limit_time set guide_collection_start_time=")
+    @Update(value = "UPDATE guide_collection_limit_time \n" +
+            "SET guide_collection_start_time = date(#{guideCollectionStartTime}),\n" +
+            "guide_collection_end_time = date(#{guideCollectionEndTime})")
     int updateLimitTime(GuideCollectionLimitTime guideCollectionLimitTime);
+
+    /**
+     * 把申报表指定信息插入到汇总表中
+     */
+    void insertAtoB();
+
+    /**
+     * 更新代替插入
+     * 补充汇总表其余数据
+     * @param guideSummary
+     * @return
+     */
+    int insertSummaryData(GuideSummary guideSummary);
 }

@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author: Administrator
@@ -21,10 +20,10 @@ public class GuideCollectionLimitTime implements Serializable {
     private Integer id;
 
     @ApiModelProperty("指南征集开始时间")
-    private Date guideCollectionStartTime;
+    private String guideCollectionStartTime;
 
     @ApiModelProperty("指南征集结束时间")
-    private Date guideCollectionEndTime;
+    private String guideCollectionEndTime;
 
     public GuideCollectionLimitTime() {
     }

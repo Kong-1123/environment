@@ -5,6 +5,7 @@ import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.mapper.GuideCollectionMapper;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
 import com.xdmd.environment.guidemanagement.service.GuideCollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,6 +74,7 @@ public class GuideCollectionServiceImpl implements GuideCollectionService {
         return  resultMap.success().message("成功");
     }
 
+
     /**
      * 更新限制时间业务实现
      * @param guideCollectionLimitTime
@@ -80,12 +82,21 @@ public class GuideCollectionServiceImpl implements GuideCollectionService {
      */
     @Override
     public ResultMap updateLimitTime(GuideCollectionLimitTime guideCollectionLimitTime) {
-        try {
+        try{
             guideCollectionMapper.updateLimitTime(guideCollectionLimitTime);
-        }
-        catch (Exception e){
-            return resultMap.fail().message("更新失败");
+        }catch (Exception e){
+            return  resultMap.success().message("更新失败");
         }
         return  resultMap.success().message("更新成功");
+    }
+
+    /**
+     * 补充汇总表其余数据业务实现
+     * @param guideSummary
+     * @return
+     */
+    @Override
+    public ResultMap insertSummaryData(GuideSummary guideSummary) {
+        return null;
     }
 }

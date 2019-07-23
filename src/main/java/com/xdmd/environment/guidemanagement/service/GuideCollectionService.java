@@ -3,6 +3,7 @@ package com.xdmd.environment.guidemanagement.service;
 import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
 
 import java.util.List;
 
@@ -30,9 +31,16 @@ public interface GuideCollectionService {
     ResultMap findDic();
 
     /**
-     * 更新限制时间
+     * 更新时间
      * @param guideCollectionLimitTime
      * @return
      */
     ResultMap updateLimitTime(GuideCollectionLimitTime guideCollectionLimitTime);
+
+    /**
+     * 补充汇总表其余数据
+     * @param guideSummary
+     * @return
+     */
+    ResultMap insertSummaryData(GuideSummary guideSummary);
 }

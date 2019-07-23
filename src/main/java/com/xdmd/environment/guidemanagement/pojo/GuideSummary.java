@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *  guide_summary
@@ -77,6 +78,8 @@ public class GuideSummary implements Serializable {
     @ApiModelProperty("查重备注")
     private String checkBackNote;
 
+    @ApiModelProperty("创建时间")
+    private Date createTime;
     public GuideSummary() {
     }
 

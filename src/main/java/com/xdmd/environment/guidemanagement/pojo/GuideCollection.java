@@ -70,7 +70,7 @@ public class GuideCollection implements Serializable {
     @ApiModelProperty("申报状态（0 未审核 1 审核通过 2 审核未通过）")
     private Integer declarationStatus;
 
-    @ApiModelProperty("create_time")
+    @ApiModelProperty("创建时间")
     private Date createTime;
 
     public GuideCollection() {
