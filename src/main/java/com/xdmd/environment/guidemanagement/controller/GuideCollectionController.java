@@ -3,6 +3,7 @@ package com.xdmd.environment.guidemanagement.controller;
 import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
 import com.xdmd.environment.guidemanagement.service.GuideCollectionService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -68,5 +69,12 @@ public class GuideCollectionController {
     @PostMapping(value = "update/limitime")
     public ResultMap updateLimitTime(GuideCollectionLimitTime guideCollectionLimitTime){
         return resultMap=guideCollectionService.updateLimitTime(guideCollectionLimitTime);
+    }
+
+    @ApiOperation(value = "添加汇总信息")
+    @ResponseBody
+    @PostMapping(value = "insertSummaryData")
+    public ResultMap insertSummaryData(GuideSummary guideSummary){
+        return resultMap=guideCollectionService.insertGuideInfo(guideSummary);
     }
 }

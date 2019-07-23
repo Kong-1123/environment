@@ -97,6 +97,13 @@ public class GuideCollectionServiceImpl implements GuideCollectionService {
      */
     @Override
     public ResultMap insertSummaryData(GuideSummary guideSummary) {
-        return null;
+        try {
+            guideCollectionMapper.insertAtoB();
+            guideCollectionMapper.insertSummaryData(guideSummary);
+        }
+        catch (Exception e){
+            return resultMap.fail().message("新增失败");
+        }
+        return  resultMap.success().message("新增成功");
     }
 }
