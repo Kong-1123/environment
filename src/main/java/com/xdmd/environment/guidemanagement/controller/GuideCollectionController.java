@@ -75,6 +75,7 @@ public class GuideCollectionController {
     @ResponseBody
     @PostMapping(value = "insertSummaryData")
     public ResultMap insertSummaryData(GuideSummary guideSummary){
-        return resultMap=guideCollectionService.insertGuideInfo(guideSummary);
+       // return resultMap=guideCollectionService.insertGuideInfo(guideSummary);
+        return resultMap;
     }
 }
