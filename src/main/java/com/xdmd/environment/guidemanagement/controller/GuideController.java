@@ -90,7 +90,7 @@ public class GuideController {
         return resultMap= guideService.insertSummary(guideSummary);
     }
 
-    @ApiOperation(value = "展示所有汇总信息")
+    @ApiOperation(value = "汇总信息")
     @ResponseBody
     @GetMapping(value = "getAllSummary")
     public ResultMap getAllSummary(){
