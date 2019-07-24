@@ -48,4 +48,5 @@ public interface GuideService {
      */
     ResultMap insertSummary(GuideSummary guideSummary);
 
+    List<GuideSummary> getAllSummary();
 }

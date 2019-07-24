@@ -176,8 +176,7 @@ public interface GuideMapper {
      * 查询全部汇总信息(未完成)
      * @return
      */
-    @Select(value = "select * from guide_summary where")
-
+    @Select(value = "select * from guide_summary")
     List<GuideSummary> getAllSummary();
 
 

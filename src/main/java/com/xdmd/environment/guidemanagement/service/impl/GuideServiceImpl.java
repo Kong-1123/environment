@@ -85,4 +85,9 @@ public class GuideServiceImpl implements GuideService {
         return  resultMap.success().message("汇总新增成功");
     }
 
+    @Override
+    public List<GuideSummary> getAllSummary() {
+        return guideMapper.getAllSummary();
+    }
+
 }
