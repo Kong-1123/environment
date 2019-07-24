@@ -1,10 +1,8 @@
 package com.xdmd.environment.guidemanagement.controller;
 
 import com.xdmd.environment.common.ResultMap;
-import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
-import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
-import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
-import com.xdmd.environment.guidemanagement.service.GuideCollectionService;
+import com.xdmd.environment.guidemanagement.pojo.*;
+import com.xdmd.environment.guidemanagement.service.GuideService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -22,15 +20,13 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/environment/guide/")
-public class GuideCollectionController {
+public class GuideController {
     @Autowired
-    GuideCollectionService guideCollectionService;
+    GuideService guideService;
     ResultMap resultMap=new ResultMap();
 
     /**
      * 分页展示所有信息
-     * @param pageNum
-     * @param pageSize
      * @return
      */
     @ApiOperation(value = "分页展示所有信息")
@@ -39,9 +35,9 @@ public class GuideCollectionController {
             @ApiImplicitParam(name = "pageSize", value = "每页显示条数", required = true, dataType = "int", paramType = "path")
     })
     @ResponseBody
-    @GetMapping(value = "findAll/{id}/{pageNum}/{pageSize}",produces = {"application/json;charset=UTF-8"})
-    public ResultMap findAllGuideInfo(@PathVariable("id")int id,@PathVariable("pageNum")int pageNum,@PathVariable("pageSize") int pageSize){
-        List<GuideCollection> guideCollectionList=guideCollectionService.findAllGuideInfo(id,pageNum,pageSize);
+    @GetMapping(value = "findAll/{pageNum}/{pageSize}",produces = {"application/json;charset=UTF-8"})
+    public ResultMap getAllGuideInfo(@PathVariable("pageNum") int pageNum,@PathVariable("pageSize")int pageSize){
+        List<GuideCollection> guideCollectionList= guideService.getAllGuideInfo(pageNum,pageSize);
         return guideCollectionList.size()>0?resultMap.success().message(guideCollectionList):resultMap.fail();
     }
 
@@ -54,28 +50,44 @@ public class GuideCollectionController {
     @ResponseBody
     @PostMapping(value = "insertGuideInfo")
     public ResultMap insertGuideInfo(GuideCollection guideCollection){
-        return resultMap=guideCollectionService.insertGuideInfo(guideCollection);
+        return resultMap= guideService.insertGuideInfo(guideCollection);
     }
 
-    @ApiOperation(value = "显示类别和领域信息")
+    @ApiOperation(value = "显示领域信息")
     @ResponseBody
-    @GetMapping(value = "findDic")
-    public ResultMap findDic(){
-        return guideCollectionService.findDic().size()>0?resultMap.success():resultMap.fail();
+    @GetMapping(value = "getAllDomain")
+    public ResultMap getAllDomain(){
+         List<Domain> domainList=guideService.getAllDomain();
+         return domainList.size()>0?resultMap.success().message(domainList):resultMap.fail();
     }
+
+    @ApiOperation(value = "显示类别信息")
+    @ResponseBody
+    @GetMapping(value = "getAllCategory")
+    public ResultMap getAllCategory(){
+        List<Category> categoryList=guideService.getAllCategory();
+        return categoryList.size()>0?resultMap.success().message(categoryList):resultMap.fail();
+    }
+
 
     @ApiOperation(value = "更新限制时间")
     @ResponseBody
     @PostMapping(value = "update/limitime")
     public ResultMap updateLimitTime(GuideCollectionLimitTime guideCollectionLimitTime){
-        return resultMap=guideCollectionService.updateLimitTime(guideCollectionLimitTime);
+        return resultMap= guideService.updateLimitTime(guideCollectionLimitTime);
     }
 
-    @ApiOperation(value = "添加汇总信息")
+    /**
+     * 汇总新增信息
+     * @param guideSummary
+     * @return
+     */
+    @ApiOperation(value = "新增汇总信息")
     @ResponseBody
-    @PostMapping(value = "insertSummaryData")
-    public ResultMap insertSummaryData(GuideSummary guideSummary){
-       // return resultMap=guideCollectionService.insertGuideInfo(guideSummary);
-        return resultMap;
+    @PostMapping(value = "insertSummary")
+    public ResultMap insertSummary(GuideSummary guideSummary
+    ){
+        return resultMap= guideService.insertSummary(guideSummary);
     }
+
 }

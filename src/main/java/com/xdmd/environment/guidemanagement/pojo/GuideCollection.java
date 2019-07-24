@@ -65,7 +65,7 @@ public class GuideCollection implements Serializable {
     private String provinceDomainMechanism;
 
     @ApiModelProperty("联系电话(手机)")
-    private Integer contactPhone;
+    private String contactPhone;
 
     @ApiModelProperty("申报状态（0 未审核 1 审核通过 2 审核未通过）")
     private Integer declarationStatus;

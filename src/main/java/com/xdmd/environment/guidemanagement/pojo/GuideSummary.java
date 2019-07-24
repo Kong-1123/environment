@@ -1,10 +1,13 @@
 package com.xdmd.environment.guidemanagement.pojo;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -21,53 +24,58 @@ public class GuideSummary implements Serializable {
     @ApiModelProperty("指南汇总标题")
     private String guideSummaryTitle;
 
-    @ApiModelProperty("指南建议名称id")
-    private Integer guideNameId;
+    @ApiModelProperty("指南建议名称")
+    private String guideName;
 
-    @ApiModelProperty("所属领域id")
-    private Integer domainId;
+    @ApiModelProperty("所属领域")
+    private String domain;
 
-    @ApiModelProperty("填报类别（所属类别id）")
-    private Integer categoryId;
+    @ApiModelProperty("填报类别（所属类别）")
+    private String category;
 
-    @ApiModelProperty("填报单位id")
-    private Integer fillUnitId;
+    @ApiModelProperty("单位类别")
+    private String unitCategory;
 
-    @ApiModelProperty("填报联系人id")
-    private Integer fillContactsId;
+    @ApiModelProperty("填报单位")
+    private String fillUnit;
 
-    @ApiModelProperty("研究期限id")
-    private Integer researchPeriodId;
+    @ApiModelProperty("填报联系人")
+    private String fillContacts;
 
-    @ApiModelProperty("建议理由及依据id")
-    private Integer reasonBasisId;
+    @ApiModelProperty("研究期限")
+    private Integer researchPeriod;
 
-    @ApiModelProperty("主要研究内容和关键技术id")
-    private Integer researchContentTechnologyId;
+    @ApiModelProperty("建议理由及依据")
+    private String reasonBasis;
 
-    @ApiModelProperty("预期目标和成果id")
-    private Integer expectedTargetOutcomeId;
+    @ApiModelProperty("主要研究内容和关键技术")
+    private String researchContentTechnology;
 
-    @ApiModelProperty("拟出标准、技术规范、法规名称id")
-    private Integer standardsSpecificationsRegulatoryId;
+    @ApiModelProperty("预期目标和成果")
+    private String expectedTargetOutcome;
 
-    @ApiModelProperty("研究经费测算id")
-    private Integer researchFundId;
+    @ApiModelProperty("拟出标准、技术规范、法规名称")
+    private String standardsSpecificationsRegulatory;
 
-    @ApiModelProperty("示范工程规模id")
-    private Integer demonstrationScaleId;
+    @ApiModelProperty("研究经费测算")
+    private BigDecimal researchFund;
 
-    @ApiModelProperty("示范工程点id")
-    private Integer demonstrationPointId;
+    @ApiModelProperty("示范工程规模")
+    private String demonstrationScale;
 
-    @ApiModelProperty("省内从事该领域的主要研究机构id")
-    private Integer provinceDomainMechanismId;
+    @ApiModelProperty("示范工程点")
+    private String demonstrationPoint;
+
+    @ApiModelProperty("省内从事该领域的主要研究机构")
+    private String provinceDomainMechanism;
 
     @ApiModelProperty("联系电话(手机)")
-    private Integer contactPhoneId;
+    private String contactPhone;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")//页面写入数据库时格式化
+    @JSONField(format="yyyy-MM-dd")//数据库导出页面时json格式化
     @ApiModelProperty("建议立项时间")
-    private String projectTime;
+    private Date projectTime;
 
     @ApiModelProperty("备注")
     private String note;
@@ -80,6 +88,7 @@ public class GuideSummary implements Serializable {
 
     @ApiModelProperty("创建时间")
     private Date createTime;
+
     public GuideSummary() {
     }
 
