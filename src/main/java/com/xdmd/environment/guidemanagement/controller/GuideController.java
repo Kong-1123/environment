@@ -35,9 +35,9 @@ public class GuideController {
             @ApiImplicitParam(name = "pageSize", value = "每页显示条数", required = true, dataType = "int", paramType = "path")
     })
     @ResponseBody
-    @GetMapping(value = "findAll/{pageNum}/{pageSize}",produces = {"application/json;charset=UTF-8"})
-    public ResultMap getAllGuideInfo(@PathVariable("pageNum") int pageNum,@PathVariable("pageSize")int pageSize){
-        List<GuideCollection> guideCollectionList= guideService.getAllGuideInfo(pageNum,pageSize);
+    @GetMapping(value = "getAllCollection")
+    public ResultMap getGuideInfoPageList(String guideName, Integer domain, Integer category,String fillUnit,String fillContacts,String contactPhone, int pageNum,int pageSize){
+        List<GuideCollection> guideCollectionList= guideService.getCollectionPageList(guideName,domain,category,fillUnit,fillContacts,contactPhone,pageNum,pageSize);
         return guideCollectionList.size()>0?resultMap.success().message(guideCollectionList):resultMap.fail();
     }
 
@@ -90,12 +90,23 @@ public class GuideController {
         return resultMap= guideService.insertSummary(guideSummary);
     }
 
-    @ApiOperation(value = "汇总信息")
+    /**
+     * 分页展示汇总信息
+     * @param guideSummaryTitle
+     * @param fillUnit
+     * @param domain
+     * @param category
+     * @param projectTime
+     * @param researchContentTechnology
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @ApiOperation(value = "分页展示汇总信息")
     @ResponseBody
     @GetMapping(value = "getAllSummary")
-    public ResultMap getAllSummary(){
-        List<GuideSummary> guideSummaryList=guideService.getAllSummary();
+    public ResultMap getAllSummary(String guideSummaryTitle,String fillUnit,Integer domain, Integer category, String projectTime, String researchContentTechnology,int pageNum,int pageSize){
+        List<GuideSummary> guideSummaryList=guideService.getAllSummary(guideSummaryTitle,fillUnit,domain,category,projectTime,researchContentTechnology,pageNum,pageSize);
         return guideSummaryList.size()>0?resultMap.success().message(guideSummaryList):resultMap.fail();
-
     }
 }

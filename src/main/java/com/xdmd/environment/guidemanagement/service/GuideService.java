@@ -9,12 +9,18 @@ import java.util.List;
 public interface GuideService {
 
     /**
-     * 获取所有信息分页展示
+     * 分页查询指南申报
+     * @param guideName
+     * @param domain
+     * @param category
+     * @param fillUnit
+     * @param fillContacts
+     * @param contactPhone
      * @param pageNum
      * @param pageSize
      * @return
      */
-    List<GuideCollection> getAllGuideInfo(int pageNum, int pageSize);
+    List<GuideCollection> getCollectionPageList(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone, int pageNum, int pageSize);
 
     /**
      * 获取领域
@@ -48,5 +54,9 @@ public interface GuideService {
      */
     ResultMap insertSummary(GuideSummary guideSummary);
 
-    List<GuideSummary> getAllSummary();
+    /**
+     * 查询出所有汇总信息
+     * @return
+     */
+    List<GuideSummary> getAllSummary(String guideSummaryTitle, String fillUnit,Integer domain,Integer category,String projectTime,String researchContentTechnology,int pageNum,int pageSize);
 }

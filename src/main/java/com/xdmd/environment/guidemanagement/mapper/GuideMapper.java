@@ -1,9 +1,7 @@
 package com.xdmd.environment.guidemanagement.mapper;
 
 import com.xdmd.environment.guidemanagement.pojo.*;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,7 +19,7 @@ public interface GuideMapper {
      * 新增指南申报建议
      * @param guideCollection
      * @return
-     */
+
         @Insert(value = "INSERT INTO guide_collection (\n" +
                 "guide_name,\n" +
                 "domain,\n" +
@@ -60,40 +58,17 @@ public interface GuideMapper {
                 "#{demonstrationPoint},\n" +
                 "#{provinceDomainMechanism},\n" +
                 "#{contactPhone},\n" +
-                "#{declarationStatus},default)")
+                "#{declarationStatus},default)")*/
+    @InsertProvider(type = GuideProvider.class,method = "insertCollectionSql")
     int insertGuideInfo(GuideCollection guideCollection);
 
     /**
-     * 分页查询
-     * @param id
+     * 指南申报分页查询
+     * @param
      * @return
      */
-    @Select(value = "SELECT\n" +
-            "gc.guide_name,\n" +
-            "gc.domain,\n" +
-            "gc.category,\n" +
-            "gc.fill_unit,\n" +
-            "gc.fill_contacts,\n" +
-            "gc.unit_principal,\n" +
-            "gc.reason_basis,\n" +
-            "gc.research_content_technology,\n" +
-            "gc.expected_target_outcome,\n" +
-            "gc.standards_specifications_regulatory,\n" +
-            "gc.research_period,+ gc.research_fund,\n" +
-            "gc.demonstration_scale,\n" +
-            "gc.demonstration_point,\n" +
-            "gc.province_domain_mechanism,\n" +
-            "gc.contact_phone,\n" +
-            "gc.declaration_status,\n" +
-            "gc.create_time \n" +
-            "FROM\n" +
-            "guide_collection gc,\n" +
-            "domain d,\n" +
-            "category c \n" +
-            "WHERE\n" +
-            "gc.domain = d.id \n" +
-            "AND gc.category = c.id")
-    List<GuideCollection> getAllGuideInfo();
+    @SelectProvider(type = GuideProvider.class,method = "collectionInfoSql")
+    List<GuideCollection> getCollectionPageList(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone);
 
     /**
      * 获取所属领域
@@ -123,7 +98,7 @@ public interface GuideMapper {
      * 新增汇总信息
      * @param guideSummary
      * @return
-     */
+
     @Insert(value = "INSERT INTO guide_summary (" +
             "guide_name,\n" +
             "domain,\n" +
@@ -169,18 +144,37 @@ public interface GuideMapper {
             "#{note},\n" +
             "#{checkBackResult},\n" +
             "#{checkBackNote},\n" +
-            "DEFAULT)")
+            "DEFAULT)")*/
+    @InsertProvider(type =GuideProvider.class,method = "insertSummarySql")
     int insertSummary(GuideSummary guideSummary);
 
     /**
-     * 查询全部汇总信息(未完成)
+     * 查询全部汇总信息
      * @return
      */
-    @Select(value = "select * from guide_summary")
-    List<GuideSummary> getAllSummary();
-
-
-
-
+    @Select(value = "<script>" +
+            "select * from guide_summary\n" +
+            "<where>\n" +
+            " <if test ='null != guideSummaryTitle'>\n" +
+            " guide_summary_title like CONCAT('%',#{guideSummaryTitle},'%')\n" +
+            " </if>\n" +
+            " <if test ='null != fillUnit'>\n" +
+            " AND fill_unit like CONCAT('%',#{fillUnit},'%')\n" +
+            " </if>\n" +
+            " <if test ='null != domain'>\n" +
+            " AND domain =#{domain}\n" +
+            " </if>\n" +
+            " <if test ='null != category'>\n" +
+            " AND category like CONCAT('%',#{category},'%')\n" +
+            " </if>\n" +
+            " <if test ='null != projectTime'>\n" +
+            "AND project_time like CONCAT('%',#{projectTime},'%')\n" +
+            " </if>\n" +
+            " <if test ='null != researchContentTechnology'>\n" +
+            " AND research_content_technology like CONCAT('%',#{researchContentTechnology},'%')\n" +
+            " </if>\n" +
+            "</where>" +
+            "</script>")
+    List<GuideSummary> getAllSummary(@Param("guideSummaryTitle") String guideSummaryTitle,@Param("fillUnit")String fillUnit,@Param("domain") Integer domain,@Param("category") Integer category,@Param("projectTime") String projectTime,@Param("researchContentTechnology") String researchContentTechnology);
 
 }

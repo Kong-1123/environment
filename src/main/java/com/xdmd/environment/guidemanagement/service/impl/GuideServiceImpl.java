@@ -28,10 +28,9 @@ public class GuideServiceImpl implements GuideService {
      * @return
      */
     @Override
-    public List<GuideCollection> getAllGuideInfo(int pageNum, int pageSize) {
-        GuideCollection guideCollection=null;
+    public List<GuideCollection> getCollectionPageList(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone,int pageNum,int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        List<GuideCollection> guideCollectionList= guideMapper.getAllGuideInfo();
+        List<GuideCollection> guideCollectionList= guideMapper.getCollectionPageList(guideName,domain,category,fillUnit,fillContacts,contactPhone);
         return guideCollectionList;
     }
 
@@ -85,9 +84,23 @@ public class GuideServiceImpl implements GuideService {
         return  resultMap.success().message("汇总新增成功");
     }
 
+    /**
+     * 汇总信息分页
+     * @param guideSummaryTitle
+     * @param fillUnit
+     * @param domain
+     * @param category
+     * @param projectTime
+     * @param researchContentTechnology
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @Override
-    public List<GuideSummary> getAllSummary() {
-        return guideMapper.getAllSummary();
+    public List<GuideSummary> getAllSummary(String guideSummaryTitle, String fillUnit,Integer domain,Integer category,String projectTime,String researchContentTechnology,int pageNum,int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<GuideSummary> guideSummaryList=guideMapper.getAllSummary(guideSummaryTitle,fillUnit,domain,category,projectTime,researchContentTechnology);
+        return guideSummaryList;
     }
 
 }

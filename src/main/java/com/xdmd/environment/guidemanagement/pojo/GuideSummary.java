@@ -28,10 +28,10 @@ public class GuideSummary implements Serializable {
     private String guideName;
 
     @ApiModelProperty("所属领域")
-    private String domain;
+    private Integer domain;
 
     @ApiModelProperty("填报类别（所属类别）")
-    private String category;
+    private Integer category;
 
     @ApiModelProperty("单位类别")
     private String unitCategory;
