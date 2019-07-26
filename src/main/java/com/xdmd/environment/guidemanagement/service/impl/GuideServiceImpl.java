@@ -103,4 +103,9 @@ public class GuideServiceImpl implements GuideService {
         return guideSummaryList;
     }
 
+    @Override
+    public List<GuideCollection> getCollectionById(int id) {
+        return guideMapper.getCollectionById(id);
+    }
+
 }

@@ -14,11 +14,6 @@ import java.util.List;
 
 @Repository
 public interface GuideMapper {
-
-
-
-
-
     /**
      * 新增指南申报建议
      * @param guideCollection
@@ -70,8 +65,15 @@ public interface GuideMapper {
      * @param id
      * @return
      */
-    @Select(value = "select ")
-    List<GuideCollection> getAllCollection(int id);
+    @Select(value = "SELECT\n" +
+            "gc.*\n" +
+            "FROM\n" +
+            "guide_collection gc,\n" +
+            "unit_guide_collection ugc\n" +
+            "WHERE\n" +
+            "gc.id = ugc.guide_collection_id\n" +
+            "AND ugc.unit_id =#{id}")
+    List<GuideCollection> getCollectionById(int id);
 
 
     /**

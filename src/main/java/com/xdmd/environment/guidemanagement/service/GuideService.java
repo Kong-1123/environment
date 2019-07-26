@@ -59,4 +59,12 @@ public interface GuideService {
      * @return
      */
     List<GuideSummary> getAllSummary(String guideSummaryTitle, String fillUnit,Integer domain,Integer category,String projectTime,String researchContentTechnology,int pageNum,int pageSize);
+
+    /**
+     * 根據id查詢相应单位的指南
+     * @param id
+     * @return
+     */
+    List<GuideCollection> getCollectionById(int id);
 }
+

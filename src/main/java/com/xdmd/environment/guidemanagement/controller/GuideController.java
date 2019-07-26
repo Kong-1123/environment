@@ -103,4 +103,12 @@ public class GuideController {
         List<GuideSummary> guideSummaryList=guideService.getAllSummary(guideSummaryTitle,fillUnit,domain,category,projectTime,researchContentTechnology,pageNum,pageSize);
         return guideSummaryList.size()>0?resultMap.success().message(guideSummaryList):resultMap.fail().message("查询失败");
     }
+
+    @ApiOperation(value = "根据id展示相应单位指南")
+    @ResponseBody
+    @GetMapping(value = "getCollectionById")
+    public  ResultMap getCollectionById(int id) {
+        List<GuideCollection> getCollectionList=guideService.getCollectionById(id);
+        return getCollectionList.size()>0?resultMap.success().message(getCollectionList):resultMap.fail().message("查询失败");
+    }
 }

@@ -4,15 +4,17 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * open_tender
+ * 公开招标
  * @author Kong 2019-07-15
  */
 @Data
-@ApiModel("open_tender")
-public class OpenTender {
+@ApiModel("公开招标实体类")
+public class OpenTender implements Serializable{
+    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("id")
     private Integer id;
@@ -36,10 +38,10 @@ public class OpenTender {
     private String subjectLeader;
 
     @ApiModelProperty("课题负责人联系方式")
-    private String leaderContect;
+    private String leaderContact;
 
     @ApiModelProperty("课题联合投标单位（如有请填写，没有就填无）")
-    private String jointTenderUnits;
+    private String joinTenderUnits;
 
     @ApiModelProperty("经办人")
     private String operator;
@@ -67,6 +69,9 @@ public class OpenTender {
 
     @ApiModelProperty("审核状态(1：企业的普通员工已提交2：企业的管理员已提交3：科室工作人员通过审核4：审核未通过)")
     private Integer auditStatus;
+
+    @ApiModelProperty("课题编号")
+    private String projectNo;
 
     public OpenTender() {
     }
