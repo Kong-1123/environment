@@ -15,11 +15,15 @@ import java.util.List;
 @Repository
 public interface GuideMapper {
 
+
+
+
+
     /**
      * 新增指南申报建议
      * @param guideCollection
      * @return
-
+     */
         @Insert(value = "INSERT INTO guide_collection (\n" +
                 "guide_name,\n" +
                 "domain,\n" +
@@ -58,17 +62,50 @@ public interface GuideMapper {
                 "#{demonstrationPoint},\n" +
                 "#{provinceDomainMechanism},\n" +
                 "#{contactPhone},\n" +
-                "#{declarationStatus},default)")*/
-    @InsertProvider(type = GuideProvider.class,method = "insertCollectionSql")
+                "#{declarationStatus},default)")
     int insertGuideInfo(GuideCollection guideCollection);
 
     /**
-     * 指南申报分页查询
-     * @param
+     * 根据id查询单位指南申报
+     * @param id
      * @return
      */
-    @SelectProvider(type = GuideProvider.class,method = "collectionInfoSql")
-    List<GuideCollection> getCollectionPageList(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone);
+    @Select(value = "select ")
+    List<GuideCollection> getAllCollection(int id);
+
+
+    /**
+     * 指南申报分页查询
+     * @param guideName
+     * @param domain
+     * @param category
+     * @param fillUnit
+     * @param fillContacts
+     * @param contactPhone
+     * @return
+     */
+    @Select(value = "<script>" +
+            "SELECT * FROM guide_collection" +
+            "<where>\n" +
+            "<if test ='null != guideName'>\n" +
+            "guide_name like CONCAT('%',#{guideName},'%')\n" +
+            "</if>\n" +
+            "<if test ='null != domain'>\n" +
+            "AND domain =#{domain}\n" +
+            "</if>\n" +
+            " <if test ='null != category'>\n" +
+            " AND category = #{category}\n" +
+            " </if>\n" +
+            "<if test ='null != fillUnit'>\n" +
+            "AND fill_unit like CONCAT('%',#{fillUnit},'%')</if>\n" +
+            "<if test ='null != fillContacts'>\n" +
+            "AND fill_contacts like CONCAT('%',#{fillContacts},'%')\n" +
+            "</if>\n" +
+            "<if test ='null != contactPhone'>\n" +
+            "AND contact_phone like CONCAT('%',#{contactPhone},'%')</if>\n" +
+            "</where>" +
+            "</script>")
+    List<GuideCollection> getAllCollection(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone);
 
     /**
      * 获取所属领域
@@ -98,7 +135,7 @@ public interface GuideMapper {
      * 新增汇总信息
      * @param guideSummary
      * @return
-
+     */
     @Insert(value = "INSERT INTO guide_summary (" +
             "guide_name,\n" +
             "domain,\n" +
@@ -144,8 +181,7 @@ public interface GuideMapper {
             "#{note},\n" +
             "#{checkBackResult},\n" +
             "#{checkBackNote},\n" +
-            "DEFAULT)")*/
-    @InsertProvider(type =GuideProvider.class,method = "insertSummarySql")
+            "DEFAULT)")
     int insertSummary(GuideSummary guideSummary);
 
     /**

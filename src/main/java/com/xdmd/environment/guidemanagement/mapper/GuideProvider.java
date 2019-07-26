@@ -2,8 +2,6 @@ package com.xdmd.environment.guidemanagement.mapper;
 
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.util.Map;
@@ -21,14 +19,7 @@ public class GuideProvider {
      * @param map
      * @return
      */
-    @Results({
-            @Result(property = "guideName", column = "guide_name"),
-            @Result(property = "domain", column = "domain"),
-            @Result(property = "category", column = "category"),
-            @Result(property = "fill_unit", column = "guide_name"),
-            @Result(property = "fill_contacts", column = "guide_name"),
-            @Result(property = "contact_hone", column = "guide_name")
-    })
+
     public String collectionInfoSql(final Map<String, Object> map) {
 
         /**

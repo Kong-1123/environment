@@ -3,8 +3,6 @@ package com.xdmd.environment.guidemanagement.controller;
 import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.pojo.*;
 import com.xdmd.environment.guidemanagement.service.GuideService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,16 +27,12 @@ public class GuideController {
      * 分页展示所有信息
      * @return
      */
-    @ApiOperation(value = "分页展示所有信息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "当前显示页", required = true, dataType = "int", paramType = "path"),
-            @ApiImplicitParam(name = "pageSize", value = "每页显示条数", required = true, dataType = "int", paramType = "path")
-    })
+    @ApiOperation(value = "分页申报信息")
     @ResponseBody
     @GetMapping(value = "getAllCollection")
-    public ResultMap getGuideInfoPageList(String guideName, Integer domain, Integer category,String fillUnit,String fillContacts,String contactPhone, int pageNum,int pageSize){
-        List<GuideCollection> guideCollectionList= guideService.getCollectionPageList(guideName,domain,category,fillUnit,fillContacts,contactPhone,pageNum,pageSize);
-        return guideCollectionList.size()>0?resultMap.success().message(guideCollectionList):resultMap.fail();
+    public ResultMap getGuideInfoPageList(String guideName, Integer domain, Integer category,String fillUnit,String fillContacts,String contactPhone, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize")int pageSize){
+        List<GuideCollection> guideCollectionList= guideService.getAllCollection(guideName,domain,category,fillUnit,fillContacts,contactPhone,pageNum,pageSize);
+        return guideCollectionList.size()>0?resultMap.success().message(guideCollectionList):resultMap.fail().message("查询失败");
     }
 
     /**
@@ -105,8 +99,8 @@ public class GuideController {
     @ApiOperation(value = "分页展示汇总信息")
     @ResponseBody
     @GetMapping(value = "getAllSummary")
-    public ResultMap getAllSummary(String guideSummaryTitle,String fillUnit,Integer domain, Integer category, String projectTime, String researchContentTechnology,int pageNum,int pageSize){
+    public ResultMap getAllSummary(String guideSummaryTitle,String fillUnit,Integer domain, Integer category, String projectTime, String researchContentTechnology,@RequestParam("pageNum") int pageNum,@RequestParam("pageSize") int pageSize){
         List<GuideSummary> guideSummaryList=guideService.getAllSummary(guideSummaryTitle,fillUnit,domain,category,projectTime,researchContentTechnology,pageNum,pageSize);
-        return guideSummaryList.size()>0?resultMap.success().message(guideSummaryList):resultMap.fail();
+        return guideSummaryList.size()>0?resultMap.success().message(guideSummaryList):resultMap.fail().message("查询失败");
     }
 }

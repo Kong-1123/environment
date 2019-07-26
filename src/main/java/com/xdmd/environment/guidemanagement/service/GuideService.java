@@ -20,7 +20,7 @@ public interface GuideService {
      * @param pageSize
      * @return
      */
-    List<GuideCollection> getCollectionPageList(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone, int pageNum, int pageSize);
+    List<GuideCollection> getAllCollection(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone, int pageNum, int pageSize);
 
     /**
      * 获取领域

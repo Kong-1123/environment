@@ -28,9 +28,9 @@ public class GuideServiceImpl implements GuideService {
      * @return
      */
     @Override
-    public List<GuideCollection> getCollectionPageList(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone,int pageNum,int pageSize) {
+    public List<GuideCollection> getAllCollection(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone,int pageNum,int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        List<GuideCollection> guideCollectionList= guideMapper.getCollectionPageList(guideName,domain,category,fillUnit,fillContacts,contactPhone);
+        List<GuideCollection> guideCollectionList= guideMapper.getAllCollection(guideName,domain,category,fillUnit,fillContacts,contactPhone);
         return guideCollectionList;
     }
 
