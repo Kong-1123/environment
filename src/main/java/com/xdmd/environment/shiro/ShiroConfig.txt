@@ -1,4 +1,4 @@
-package com.xdmd.hbkj.Shiro;
+package com.xdmd.environment.shiro;
 
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -43,6 +43,12 @@ public class ShiroConfig {
 
         filterChainDefinitionMap.put("/User/queryUser","roles[edit]");
 
+        filterChainDefinitionMap.put("/code/checkCode","anon");
+
+        filterChainDefinitionMap.put("/company/**","anon");
+
+        filterChainDefinitionMap.put("/AcceptApply/**","anon");
+
 
 //        //游客，开发权限
 //        filterChainDefinitionMap.put("/category/**", "roles[dataDelete]");
@@ -53,11 +59,11 @@ public class ShiroConfig {
 //        //游客，开发权限
 //        filterChainDefinitionMap.put("/guest/**", "anon");
 //        //用户，需要角色权限 “User”
-//        //filterChainDefinitionMap.put("/user/**", "roles[User]");
+//        //filterChainDefinitionMap.put("/company/**", "roles[User]");
 //        //管理员，需要角色权限 “admin”
 //        filterChainDefinitionMap.put("/admin/**", "roles[admin]");
 //        //开放登陆接口
-//        filterChainDefinitionMap.put("/user/login", "anon");
+//        filterChainDefinitionMap.put("/company/login", "anon");
         //其余接口一律拦截
         //主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
         filterChainDefinitionMap.put("/**", "authc");

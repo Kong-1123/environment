@@ -1,9 +1,13 @@
 package com.xdmd.environment.subjectAcceptance.controller;
 
-import com.xdmd.environment.common.*;
+import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.subjectAcceptance.exception.StringToDateException;
 import com.xdmd.environment.subjectAcceptance.pojo.CheckApply;
 import com.xdmd.environment.subjectAcceptance.service.AcceptApplyService;
+import com.xdmd.environment.subjectAcceptance.utils.FileUpload;
+import com.xdmd.environment.subjectAcceptance.utils.RarFileUpload;
+import com.xdmd.environment.subjectAcceptance.utils.UpdateFileUpload;
+import com.xdmd.environment.subjectAcceptance.utils.UpdateRarFileUpload;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +39,7 @@ public class AcceptApplyController {
     private static Logger log = LoggerFactory.getLogger(AcceptApplyController.class);
 
 
-    //企业填写验收申请表
+    //员工填写验收申请表
     @ResponseBody
     @PostMapping("addAcceptApply")
     public ResultMap AddAcceptApply(@RequestParam("agreementStartTimeString") String agreementStartTimeString,  //合同开始时间

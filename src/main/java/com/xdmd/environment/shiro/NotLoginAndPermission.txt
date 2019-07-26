@@ -1,4 +1,4 @@
-package com.xdmd.hbkj.Shiro;
+package com.xdmd.environment.shiro;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
