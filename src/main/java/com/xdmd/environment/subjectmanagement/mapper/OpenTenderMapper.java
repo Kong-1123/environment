@@ -41,7 +41,7 @@ public interface OpenTenderMapper {
             "#{projectName},\n" +
             "#{tenderNo},\n" +
             "#{subcontractingNo},\n" +
-            "#{subjectName}" +
+            "#{subjectName}," +
             "#{bidders},\n" +
             "#{subjectLeader},\n" +
             "#{leaderContact},\n" +
@@ -57,6 +57,16 @@ public interface OpenTenderMapper {
             "#{auditStatus},\n" +
             "#{projectNo})")
     int insertTender(OpenTender openTender);
+
+    /**
+     * 获取最新的id
+     * @return
+     */
+    @Select(value = "SELECT id,project_no FROM open_tender ORDER BY id DESC LIMIT 1")
+    OpenTender getNewData();
+
+
+
     /**
      * [查詢] 根據id查詢相应单位的课题
      * @author Kong
@@ -71,6 +81,7 @@ public interface OpenTenderMapper {
             "ot.id = ut.tender_id\n" +
             "AND ut.unit_id =#{id}")
     List<OpenTender> getTenderById(int id);
+
 
     /**
      * [查詢] 分頁查詢

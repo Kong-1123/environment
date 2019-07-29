@@ -34,4 +34,9 @@ public interface OpenTenderService {
      * @return
      */
     List<OpenTender> getTenderPageList(String projectName, String subjectName, String subjectLeader, String leaderContact,int pageNum,int pageSize);
+
+    /**
+     * 获取最新招标信息
+     */
+    OpenTender getNewData();
 }

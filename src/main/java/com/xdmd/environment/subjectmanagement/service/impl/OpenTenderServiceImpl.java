@@ -8,6 +8,8 @@ import com.xdmd.environment.subjectmanagement.service.OpenTenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,32 +21,74 @@ import java.util.List;
 public class OpenTenderServiceImpl implements OpenTenderService {
     @Autowired
     OpenTenderMapper openTenderMapper;
-    ResultMap resultMap=new ResultMap();
+    ResultMap resultMap = new ResultMap();
 
+    /**
+     * 新增
+     * @param openTender
+     * @return
+     */
     @Override
     public ResultMap insertTender(OpenTender openTender) {
-        if(openTenderMapper.insertTender(openTender)>0){
+        OpenTenderServiceImpl openTenderServiceImpl=new OpenTenderServiceImpl();
+        openTender.setProjectNo(openTenderServiceImpl.setProjectNo());
+        if (openTenderMapper.insertTender(openTender) > 0) {
             return resultMap.success().message("新增成功");
-        }else{
+        } else {
             return resultMap.fail().message("新增失败");
         }
     }
 
     /**
+     * 课题编号设置
+     * @param
+     */
+    public String setProjectNo(){
+        /**
+         * 获取当前年份
+         */
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        Date date = new Date();
+        String sDate = date.toString();
+        sDate = sdf.format(date);
+        /**
+         * 拼接课题编号和年份
+         */
+        StringBuilder number = new StringBuilder(sDate);
+        number.append("0015");
+        /**
+         * string转int
+         */
+        int num = Integer.parseInt(number.toString());
+        num+=1;
+        StringBuilder sBuilder = new StringBuilder("xdmd");
+        return sBuilder.insert(sBuilder.length(), num).toString();
+    }
+    /**
      * 根據id查詢相应单位招标
+     *
      * @param id
      * @return
      */
     @Override
     public ResultMap getTenderById(int id) {
-        List<OpenTender> getTenderByIdList=openTenderMapper.getTenderById(id);
-        return getTenderByIdList.size()>0?resultMap.success().message(getTenderByIdList):resultMap.fail().message("查询失败");
+        List<OpenTender> getTenderByIdList = openTenderMapper.getTenderById(id);
+        return getTenderByIdList.size() > 0 ? resultMap.success().message(getTenderByIdList) : resultMap.fail().message("查询失败,该信息可能已被删除");
     }
 
     @Override
-    public List<OpenTender> getTenderPageList(String projectName, String subjectName, String subjectLeader, String leaderContact,int pageNum,int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
-        List<OpenTender> openTenderList= openTenderMapper.getTenderPageList(projectName, subjectName, subjectLeader, leaderContact);
+    public List<OpenTender> getTenderPageList(String projectName, String subjectName, String subjectLeader, String leaderContact, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<OpenTender> openTenderList = openTenderMapper.getTenderPageList(projectName, subjectName, subjectLeader, leaderContact);
         return openTenderList;
+    }
+
+
+    @Override
+    public OpenTender getNewData() {
+        OpenTender newData = openTenderMapper.getNewData();
+        String projectNo = newData.getProjectNo();
+        System.out.println(projectNo);
+        return newData;
     }
 }

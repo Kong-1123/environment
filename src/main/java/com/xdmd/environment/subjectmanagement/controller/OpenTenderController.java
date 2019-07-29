@@ -62,6 +62,17 @@ public class OpenTenderController  {
     ResultMap getAllTender(String projectName, String subjectName, String subjectLeader, String leaderContact, int pageNum, int pageSize){
       List<OpenTender> openTenderList=openTenderService.getTenderPageList(projectName, subjectName, subjectLeader, leaderContact, pageNum, pageSize);
         return openTenderList.size()>0?resultMap.success().message(openTenderList):resultMap.fail().message("查询失败");
+    }
 
+    /**
+     * 获取最新数据
+     * @param
+     * @return
+     */
+    @ApiOperation(value = "获取最新数据")
+    @ResponseBody
+    @GetMapping(value = "getNewData")
+    OpenTender getNewData(){
+        return openTenderService.getNewData();
     }
 }
