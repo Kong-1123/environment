@@ -31,10 +31,6 @@ public interface OpenTenderMapper {
             "operator_contact,\n" +
             "winning_amount,\n" +
             "supporting_funds,\n" +
-            "winning_attachment_address,\n" +
-            "deal_attachment_address,\n" +
-            "deal_notice_annex_address,\n" +
-            "other_accessories,\n" +
             "audit_status,\n" +
             "project_no)\n" +
             "VALUES(\n" +
@@ -50,10 +46,6 @@ public interface OpenTenderMapper {
             "#{operatorContact},\n" +
             "#{winningAmount},\n" +
             "#{supportingFunds},\n" +
-            "#{winningAttachmentAddress},\n" +
-            "#{dealAttachmentAddress},\n" +
-            "#{dealNoticeAnnexAddress},\n" +
-            "#{otherAccessories},\n" +
             "#{auditStatus},\n" +
             "#{projectNo})")
     int insertTender(OpenTender openTender);
