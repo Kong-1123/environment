@@ -33,7 +33,8 @@ public class OpenTenderController  {
     @ResponseBody
     @PostMapping(value = "insertTender")
     ResultMap insertTender(OpenTender openTender){
-        return resultMap= openTenderService.insertTender(openTender);
+        return openTenderService.insertTender(openTender);
+
     }
 
     /**

@@ -1,6 +1,10 @@
 package com.xdmd.environment.CommomTest;
 
+import com.xdmd.environment.subjectmanagement.service.impl.OpenTenderServiceImpl;
 import org.junit.Test;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author: Kong
@@ -22,28 +26,36 @@ public class StringBuilderTest {
          */
 
         /**
-         * 获取当前年份
+         * 调用getNewData方法获取最新数据
          */
-        //SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-        //Date date = new Date();
-        //String sDate = date.toString();
-        //sDate = sdf.format(date);
+        OpenTenderServiceImpl openTenderService = new OpenTenderServiceImpl();
+        String projectNo = openTenderService.getNewData().getProjectNo();
+        String string = new String(projectNo);
+       // String string = new String("xdmd20190000");
+        /**
+         * 分离出数字并转换成int类型
+         */
+        int num = Integer.parseInt(string.substring(4));
+        if (num==20190000) {
             /**
-         * 拼接课题编号和年份
-
-        //StringBuilder number = new StringBuilder(sDate);
-        //number.append("0000");
-            OpenTender openTender=new OpenTender();
-        String show=openTender.getProjectNo().toString();
-            int num = Integer.parseInt(number.toString());
-            num += 1;
-            StringBuilder sBuilder = new StringBuilder("xdmd");
-            sBuilder.insert(sBuilder.length(), num).toString();
-            openTender.setProjectNo(sBuilder.toString());
-            //System.out.println("最终编号为:" + num);
-            System.out.println("课题编号为:" + openTender.getProjectNo());
-              */
-
+             * 获取当前年份
+             */
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+            Date date = new Date();
+            String sDate = date.toString();
+            sDate = sdf.format(date);
+            /**
+             * 拼接课题编号和年份
+             */
+            StringBuilder number = new StringBuilder(sDate);
+            number.append("0000");
+            num = Integer.parseInt(number.toString());
+        }
+        num += 1;
+        System.out.println("递增后" + num);
+        StringBuilder sBuilder = new StringBuilder("xdmd");
+        sBuilder.insert(sBuilder.length(), num).toString();
+        System.out.println("最终编号为:" + num);
 
     }
 }

@@ -30,39 +30,47 @@ public class OpenTenderServiceImpl implements OpenTenderService {
      */
     @Override
     public ResultMap insertTender(OpenTender openTender) {
-        OpenTenderServiceImpl openTenderServiceImpl=new OpenTenderServiceImpl();
-        openTender.setProjectNo(openTenderServiceImpl.setProjectNo());
-        if (openTenderMapper.insertTender(openTender) > 0) {
-            return resultMap.success().message("新增成功");
-        } else {
-            return resultMap.fail().message("新增失败");
+        openTender.setProjectNo(setProjectNo());
+        try {
+            int no=openTenderMapper.insertTender(openTender);
+            System.out.println("影响行数"+no);
+        }catch (Exception e){
+            resultMap.fail().message("新增失败");
         }
+        return resultMap.success().message("新增成功");
     }
 
     /**
-     * 课题编号设置
+     * 课题编号自增设置
      * @param
      */
     public String setProjectNo(){
+        getNewData();
+        String subString = new String(openTenderMapper.getNewData().getProjectNo());
         /**
-         * 获取当前年份
+         * 分离出数字并转换成int类型
          */
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-        Date date = new Date();
-        String sDate = date.toString();
-        sDate = sdf.format(date);
-        /**
-         * 拼接课题编号和年份
-         */
-        StringBuilder number = new StringBuilder(sDate);
-        number.append("0015");
-        /**
-         * string转int
-         */
-        int num = Integer.parseInt(number.toString());
-        num+=1;
+        int num = Integer.parseInt(subString.substring(4));
+        if (num<=20190000) {
+            /**
+             * 获取当前年份
+             */
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+            Date date = new Date();
+            String sDate = date.toString();
+            sDate = sdf.format(date);
+            /**
+             * 拼接课题编号和年份
+             */
+            StringBuilder number = new StringBuilder(sDate);
+            number.append("0000");
+            num = Integer.parseInt(number.toString());
+        }
+        num += 1;
+
         StringBuilder sBuilder = new StringBuilder("xdmd");
-        return sBuilder.insert(sBuilder.length(), num).toString();
+        String finalResult=sBuilder.insert(sBuilder.length(), num).toString();
+        return finalResult;
     }
     /**
      * 根據id查詢相应单位招标
@@ -86,9 +94,6 @@ public class OpenTenderServiceImpl implements OpenTenderService {
 
     @Override
     public OpenTender getNewData() {
-        OpenTender newData = openTenderMapper.getNewData();
-        String projectNo = newData.getProjectNo();
-        System.out.println(projectNo);
-        return newData;
+        return openTenderMapper.getNewData();
     }
 }
