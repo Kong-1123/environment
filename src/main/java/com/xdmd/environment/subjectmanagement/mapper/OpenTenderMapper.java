@@ -68,7 +68,7 @@ public interface OpenTenderMapper {
 
 
     /**
-     * [查詢] 根據id查詢相应单位的课题
+     * [查詢] 根據单位id查詢相应单位的课题
      * @author Kong
      * @date 2019/07/26
      **/
