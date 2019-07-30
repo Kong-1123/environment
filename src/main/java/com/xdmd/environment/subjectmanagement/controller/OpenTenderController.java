@@ -42,7 +42,7 @@ public class OpenTenderController  {
      * @param id
      * @return
      */
-    @ApiOperation(value = "根据id查询招标信息")
+    @ApiOperation(value = "根据单位的id查询招标信息（不是招标公告的id）")
     @ResponseBody
     @GetMapping(value = "getTenderById")
     ResultMap getTenderById(int id){
