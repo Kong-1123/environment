@@ -8,6 +8,9 @@ import com.xdmd.environment.guidemanagement.service.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,13 +67,30 @@ public class GuideServiceImpl implements GuideService {
 
     /**
      * 更新限制时间业务实现
+     * 无论时间周期是否正确，都会导入正确数据到数据库
      * @param guideCollectionLimitTime
      * @return
      */
     @Override
     public ResultMap updateLimitTime(GuideCollectionLimitTime guideCollectionLimitTime) {
+        /**
+         * 判断时间大小
+         */
         try{
+            DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+             //开始时间
+            Date begin = fmt.parse(guideCollectionLimitTime.getGuideCollectionStartTime());
+            //结束时间
+            Date end = fmt.parse(guideCollectionLimitTime.getGuideCollectionEndTime());
+            //判断开始时间是否在结束时间之后,返回布尔值
+            if(begin.after(end)||end.before(begin)){
+                String begintime=guideCollectionLimitTime.getGuideCollectionStartTime();
+                String endtime=guideCollectionLimitTime.getGuideCollectionEndTime();
+                guideCollectionLimitTime.setGuideCollectionStartTime(endtime);
+                guideCollectionLimitTime.setGuideCollectionEndTime(begintime);
+            }
             guideMapper.updateLimitTime(guideCollectionLimitTime);
+
         }catch (Exception e){
             return  resultMap.success().message("更新失败");
         }
