@@ -1,7 +1,10 @@
 package com.xdmd.environment.guidemanagement.service;
 
 import com.xdmd.environment.common.ResultMap;
-import com.xdmd.environment.guidemanagement.pojo.*;
+import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
+import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummaryV2;
 
 import java.util.List;
 
@@ -20,18 +23,13 @@ public interface GuideService {
      * @param pageSize
      * @return
      */
-    List<GuideCollection> getAllCollection(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone, int pageNum, int pageSize);
+    List<GuideCollection> getCollectionByParam(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone, int pageNum, int pageSize);
 
     /**
-     * 获取领域
+     * 获取类别和领域
      * @return
      */
-    List<Domain> getAllDomain();
-    /**
-     * 获取类别
-     * @return
-     */
-    List<Category> getAllCategory();
+    ResultMap getCategoryAndDomain();
 
     /**
      * 新增指南申报
@@ -49,13 +47,13 @@ public interface GuideService {
 
     /**
      * 新增汇总信息
-     * @param guideSummary
+     * @param guideSummaryV2
      * @return
      */
-    ResultMap insertSummary(GuideSummary guideSummary);
+    ResultMap insertSummary(GuideSummaryV2 guideSummaryV2);
 
     /**
-     * 查询出所有汇总信息
+     * 分页查询出所有汇总信息
      * @return
      */
     List<GuideSummary> getAllSummary(String guideSummaryTitle, String fillUnit,Integer domain,Integer category,String projectTime,String researchContentTechnology,int pageNum,int pageSize);

@@ -1,5 +1,6 @@
 package com.xdmd.environment.guidemanagement.mapper;
 
+import com.xdmd.environment.common.Dictionary;
 import com.xdmd.environment.guidemanagement.pojo.*;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -61,7 +62,7 @@ public interface GuideMapper {
     int insertGuideInfo(GuideCollection guideCollection);
 
     /**
-     * 根据id查询单位指南申报
+     * 根据单位id查询单位指南申报
      * @param id
      * @return
      */
@@ -87,10 +88,17 @@ public interface GuideMapper {
      * @return
      */
     @Select(value = "<script>" +
-            "SELECT * FROM guide_collection" +
-            "<where>\n" +
+            "SELECT\n" +
+            "\tgc.*,\n" +
+            "\td.content AS 类别,\n" +
+            "\tdic.content AS 领域 \n" +
+            "FROM\n" +
+            "\tguide_collection gc\n" +
+            "\tINNER JOIN dictionary d ON gc.category = d.id\n" +
+            "\tINNER JOIN dictionary dic ON gc.domain = dic.id" +
+            "<where>" +
             "<if test ='null != guideName'>\n" +
-            "guide_name like CONCAT('%',#{guideName},'%')\n" +
+            "AND guide_name like CONCAT('%',#{guideName},'%')\n" +
             "</if>\n" +
             "<if test ='null != domain'>\n" +
             "AND domain =#{domain}\n" +
@@ -107,20 +115,28 @@ public interface GuideMapper {
             "AND contact_phone like CONCAT('%',#{contactPhone},'%')</if>\n" +
             "</where>" +
             "</script>")
-    List<GuideCollection> getAllCollection(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone);
+    List<GuideCollection> getCollectionByParam(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone);
+
+    /***
+     * @Description:
+     * @Param: [] 获取指南申报全部信息
+     * @return: java.util.List<com.xdmd.environment.guidemanagement.pojo.GuideCollection>
+     * @Author: Kong
+     * @Date: 2019/8/2
+    */
+    @Select(value = "SELECT\n" +
+            "\tgc.* ,d.content as 类别,dic.content as 领域\n" +
+            "FROM\n" +
+            "\tguide_collection gc,dictionary d,dictionary dic\n" +
+            "WHERE gc.category=d.id and gc.domain=dic.id")
+    List<GuideCollection> getAllCollections();
 
     /**
-     * 获取所属领域
+     * 获取所属领域和所属类别
      * @return
      */
-    @Select(value = "select * from domain")
-    List<Domain> getAllDomain();
-    /**
-     * 获取所属类别
-     * @return
-     */
-    @Select(value = "select * from Category")
-    List<Category> getAllCategory();
+    @Select(value = "SELECT classification,content FROM dictionary WHERE classification IN ('所属类别','所属领域')")
+    List<Dictionary> getCategoryAndDomain();
 
     /**
      * 更新限制时间
@@ -135,63 +151,35 @@ public interface GuideMapper {
 
     /**
      * 新增汇总信息
-     * @param guideSummary
+     * @param guideSummaryV2
      * @return
      */
-    @Insert(value = "INSERT INTO guide_summary (" +
-            "guide_name,\n" +
-            "domain,\n" +
-            "category,\n" +
-            "fill_unit,\n" +
-            "fill_contacts,\n" +
-            "research_period,\n" +
-            "reason_basis,\n" +
-            "research_content_technology,\n" +
-            "expected_target_outcome,\n" +
-            "standards_specifications_regulatory,\n" +
-            "research_fund,\n" +
-            "demonstration_scale,\n" +
-            "demonstration_point,\n" +
-            "province_domain_mechanism,\n" +
-            "contact_phone,\n" +
-            "guide_summary_title,\n" +
-            "unit_category,\n" +
-            "project_time,\n" +
-            "note,\n" +
-            "check_back_result,\n" +
-            "check_back_note,\n" +
-            "create_time)" +
+    @Insert(value = "INSERT INTO guide_summary_v2 (" +
+            "category," +
+            "guide_collection_id," +
+            "guide_summary_title," +
+            "unit_category," +
+            "project_time," +
+            "note," +
+            "check_back_result," +
+            "check_back_note)\t" +
             "VALUES(" +
-            "#{guideName},\n" +
-            "#{domain},\n" +
-            "#{category},\n" +
-            "#{fillUnit},\n" +
-            "#{fillContacts},\n" +
-            "#{researchPeriod},\n" +
-            "#{reasonBasis},\n" +
-            "#{researchContentTechnology},\n" +
-            "#{expectedTargetOutcome},\n" +
-            "#{standardsSpecificationsRegulatory},\n" +
-            "#{researchFund},\n" +
-            "#{demonstrationScale},\n" +
-            "#{demonstrationPoint},\n" +
-            "#{provinceDomainMechanism},\n" +
-            "#{contactPhone},\n" +
-            "#{guideSummaryTitle},\n" +
-            "#{unitCategory},\n" +
-            "#{projectTime},\n" +
-            "#{note},\n" +
-            "#{checkBackResult},\n" +
-            "#{checkBackNote},\n" +
-            "DEFAULT)")
-    int insertSummary(GuideSummary guideSummary);
+            "#{category}," +
+            "#{guideCollectionId}," +
+            "#{guideSummaryTitle}," +
+            "#{unitCategory}," +
+            "#{projectTime}," +
+            "#{note}," +
+            "#{checkBackResult}," +
+            "#{checkBackNote})")
+    int insertSummary(GuideSummaryV2 guideSummaryV2);
 
     /**
      * 查询全部汇总信息
      * @return
      */
     @Select(value = "<script>" +
-            "select * from guide_summary\n" +
+            "select * from guide_summary_v2\n" +
             "<where>\n" +
             " <if test ='null != guideSummaryTitle'>\n" +
             " guide_summary_title like CONCAT('%',#{guideSummaryTitle},'%')\n" +

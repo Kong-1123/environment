@@ -1,6 +1,7 @@
 package com.xdmd.environment.guidemanagement.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.xdmd.environment.common.Dictionary;
 import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.mapper.GuideMapper;
 import com.xdmd.environment.guidemanagement.pojo.*;
@@ -31,20 +32,20 @@ public class GuideServiceImpl implements GuideService {
      * @return
      */
     @Override
-    public List<GuideCollection> getAllCollection(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone,int pageNum,int pageSize) {
+    public List<GuideCollection> getCollectionByParam(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone,int pageNum,int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        List<GuideCollection> guideCollectionList= guideMapper.getAllCollection(guideName,domain,category,fillUnit,fillContacts,contactPhone);
+        List<GuideCollection> guideCollectionList= guideMapper.getCollectionByParam(guideName,domain,category,fillUnit,fillContacts,contactPhone);
         return guideCollectionList;
     }
 
+    /**
+     * 获取类别和领域
+     * @return
+     */
     @Override
-    public List<Domain> getAllDomain() {
-        return guideMapper.getAllDomain();
-    }
-
-    @Override
-    public List<Category> getAllCategory() {
-        return guideMapper.getAllCategory();
+    public ResultMap getCategoryAndDomain() {
+        List<Dictionary> getCategoryAndDomains=guideMapper.getCategoryAndDomain();
+        return getCategoryAndDomains!=null?resultMap.success().message(getCategoryAndDomains):resultMap.fail().message("查询失败");
     }
 
     /**
@@ -98,9 +99,9 @@ public class GuideServiceImpl implements GuideService {
     }
 
     @Override
-    public ResultMap insertSummary(GuideSummary guideSummary) {
-
-            int n=guideMapper.insertSummary(guideSummary);
+    public ResultMap insertSummary(GuideSummaryV2 guideSummaryV2) {
+        int number=guideMapper.insertSummary(guideSummaryV2);
+        System.out.println("影响行数-->"+number);
         return  resultMap.success().message("汇总新增成功");
     }
 
@@ -123,6 +124,11 @@ public class GuideServiceImpl implements GuideService {
         return guideSummaryList;
     }
 
+    /**
+     * 根据单位id查询单位指南申报
+     * @param id
+     * @return
+     */
     @Override
     public List<GuideCollection> getCollectionById(int id) {
         return guideMapper.getCollectionById(id);

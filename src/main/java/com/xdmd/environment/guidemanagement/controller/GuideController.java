@@ -1,7 +1,10 @@
 package com.xdmd.environment.guidemanagement.controller;
 
 import com.xdmd.environment.common.ResultMap;
-import com.xdmd.environment.guidemanagement.pojo.*;
+import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
+import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummaryV2;
 import com.xdmd.environment.guidemanagement.service.GuideService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +16,7 @@ import java.util.List;
 /**
  * @author: Administrator
  * @createDate: 2019/07/16
- * @description: 控制层接口
+ * @description: 指南管理接口
  */
 
 @Controller
@@ -27,11 +30,11 @@ public class GuideController {
      * 分页展示所有信息
      * @return
      */
-    @ApiOperation(value = "分页申报信息")
+    @ApiOperation(value = "分页查询指南申报信息")
     @ResponseBody
-    @GetMapping(value = "getAllCollection")
+    @GetMapping(value = "getCollectionByParam")
     public ResultMap getGuideInfoPageList(String guideName, Integer domain, Integer category,String fillUnit,String fillContacts,String contactPhone, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize")int pageSize){
-        List<GuideCollection> guideCollectionList= guideService.getAllCollection(guideName,domain,category,fillUnit,fillContacts,contactPhone,pageNum,pageSize);
+        List<GuideCollection> guideCollectionList= guideService.getCollectionByParam(guideName,domain,category,fillUnit,fillContacts,contactPhone,pageNum,pageSize);
         return guideCollectionList.size()>0?resultMap.success().message(guideCollectionList):resultMap.fail().message("查询失败");
     }
 
@@ -47,22 +50,12 @@ public class GuideController {
         return resultMap= guideService.insertGuideInfo(guideCollection);
     }
 
-    @ApiOperation(value = "显示领域信息")
+    @ApiOperation(value = "显示类别和领域信息")
     @ResponseBody
-    @GetMapping(value = "getAllDomain")
-    public ResultMap getAllDomain(){
-         List<Domain> domainList=guideService.getAllDomain();
-         return domainList.size()>0?resultMap.success().message(domainList):resultMap.fail();
+    @GetMapping(value = "getCategoryAndDomain")
+    public ResultMap getCategoryAndDomain(){
+        return guideService.getCategoryAndDomain()!=null?resultMap.success().message("查询成功"):resultMap.fail().message("查询失败");
     }
-
-    @ApiOperation(value = "显示类别信息")
-    @ResponseBody
-    @GetMapping(value = "getAllCategory")
-    public ResultMap getAllCategory(){
-        List<Category> categoryList=guideService.getAllCategory();
-        return categoryList.size()>0?resultMap.success().message(categoryList):resultMap.fail();
-    }
-
 
     @ApiOperation(value = "更新限制时间")
     @ResponseBody
@@ -73,15 +66,15 @@ public class GuideController {
 
     /**
      * 汇总新增信息
-     * @param guideSummary
+     * @param guideSummaryV2
      * @return
      */
     @ApiOperation(value = "新增汇总信息")
     @ResponseBody
     @PostMapping(value = "insertSummary")
-    public ResultMap insertSummary(GuideSummary guideSummary
+    public ResultMap insertSummary(GuideSummaryV2 guideSummaryV2
     ){
-        return resultMap= guideService.insertSummary(guideSummary);
+        return resultMap= guideService.insertSummary(guideSummaryV2);
     }
 
     /**
@@ -104,7 +97,7 @@ public class GuideController {
         return guideSummaryList.size()>0?resultMap.success().message(guideSummaryList):resultMap.fail().message("查询失败");
     }
 
-    @ApiOperation(value = "根据id展示相应单位指南")
+    @ApiOperation(value = "根据单位id展示相应单位指南")
     @ResponseBody
     @GetMapping(value = "getCollectionById")
     public  ResultMap getCollectionById(int id) {
