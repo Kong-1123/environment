@@ -66,14 +66,15 @@ public class OpenTenderController  {
     }
 
     /**
-     * 获取最新数据
+     * 获取最新数据(测试)
      * @param
      * @return
-     */
+
     @ApiOperation(value = "获取最新数据")
     @ResponseBody
     @GetMapping(value = "getNewData")
     OpenTender getNewData(){
         return openTenderService.getNewData();
     }
+    */
 }

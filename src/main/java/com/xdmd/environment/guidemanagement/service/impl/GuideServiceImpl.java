@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: Administrator
@@ -32,9 +33,9 @@ public class GuideServiceImpl implements GuideService {
      * @return
      */
     @Override
-    public List<GuideCollection> getCollectionByParam(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone,int pageNum,int pageSize) {
+    public List<Map> getCollectionByParam(String guideName, Integer domain, Integer category, String fillUnit, String fillContacts, String contactPhone, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        List<GuideCollection> guideCollectionList= guideMapper.getCollectionByParam(guideName,domain,category,fillUnit,fillContacts,contactPhone);
+        List<Map> guideCollectionList= guideMapper.getCollectionByParam(guideName,domain,category,fillUnit,fillContacts,contactPhone);
         return guideCollectionList;
     }
 
@@ -45,11 +46,11 @@ public class GuideServiceImpl implements GuideService {
     @Override
     public ResultMap getCategoryAndDomain() {
         List<Dictionary> getCategoryAndDomains=guideMapper.getCategoryAndDomain();
-        return getCategoryAndDomains!=null?resultMap.success().message(getCategoryAndDomains):resultMap.fail().message("查询失败");
+        return getCategoryAndDomains.size()>0?resultMap.success().message(getCategoryAndDomains):resultMap.fail().message("查询失败");
     }
 
     /**
-     * 实现新增信息
+     * 新增指南申报信息
      * @param guideCollection
      * @return
      */
@@ -101,7 +102,6 @@ public class GuideServiceImpl implements GuideService {
     @Override
     public ResultMap insertSummary(GuideSummaryV2 guideSummaryV2) {
         int number=guideMapper.insertSummary(guideSummaryV2);
-        System.out.println("影响行数-->"+number);
         return  resultMap.success().message("汇总新增成功");
     }
 
@@ -118,9 +118,9 @@ public class GuideServiceImpl implements GuideService {
      * @return
      */
     @Override
-    public List<GuideSummary> getAllSummary(String guideSummaryTitle, String fillUnit,Integer domain,Integer category,String projectTime,String researchContentTechnology,int pageNum,int pageSize) {
+    public List<Map> getSummaryByParam(String guideSummaryTitle, String fillUnit, Integer domain, Integer category, String projectTime, String researchContentTechnology, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        List<GuideSummary> guideSummaryList=guideMapper.getAllSummary(guideSummaryTitle,fillUnit,domain,category,projectTime,researchContentTechnology);
+        List<Map> guideSummaryList=guideMapper.getSummaryByParam(guideSummaryTitle,fillUnit,domain,category,projectTime,researchContentTechnology);
         return guideSummaryList;
     }
 
@@ -130,8 +130,9 @@ public class GuideServiceImpl implements GuideService {
      * @return
      */
     @Override
-    public List<GuideCollection> getCollectionById(int id) {
-        return guideMapper.getCollectionById(id);
+    public List<Map> getCollectionById(int id) {
+        return guideMapper.getCollectionByd(id);
     }
+
 
 }

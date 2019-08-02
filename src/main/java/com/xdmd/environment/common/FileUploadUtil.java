@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ public class FileUploadUtil {
     public static String fileUpload(MultipartFile file, String companyName, String type, List<String> suffixList) throws Exception{
         Logger log = LoggerFactory.getLogger(FileUploadUtil.class);
 
-        HashMap<String, String> result = new HashMap<>();
+//        HashMap<String, String> result = new HashMap<>();
 //        if (!StringUtils.isNotBlank(file.getOriginalFilename())) {
 //            result.put("1","文件不可以为空");
 //            return result;
@@ -39,17 +38,17 @@ public class FileUploadUtil {
         String originalFilename = file.getOriginalFilename();
         //判断文件的后缀名是否有误
         Boolean Flag = FileSuffixJudgeUtil.SuffixJudge(originalFilename,suffixList);
-
         if(Flag == false){
             throw new FileSuffixJudgeException("请上传正确的文件格式");
         }
 
+        //设置日期格式
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String nowTime = dateFormat.format(date);
 
         //文件保存的路径
-        String FilePath = "D://xdmd_environment//Extranet//" + companyName + "//" + type + "//" + nowTime + "//";
+        String FilePath = "D:/xdmd_environment/" + companyName + "/" + type + "/" + nowTime + "/";
 
         File dest = new File(FilePath + originalFilename);
 

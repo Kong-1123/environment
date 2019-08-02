@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * guide_collection
@@ -38,7 +39,6 @@ public interface GuideMapper {
                 "province_domain_mechanism,\n" +
                 "contact_phone,\n" +
                 "declaration_status,\n" +
-                "create_time\n" +
                 ")\n" +
                 "VALUES\n" +
                 "\t(\n" +
@@ -58,23 +58,44 @@ public interface GuideMapper {
                 "#{demonstrationPoint},\n" +
                 "#{provinceDomainMechanism},\n" +
                 "#{contactPhone},\n" +
-                "#{declarationStatus},default)")
+                "#{declarationStatus})")
     int insertGuideInfo(GuideCollection guideCollection);
 
     /**
      * 根据单位id查询单位指南申报
+     * 注意:传的是单位id，不是指南申报id
      * @param id
      * @return
      */
     @Select(value = "SELECT\n" +
-            "gc.*\n" +
+            "guide_name,\n" +
+            "dic.content as domain,\n" +
+            "d.content as category,\n" +
+            "fill_unit,\n" +
+            "fill_contacts,\n" +
+            "unit_principal,\n" +
+            "reason_basis,\n" +
+            "research_content_technology,\n" +
+            "expected_target_outcome,\n" +
+            "standards_specifications_regulatory,\n" +
+            "research_period,\n" +
+            "research_fund,\n" +
+            "demonstration_scale,\n" +
+            "demonstration_point,\n" +
+            "province_domain_mechanism,\n" +
+            "contact_phone,\n" +
+            "declaration_status\n" +
             "FROM\n" +
-            "guide_collection gc,\n" +
-            "unit_guide_collection ugc\n" +
+            "\tguide_collection gc,\n" +
+            "\tdictionary d,\n" +
+            "\tdictionary dic,\n" +
+            "\tunit_guide_collection ugc \n" +
             "WHERE\n" +
-            "gc.id = ugc.guide_collection_id\n" +
-            "AND ugc.unit_id =#{id}")
-    List<GuideCollection> getCollectionById(int id);
+            "\tgc.id = ugc.collection_id \n" +
+            "\tAND gc.category = d.id \n" +
+            "\tAND gc.domain = dic.id \n" +
+            "\tAND ugc.unit_id =#{id}")
+    List<Map> getCollectionByd(int id);
 
 
     /**
@@ -88,48 +109,48 @@ public interface GuideMapper {
      * @return
      */
     @Select(value = "<script>" +
-            "SELECT\n" +
-            "\tgc.*,\n" +
-            "\td.content AS 类别,\n" +
-            "\tdic.content AS 领域 \n" +
+            "SELECT\t" +
+            "guide_name,\n" +
+            "dic.content as domain,\n" +
+            "d.content as category,\n" +
+            "fill_unit,\n" +
+            "fill_contacts,\n" +
+            "unit_principal,\n" +
+            "reason_basis,\n" +
+            "research_content_technology,\n" +
+            "expected_target_outcome,\n" +
+            "standards_specifications_regulatory,\n" +
+            "research_period,\n" +
+            "research_fund,\n" +
+            "demonstration_scale,\n" +
+            "demonstration_point,\n" +
+            "province_domain_mechanism,\n" +
+            "contact_phone,\n" +
+            "declaration_status\t" +
             "FROM\n" +
-            "\tguide_collection gc\n" +
+            "\tguide_collection gc\t\n" +
             "\tINNER JOIN dictionary d ON gc.category = d.id\n" +
-            "\tINNER JOIN dictionary dic ON gc.domain = dic.id" +
+            "\tINNER JOIN dictionary dic ON gc.domain = dic.id\t" +
             "<where>" +
             "<if test ='null != guideName'>\n" +
-            "AND guide_name like CONCAT('%',#{guideName},'%')\n" +
+            "gc.guide_name like CONCAT('%',#{guideName},'%')\n" +
             "</if>\n" +
             "<if test ='null != domain'>\n" +
-            "AND domain =#{domain}\n" +
+            "AND gc.domain =#{domain}\n" +
             "</if>\n" +
             " <if test ='null != category'>\n" +
-            " AND category = #{category}\n" +
+            " AND gc.category = #{category}\n" +
             " </if>\n" +
             "<if test ='null != fillUnit'>\n" +
-            "AND fill_unit like CONCAT('%',#{fillUnit},'%')</if>\n" +
+            "AND gc.fill_unit like CONCAT('%',#{fillUnit},'%')</if>\n" +
             "<if test ='null != fillContacts'>\n" +
-            "AND fill_contacts like CONCAT('%',#{fillContacts},'%')\n" +
+            "AND gc.fill_contacts like CONCAT('%',#{fillContacts},'%')\n" +
             "</if>\n" +
             "<if test ='null != contactPhone'>\n" +
-            "AND contact_phone like CONCAT('%',#{contactPhone},'%')</if>\n" +
+            "AND gc.contact_phone like CONCAT('%',#{contactPhone},'%')</if>\n" +
             "</where>" +
             "</script>")
-    List<GuideCollection> getCollectionByParam(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone);
-
-    /***
-     * @Description:
-     * @Param: [] 获取指南申报全部信息
-     * @return: java.util.List<com.xdmd.environment.guidemanagement.pojo.GuideCollection>
-     * @Author: Kong
-     * @Date: 2019/8/2
-    */
-    @Select(value = "SELECT\n" +
-            "\tgc.* ,d.content as 类别,dic.content as 领域\n" +
-            "FROM\n" +
-            "\tguide_collection gc,dictionary d,dictionary dic\n" +
-            "WHERE gc.category=d.id and gc.domain=dic.id")
-    List<GuideCollection> getAllCollections();
+    List<Map> getCollectionByParam(String guideName, Integer domain, Integer category, String fillUnit, String fillContacts, String contactPhone);
 
     /**
      * 获取所属领域和所属类别
@@ -175,7 +196,7 @@ public interface GuideMapper {
     int insertSummary(GuideSummaryV2 guideSummaryV2);
 
     /**
-     * 查询全部汇总信息
+     * 查询全部汇总信息(有bug)
      * @return
      */
     @Select(value = "<script>" +
@@ -201,6 +222,8 @@ public interface GuideMapper {
             " </if>\n" +
             "</where>" +
             "</script>")
-    List<GuideSummary> getAllSummary(@Param("guideSummaryTitle") String guideSummaryTitle,@Param("fillUnit")String fillUnit,@Param("domain") Integer domain,@Param("category") Integer category,@Param("projectTime") String projectTime,@Param("researchContentTechnology") String researchContentTechnology);
+    List<Map> getSummaryByParam(@Param("guideSummaryTitle") String guideSummaryTitle,@Param("fillUnit")String fillUnit,@Param("domain") Integer domain,@Param("category") Integer category,@Param("projectTime") String projectTime,@Param("researchContentTechnology") String researchContentTechnology);
 
 }
+
+

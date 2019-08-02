@@ -20,7 +20,7 @@ import java.util.HashMap;
 public class FileUpload {
 
     /**
-     * 0 为正确  1未错误
+     * 0 为正确  1为错误
      * @param file 上传的文件
      * @param companyName 公司名
      * @param type  类别
