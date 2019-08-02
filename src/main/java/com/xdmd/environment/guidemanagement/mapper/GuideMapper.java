@@ -5,6 +5,7 @@ import com.xdmd.environment.guidemanagement.pojo.*;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -224,6 +225,15 @@ public interface GuideMapper {
             "</script>")
     List<Map> getSummaryByParam(@Param("guideSummaryTitle") String guideSummaryTitle,@Param("fillUnit")String fillUnit,@Param("domain") Integer domain,@Param("category") Integer category,@Param("projectTime") String projectTime,@Param("researchContentTechnology") String researchContentTechnology);
 
+    /**
+     * 获取所有汇总表里的关联gcid
+     * @return
+     */
+    @Select(value = "SELECT\n" +
+            "\tguide_collection_id \n" +
+            "FROM\n" +
+            "\tguide_summary_v2")
+    ArrayList<String> getGCid();
 }
 
 

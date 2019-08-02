@@ -65,5 +65,10 @@ public interface GuideService {
      */
     List<Map> getCollectionById(int id);
 
+    /**
+     * 获取所有汇总表里的关联gcid
+     * @return
+     */
+    List<String> getGCid();
 }
 

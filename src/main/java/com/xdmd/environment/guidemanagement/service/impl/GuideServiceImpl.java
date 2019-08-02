@@ -4,16 +4,16 @@ import com.github.pagehelper.PageHelper;
 import com.xdmd.environment.common.Dictionary;
 import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.mapper.GuideMapper;
-import com.xdmd.environment.guidemanagement.pojo.*;
+import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
+import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummaryV2;
 import com.xdmd.environment.guidemanagement.service.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author: Administrator
@@ -119,6 +119,17 @@ public class GuideServiceImpl implements GuideService {
      */
     @Override
     public List<Map> getSummaryByParam(String guideSummaryTitle, String fillUnit, Integer domain, Integer category, String projectTime, String researchContentTechnology, int pageNum, int pageSize) {
+        ArrayList<String> idlist=getGCid();
+        HashSet<Integer> idset=new HashSet<>();
+        for (String s : idlist) {
+            String[] split = s.split(",");
+            for (String s1 : split) {
+                idset.add(Integer.parseInt(s1));
+            }
+        }
+
+
+
         PageHelper.startPage(pageNum,pageSize);
         List<Map> guideSummaryList=guideMapper.getSummaryByParam(guideSummaryTitle,fillUnit,domain,category,projectTime,researchContentTechnology);
         return guideSummaryList;
@@ -134,5 +145,12 @@ public class GuideServiceImpl implements GuideService {
         return guideMapper.getCollectionByd(id);
     }
 
-
+    /**
+     * 获取所有汇总表里的关联征集id
+     * @return
+     */
+    @Override
+    public ArrayList<String> getGCid() {
+        return guideMapper.getGCid();
+    }
 }
