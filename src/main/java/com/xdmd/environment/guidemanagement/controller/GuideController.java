@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author: Administrator
+ * @author: Kong
  * @createDate: 2019/07/16
  * @description: 指南管理接口
  */
@@ -25,6 +25,7 @@ public class GuideController {
     @Autowired
     GuideService guideService;
     ResultMap resultMap=new ResultMap();
+    private List<Integer> idList;
 
     /**
      * 分页展示所有信息
@@ -89,7 +90,7 @@ public class GuideController {
      * @param pageSize
      * @return
      */
-    @ApiOperation(value = "分页展示汇总信息(有bug,暂不测试)")
+    @ApiOperation(value = "分页展示汇总信息(有bug)")
     @ResponseBody
     @GetMapping(value = "getAllSummary")
     public ResultMap getSummaryByParam(String guideSummaryTitle,String fillUnit,Integer domain, Integer category, String projectTime, String researchContentTechnology,@RequestParam("pageNum") int pageNum,@RequestParam("pageSize") int pageSize){
@@ -99,9 +100,28 @@ public class GuideController {
 
     @ApiOperation(value = "根据单位id展示相应单位指南(注意:传的是单位id,不是指南申报id)")
     @ResponseBody
-    @GetMapping(value = "getCollectionById")
-    public  ResultMap getCollectionById(int id) {
-        List<Map> getCollectionList=guideService.getCollectionById(id);
+    @GetMapping(value = "getCollectionByUd")
+    public  ResultMap getCollectionByUid(int id) {
+        List<Map> getCollectionList=guideService.getCollectionByUid(id);
         return getCollectionList.size()>0?resultMap.success().message(getCollectionList):resultMap.fail().message("查询失败");
+    }
+
+    /**
+     * 根据汇总获取的id查询申报
+     * @param
+     * @return
+     */
+    @ApiOperation(value = "根据汇总获取的id查询申报(注意:传的是申报id,不是汇总id)")
+    @ResponseBody
+    @GetMapping(value = "getCollectionById")
+    public List<Map> getCollectionById(){
+        return guideService.getCollectionById();
+    }
+
+    @ApiOperation(value = "根据汇总获取的id")
+    @ResponseBody
+    @GetMapping(value = "getGCid")
+    public List<Integer> getGCid(){
+        return guideService.getGCid();
     }
 }

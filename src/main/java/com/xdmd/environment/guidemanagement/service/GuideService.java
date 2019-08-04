@@ -4,6 +4,7 @@ import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
 import com.xdmd.environment.guidemanagement.pojo.GuideSummaryV2;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -56,19 +57,26 @@ public interface GuideService {
      * 分页查询出所有汇总信息
      * @return
      */
-    List<Map> getSummaryByParam(String guideSummaryTitle, String fillUnit,Integer domain,Integer category,String projectTime,String researchContentTechnology,int pageNum,int pageSize);
+    List<Map> getSummaryByParam(String guideSummaryTitle, String fillUnit,Integer domain,Integer category,String projectTime,String researchContentTechnology,@Param("pageNum") int pageNum,@Param("pageSize") int pageSize);
 
     /**
      * 根據单位id查詢相应单位的指南申报
-     * @param id
+     * @param Uid
      * @return
      */
-    List<Map> getCollectionById(int id);
+    List<Map> getCollectionByUid(int Uid);
 
     /**
      * 获取所有汇总表里的关联gcid
      * @return
      */
-    List<String> getGCid();
+    List<Integer> getGCid();
+
+    /**
+     * 根据汇总获取的id查询申报
+     * @param
+     * @return
+     */
+    List<Map> getCollectionById();
 }
 

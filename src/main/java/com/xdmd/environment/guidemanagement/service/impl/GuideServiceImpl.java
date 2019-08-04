@@ -24,52 +24,60 @@ import java.util.*;
 public class GuideServiceImpl implements GuideService {
     @Autowired
     GuideMapper guideMapper;
-    ResultMap resultMap=new ResultMap();
+    ResultMap resultMap = new ResultMap();
+
     /**
-     * 这个方法中用到了我们开头配置依赖的分页插件pagehelper
-     * 很简单，只需要在service层传入参数，然后将参数传递给一个插件的一个静态方法即可；
-     * @param pageNum   开始页数
-     * @param pageSize 每页显示的数据条数
+     * 实现分页查询指南申报
+     *
+     * @param guideName
+     * @param domain
+     * @param category
+     * @param fillUnit
+     * @param fillContacts
+     * @param contactPhone
+     * @param pageNum
+     * @param pageSize
      * @return
      */
     @Override
     public List<Map> getCollectionByParam(String guideName, Integer domain, Integer category, String fillUnit, String fillContacts, String contactPhone, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
-        List<Map> guideCollectionList= guideMapper.getCollectionByParam(guideName,domain,category,fillUnit,fillContacts,contactPhone);
+        PageHelper.startPage(pageNum, pageSize);
+        List<Map> guideCollectionList = guideMapper.getCollectionByParam(guideName, domain, category, fillUnit, fillContacts, contactPhone);
         return guideCollectionList;
     }
 
     /**
-     * 获取类别和领域
+     * 实现获取类别和领域
+     *
      * @return
      */
     @Override
     public ResultMap getCategoryAndDomain() {
-        List<Dictionary> getCategoryAndDomains=guideMapper.getCategoryAndDomain();
-        return getCategoryAndDomains.size()>0?resultMap.success().message(getCategoryAndDomains):resultMap.fail().message("查询失败");
+        List<Dictionary> getCategoryAndDomains = guideMapper.getCategoryAndDomain();
+        return getCategoryAndDomains.size() > 0 ? resultMap.success().message(getCategoryAndDomains) : resultMap.fail().message("查询失败");
     }
 
     /**
-     * 新增指南申报信息
+     * 实现新增指南申报信息
+     *
      * @param guideCollection
      * @return
      */
     @Override
     public ResultMap insertGuideInfo(GuideCollection guideCollection) {
-              try {
-                  guideMapper.insertGuideInfo(guideCollection);
-              }
-              catch (Exception e){
-                  return resultMap.fail().message("新增失败");
-              }
-              return  resultMap.success().message("新增成功");
-}
-
+        try {
+            guideMapper.insertGuideInfo(guideCollection);
+        } catch (Exception e) {
+            return resultMap.fail().message("新增失败");
+        }
+        return resultMap.success().message("新增成功");
+    }
 
 
     /**
-     * 更新限制时间业务实现
+     * 实现更新限制时间业务实现
      * 无论时间周期是否正确，都会导入正确数据到数据库
+     *
      * @param guideCollectionLimitTime
      * @return
      */
@@ -78,35 +86,36 @@ public class GuideServiceImpl implements GuideService {
         /**
          * 判断时间大小
          */
-        try{
+        try {
             DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-             //开始时间
+            //开始时间
             Date begin = fmt.parse(guideCollectionLimitTime.getGuideCollectionStartTime());
             //结束时间
             Date end = fmt.parse(guideCollectionLimitTime.getGuideCollectionEndTime());
             //判断开始时间是否在结束时间之后,返回布尔值
-            if(begin.after(end)||end.before(begin)){
-                String begintime=guideCollectionLimitTime.getGuideCollectionStartTime();
-                String endtime=guideCollectionLimitTime.getGuideCollectionEndTime();
+            if (begin.after(end) || end.before(begin)) {
+                String begintime = guideCollectionLimitTime.getGuideCollectionStartTime();
+                String endtime = guideCollectionLimitTime.getGuideCollectionEndTime();
                 guideCollectionLimitTime.setGuideCollectionStartTime(endtime);
                 guideCollectionLimitTime.setGuideCollectionEndTime(begintime);
             }
             guideMapper.updateLimitTime(guideCollectionLimitTime);
 
-        }catch (Exception e){
-            return  resultMap.success().message("更新失败");
+        } catch (Exception e) {
+            return resultMap.success().message("更新失败");
         }
-        return  resultMap.success().message("更新成功");
+        return resultMap.success().message("更新成功");
     }
 
     @Override
     public ResultMap insertSummary(GuideSummaryV2 guideSummaryV2) {
-        int number=guideMapper.insertSummary(guideSummaryV2);
-        return  resultMap.success().message("汇总新增成功");
+        int number = guideMapper.insertSummary(guideSummaryV2);
+        return resultMap.success().message("汇总新增成功");
     }
 
     /**
-     * 汇总信息分页
+     * 实现汇总信息分页
+     *
      * @param guideSummaryTitle
      * @param fillUnit
      * @param domain
@@ -119,38 +128,56 @@ public class GuideServiceImpl implements GuideService {
      */
     @Override
     public List<Map> getSummaryByParam(String guideSummaryTitle, String fillUnit, Integer domain, Integer category, String projectTime, String researchContentTechnology, int pageNum, int pageSize) {
-        ArrayList<String> idlist=getGCid();
-        HashSet<Integer> idset=new HashSet<>();
-        for (String s : idlist) {
-            String[] split = s.split(",");
-            for (String s1 : split) {
-                idset.add(Integer.parseInt(s1));
-            }
-        }
-
-
-
-        PageHelper.startPage(pageNum,pageSize);
-        List<Map> guideSummaryList=guideMapper.getSummaryByParam(guideSummaryTitle,fillUnit,domain,category,projectTime,researchContentTechnology);
+        PageHelper.startPage(pageNum, pageSize);
+        List<Map> guideSummaryList = guideMapper.getSummaryByParam(guideSummaryTitle, fillUnit, domain, category, projectTime, researchContentTechnology);
         return guideSummaryList;
     }
 
     /**
-     * 根据单位id查询单位指南申报
-     * @param id
+     * 实现根据单位id查询单位指南申报
+     *
+     * @param Uid
      * @return
      */
     @Override
-    public List<Map> getCollectionById(int id) {
-        return guideMapper.getCollectionByd(id);
+    public List<Map> getCollectionByUid(int Uid) {
+        return guideMapper.getCollectionByUid(Uid);
     }
 
     /**
-     * 获取所有汇总表里的关联征集id
+     * 实现获取所有汇总表里的关联征集id
+     *
      * @return
      */
     @Override
-    public ArrayList<String> getGCid() {
-        return guideMapper.getGCid();
+    public List<Integer> getGCid() {
+        List<String> manyStrList = guideMapper.getGCid();
+        //将循环出的id拆分转换成int类型存到List中
+        List<String> oneStrList = new LinkedList<>();
+        List<Integer> oneIntList = null;
+        for (String str : manyStrList) {
+            String[] a = str.split(",");
+            oneStrList = Arrays.asList(a);
+            oneIntList = new LinkedList<>();
+            for (String string : oneStrList) {
+                oneIntList.add(Integer.parseInt(string));
+            }
+            for (Integer integer : oneIntList) {
+                System.out.println(integer);
+            }
+        }
+        return oneIntList;
+    }
+
+    /**
+     * 实现根据汇总获取的id查询申报
+     *
+     * @param
+     * @return
+     */
+    @Override
+    public List<Map> getCollectionById() {
+        List<Integer> gcId = getGCid();
+        return guideMapper.getCollectionByid(gcId);
     }
 }

@@ -1,11 +1,15 @@
 package com.xdmd.environment.guidemanagement.mapper;
 
 import com.xdmd.environment.common.Dictionary;
-import com.xdmd.environment.guidemanagement.pojo.*;
-import org.apache.ibatis.annotations.*;
+import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
+import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummaryV2;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -65,7 +69,7 @@ public interface GuideMapper {
     /**
      * 根据单位id查询单位指南申报
      * 注意:传的是单位id，不是指南申报id
-     * @param id
+     * @param Uid
      * @return
      */
     @Select(value = "SELECT\n" +
@@ -85,7 +89,7 @@ public interface GuideMapper {
             "demonstration_point,\n" +
             "province_domain_mechanism,\n" +
             "contact_phone,\n" +
-            "declaration_status\n" +
+            "declaration_status\t\n" +
             "FROM\n" +
             "\tguide_collection gc,\n" +
             "\tdictionary d,\n" +
@@ -95,12 +99,44 @@ public interface GuideMapper {
             "\tgc.id = ugc.collection_id \n" +
             "\tAND gc.category = d.id \n" +
             "\tAND gc.domain = dic.id \n" +
-            "\tAND ugc.unit_id =#{id}")
-    List<Map> getCollectionByd(int id);
-
+            "\tAND ugc.unit_id =#{Uid}")
+    List<Map> getCollectionByUid(int Uid);
 
     /**
-     * 指南申报分页查询
+     * 根据汇总获取的id查询申报
+     * @param
+     * @return
+
+    @Select(value = "<script>" +
+            "SELECT\n" +
+            "gc.id,\n" +
+            "gc.guide_name,\n" +
+            "dic.content as domain,\n" +
+            "gc.fill_unit,\n" +
+            "gc.fill_contacts,\n" +
+            "gc.reason_basis,\n" +
+            "gc.research_content_technology,\n" +
+            "gc.expected_target_outcome,\n" +
+            "gc.standards_specifications_regulatory,\n" +
+            "gc.research_period,\n" +
+            "gc.research_fund,\n" +
+            "gc.demonstration_scale,\n" +
+            "gc.demonstration_point,\n" +
+            "gc.province_domain_mechanism,\n" +
+            "gc.contact_phone\n" +
+            "FROM\n" +
+            "guide_collection gc,dictionary dic" +
+            "<where>\n" +
+            "gc.domain=dic.id and gc.id in\t" +
+            "<foreach collection=\"list\" item=\"gcId\" separator=\",\" open=\"(\"close=\")\">" +
+            "#{gcId,jdbcType=INTEGER}\n" +
+            "</foreach>\n" +
+            "</where>" +
+            "</script>")
+     */
+    List<Map> getCollectionByid(@Param("gcId") List<Integer> gcId);
+    /**
+     * 分页查询指南申报
      * @param guideName
      * @param domain
      * @param category
@@ -201,27 +237,47 @@ public interface GuideMapper {
      * @return
      */
     @Select(value = "<script>" +
-            "select * from guide_summary_v2\n" +
-            "<where>\n" +
-            " <if test ='null != guideSummaryTitle'>\n" +
-            " guide_summary_title like CONCAT('%',#{guideSummaryTitle},'%')\n" +
-            " </if>\n" +
-            " <if test ='null != fillUnit'>\n" +
-            " AND fill_unit like CONCAT('%',#{fillUnit},'%')\n" +
-            " </if>\n" +
-            " <if test ='null != domain'>\n" +
-            " AND domain =#{domain}\n" +
-            " </if>\n" +
-            " <if test ='null != category'>\n" +
-            " AND category like CONCAT('%',#{category},'%')\n" +
-            " </if>\n" +
-            " <if test ='null != projectTime'>\n" +
-            "AND project_time like CONCAT('%',#{projectTime},'%')\n" +
-            " </if>\n" +
-            " <if test ='null != researchContentTechnology'>\n" +
-            " AND research_content_technology like CONCAT('%',#{researchContentTechnology},'%')\n" +
-            " </if>\n" +
-            "</where>" +
+            "SELECT\n" +
+            "gc.guide_name,\n" +
+            "dic.content as domain,\n" +
+            "gc.fill_unit,\n" +
+            "gc.fill_contacts,\n" +
+            "gc.reason_basis,\n" +
+            "gc.research_content_technology,\n" +
+            "gc.expected_target_outcome,\n" +
+            "gc.standards_specifications_regulatory,\n" +
+            "gc.research_period,\n" +
+            "gc.research_fund,\n" +
+            "gc.demonstration_scale,\n" +
+            "gc.demonstration_point,\n" +
+            "gc.province_domain_mechanism,\n" +
+            "gc.contact_phone,\n" +
+            "gsv.guide_summary_title,\n" +
+            "d.content as category,\n" +
+            "gsv.unit_category,\n" +
+            "gsv.project_time,\n" +
+            "gsv.note,gsv.check_back_result,gsv.check_back_note\n" +
+            "FROM\n" +
+            "guide_collection gc,dictionary dic,guide_summary_v2 gsv,dictionary d\n" +
+            "where gc.domain = dic.id and gsv.category=d.id " +
+            "<if test ='null != guideSummaryTitle'>\n" +
+            "AND gsv.guide_summary_title like CONCAT('%',#{guideSummaryTitle},'%')\n" +
+            "</if>\n" +
+            "<if test ='null != fillUnit'>\n" +
+            "AND gc.fill_unit like CONCAT('%',#{fillUnit},'%')\n" +
+            "</if>\n" +
+            "<if test ='null != domain'>\n" +
+            "AND gc.domain =#{domain}\n" +
+            "</if>\n" +
+            "<if test ='null != category'>\n" +
+            "AND gsv.category like CONCAT('%',#{category},'%')\n" +
+            "</if>\n" +
+            "<if test ='null != projectTime'>\n" +
+            "AND gsv.project_time like CONCAT('%',#{projectTime},'%')\n" +
+            "</if>\n" +
+            "<if test ='null != researchContentTechnology'>\n" +
+            "AND gc.research_content_technology like CONCAT('%',#{researchContentTechnology},'%')\n" +
+            "</if>\n" +
             "</script>")
     List<Map> getSummaryByParam(@Param("guideSummaryTitle") String guideSummaryTitle,@Param("fillUnit")String fillUnit,@Param("domain") Integer domain,@Param("category") Integer category,@Param("projectTime") String projectTime,@Param("researchContentTechnology") String researchContentTechnology);
 
@@ -229,11 +285,31 @@ public interface GuideMapper {
      * 获取所有汇总表里的关联gcid
      * @return
      */
-    @Select(value = "SELECT\n" +
-            "\tguide_collection_id \n" +
-            "FROM\n" +
-            "\tguide_summary_v2")
-    ArrayList<String> getGCid();
+    @Select(value = "SELECT guide_collection_id FROM guide_summary_v2")
+    List<String> getGCid();
+
 }
-
-
+// 查询全部汇总信息sql
+// SELECT
+// gc.guide_name,
+// dic.content as domain,
+// gc.fill_unit,
+// gc.fill_contacts,
+// gc.reason_basis,
+// gc.research_content_technology,
+// gc.expected_target_outcome,
+// gc.standards_specifications_regulatory,
+// gc.research_period,
+// gc.research_fund,
+// gc.demonstration_scale,
+// gc.demonstration_point,
+// gc.province_domain_mechanism,
+// gc.contact_phone,
+// gsv.guide_summary_title,
+// d.content as category,
+// gsv.unit_category,
+// gsv.project_time,
+// gsv.note,gsv.check_back_result,gsv.check_back_note
+// FROM
+// guide_collection gc,dictionary dic,guide_summary_v2 gsv,dictionary d
+// where gc.domain = dic.id and gsv.category=d.id and gc.id in (1,3,5,7,9)
