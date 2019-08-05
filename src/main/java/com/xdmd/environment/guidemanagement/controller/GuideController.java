@@ -111,17 +111,10 @@ public class GuideController {
      * @param
      * @return
      */
-    @ApiOperation(value = "根据汇总获取的id查询申报(注意:传的是申报id,不是汇总id)")
+    @ApiOperation(value = "根据汇总获取的id查询申报(注意:传的是指南申报id,不是汇总表id)--存在bug")
     @ResponseBody
     @GetMapping(value = "getCollectionById")
-    public List<Map> getCollectionById(){
-        return guideService.getCollectionById();
-    }
-
-    @ApiOperation(value = "根据汇总获取的id")
-    @ResponseBody
-    @GetMapping(value = "getGCid")
-    public List<Integer> getGCid(){
-        return guideService.getGCid();
+    public List<Map> getCollectionById(@RequestBody(required = false) List<Integer> idList){
+        return guideService.getCollectionById(idList);
     }
 }

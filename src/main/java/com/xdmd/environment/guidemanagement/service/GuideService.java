@@ -66,17 +66,12 @@ public interface GuideService {
      */
     List<Map> getCollectionByUid(int Uid);
 
-    /**
-     * 获取所有汇总表里的关联gcid
-     * @return
-     */
-    List<Integer> getGCid();
 
     /**
      * 根据汇总获取的id查询申报
      * @param
      * @return
      */
-    List<Map> getCollectionById();
+    List<Map> getCollectionById(List<Integer> idList);
 }
 

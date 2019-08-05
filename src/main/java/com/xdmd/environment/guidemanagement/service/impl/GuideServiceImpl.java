@@ -145,39 +145,13 @@ public class GuideServiceImpl implements GuideService {
     }
 
     /**
-     * 实现获取所有汇总表里的关联征集id
-     *
-     * @return
-     */
-    @Override
-    public List<Integer> getGCid() {
-        List<String> manyStrList = guideMapper.getGCid();
-        //将循环出的id拆分转换成int类型存到List中
-        List<String> oneStrList = new LinkedList<>();
-        List<Integer> oneIntList = null;
-        for (String str : manyStrList) {
-            String[] a = str.split(",");
-            oneStrList = Arrays.asList(a);
-            oneIntList = new LinkedList<>();
-            for (String string : oneStrList) {
-                oneIntList.add(Integer.parseInt(string));
-            }
-            for (Integer integer : oneIntList) {
-                System.out.println(integer);
-            }
-        }
-        return oneIntList;
-    }
-
-    /**
      * 实现根据汇总获取的id查询申报
      *
      * @param
      * @return
      */
     @Override
-    public List<Map> getCollectionById() {
-        List<Integer> gcId = getGCid();
-        return guideMapper.getCollectionByid(gcId);
+    public List<Map> getCollectionById(List<Integer> idList) {
+        return guideMapper.getCollectionByid(idList);
     }
 }

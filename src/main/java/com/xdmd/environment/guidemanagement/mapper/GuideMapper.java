@@ -127,11 +127,11 @@ public interface GuideMapper {
             "FROM\n" +
             "guide_collection gc,dictionary dic" +
             "where gc.domain=dic.id and and gc.id in" +
-            "<foreach collection=\"list\" item=\"gcId\" separator=\",\" open=\"(\"close=\")\">" +
-            "#{gcId,jdbcType=INTEGER}\n" +
+            "<foreach collection='idList' item='gcid' open='(' separator=',' close=')'>" +
+            "#{gcid}\n" +
             "</foreach>\n" +
             "</script>")
-    List<Map> getCollectionByid(@Param("gcId") List<Integer> gcId);
+    List<Map> getCollectionByid(List<Integer> idList);
     /**
      * 分页查询指南申报(内网)--汇总1
      * @param guideName
@@ -144,6 +144,7 @@ public interface GuideMapper {
      */
     @Select(value = "<script>" +
             "SELECT\t" +
+            "gc.id," +
             "guide_name,\n" +
             "dic.content as domain,\n" +
             "d.content as category,\n" +
