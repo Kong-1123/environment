@@ -1,9 +1,13 @@
 package com.xdmd.environment.guidemanagement.service;
 
 import com.xdmd.environment.common.ResultMap;
-import com.xdmd.environment.guidemanagement.pojo.*;
+import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
+import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface GuideService {
@@ -20,18 +24,13 @@ public interface GuideService {
      * @param pageSize
      * @return
      */
-    List<GuideCollection> getAllCollection(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone, int pageNum, int pageSize);
+    List<Map> getCollectionByParam(String guideName, Integer domain, Integer category, String fillUnit, String fillContacts, String contactPhone, int pageNum, int pageSize);
 
     /**
-     * 获取领域
+     * 获取类别和领域
      * @return
      */
-    List<Domain> getAllDomain();
-    /**
-     * 获取类别
-     * @return
-     */
-    List<Category> getAllCategory();
+    ResultMap getCategoryAndDomain();
 
     /**
      * 新增指南申报
@@ -55,16 +54,24 @@ public interface GuideService {
     ResultMap insertSummary(GuideSummary guideSummary);
 
     /**
-     * 查询出所有汇总信息
+     * 分页查询出所有汇总信息
      * @return
      */
-    List<GuideSummary> getAllSummary(String guideSummaryTitle, String fillUnit,Integer domain,Integer category,String projectTime,String researchContentTechnology,int pageNum,int pageSize);
+    List<Map> getSummaryByParam(String guideSummaryTitle, String fillUnit,Integer domain,Integer category,String projectTime,String researchContentTechnology,@Param("pageNum") int pageNum,@Param("pageSize") int pageSize);
 
     /**
-     * 根據id查詢相应单位的指南
-     * @param id
+     * 根據单位id查詢相应单位的指南申报
+     * @param Uid
      * @return
      */
-    List<GuideCollection> getCollectionById(int id);
+    List<Map> getCollectionByUid(int Uid);
+
+
+    /**
+     * 根据汇总获取的id查询申报
+     * @param
+     * @return
+     */
+    List<Map> getCollectionById(List<Integer> idList);
 }
 

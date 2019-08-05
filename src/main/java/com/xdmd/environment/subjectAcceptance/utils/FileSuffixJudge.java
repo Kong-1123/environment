@@ -21,6 +21,7 @@ public class FileSuffixJudge {
         Suffixs.add(".JPG");
         Suffixs.add(".JPEG");
         Suffixs.add(".PNG");
+        Suffixs.add(".pdf");
 
         //获取文件的后缀名
         String suffixName = FileName.substring(FileName.lastIndexOf("."));

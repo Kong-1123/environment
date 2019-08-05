@@ -1,40 +1,31 @@
 package com.xdmd.environment.guidemanagement.pojo;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 
 /**
- *  guide_summary
- * @author Kong 2019-07-15
+ * @author: Kong
+ * @createDate: 2019/8/1
+ * @description: 指南汇总实体
  */
 @Data
-@ApiModel("guide_summary")
-public class GuideSummary implements Serializable {
-
-    @ApiModelProperty("id")
+@ApiModel("gue_summary")
+public class GuideSummary {
+    @ApiModelProperty("主键")
     private Integer id;
 
     @ApiModelProperty("指南汇总标题")
-    private String guideSummaryTitle;
+    private String gueSummaryTitle;
 
     @ApiModelProperty("指南建议名称")
-    private String guideName;
+    private String gueName;
 
     @ApiModelProperty("所属领域")
-    private Integer domain;
+    private String domain;
 
     @ApiModelProperty("填报类别（所属类别）")
-    private Integer category;
-
-    @ApiModelProperty("单位类别")
-    private String unitCategory;
+    private String category;
 
     @ApiModelProperty("填报单位")
     private String fillUnit;
@@ -58,7 +49,7 @@ public class GuideSummary implements Serializable {
     private String standardsSpecificationsRegulatory;
 
     @ApiModelProperty("研究经费测算")
-    private BigDecimal researchFund;
+    private Integer researchFund;
 
     @ApiModelProperty("示范工程规模")
     private String demonstrationScale;
@@ -72,10 +63,8 @@ public class GuideSummary implements Serializable {
     @ApiModelProperty("联系电话(手机)")
     private String contactPhone;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")//页面写入数据库时格式化
-    @JSONField(format="yyyy-MM-dd")//数据库导出页面时json格式化
     @ApiModelProperty("建议立项时间")
-    private Date projectTime;
+    private String projectTime;
 
     @ApiModelProperty("备注")
     private String note;
@@ -86,10 +75,10 @@ public class GuideSummary implements Serializable {
     @ApiModelProperty("查重备注")
     private String checkBackNote;
 
-    @ApiModelProperty("创建时间")
-    private Date createTime;
+    @ApiModelProperty("归属大类")
+    private String ownershipCategory;
 
     public GuideSummary() {
     }
-
+    
 }
