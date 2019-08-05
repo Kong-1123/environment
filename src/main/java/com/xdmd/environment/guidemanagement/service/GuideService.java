@@ -3,7 +3,7 @@ package com.xdmd.environment.guidemanagement.service;
 import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
-import com.xdmd.environment.guidemanagement.pojo.GuideSummaryV2;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -48,10 +48,10 @@ public interface GuideService {
 
     /**
      * 新增汇总信息
-     * @param guideSummaryV2
+     * @param guideSummary
      * @return
      */
-    ResultMap insertSummary(GuideSummaryV2 guideSummaryV2);
+    ResultMap insertSummary(GuideSummary guideSummary);
 
     /**
      * 分页查询出所有汇总信息

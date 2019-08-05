@@ -6,7 +6,7 @@ import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.mapper.GuideMapper;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
-import com.xdmd.environment.guidemanagement.pojo.GuideSummaryV2;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
 import com.xdmd.environment.guidemanagement.service.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,8 +108,8 @@ public class GuideServiceImpl implements GuideService {
     }
 
     @Override
-    public ResultMap insertSummary(GuideSummaryV2 guideSummaryV2) {
-        int number = guideMapper.insertSummary(guideSummaryV2);
+    public ResultMap insertSummary(GuideSummary guideSummary) {
+        int number = guideMapper.insertSummary(guideSummary);
         return resultMap.success().message("汇总新增成功");
     }
 

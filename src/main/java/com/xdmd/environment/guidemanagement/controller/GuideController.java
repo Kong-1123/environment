@@ -3,7 +3,7 @@ package com.xdmd.environment.guidemanagement.controller;
 import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
-import com.xdmd.environment.guidemanagement.pojo.GuideSummaryV2;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
 import com.xdmd.environment.guidemanagement.service.GuideService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,15 +67,15 @@ public class GuideController {
 
     /**
      * 汇总新增信息
-     * @param guideSummaryV2
+     * @param guideSummary
      * @return
      */
     @ApiOperation(value = "新增汇总信息")
     @ResponseBody
     @PostMapping(value = "insertSummary")
-    public ResultMap insertSummary(GuideSummaryV2 guideSummaryV2
+    public ResultMap insertSummary(GuideSummary guideSummary
     ){
-        return resultMap= guideService.insertSummary(guideSummaryV2);
+        return resultMap= guideService.insertSummary(guideSummary);
     }
 
     /**

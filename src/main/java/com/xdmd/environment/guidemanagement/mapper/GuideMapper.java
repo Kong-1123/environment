@@ -3,7 +3,6 @@ package com.xdmd.environment.guidemanagement.mapper;
 import com.xdmd.environment.common.Dictionary;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
-import com.xdmd.environment.guidemanagement.pojo.GuideSummaryV2;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -22,7 +21,7 @@ import java.util.Map;
 @Repository
 public interface GuideMapper {
     /**
-     * 新增指南申报建议
+     * 新增指南申报建议(外网)
      * @param guideCollection
      * @return
      */
@@ -67,7 +66,7 @@ public interface GuideMapper {
     int insertGuideInfo(GuideCollection guideCollection);
 
     /**
-     * 根据单位id查询单位指南申报
+     * 根据单位id查询单位指南申报(外网)
      * 注意:传的是单位id，不是指南申报id
      * @param Uid
      * @return
@@ -102,11 +101,12 @@ public interface GuideMapper {
             "\tAND ugc.unit_id =#{Uid}")
     List<Map> getCollectionByUid(int Uid);
 
+
     /**
-     * 根据汇总获取的id查询申报
+     * 根据勾选的id获取选相应征集信息(内网)--汇总2
      * @param
      * @return
-
+    */
     @Select(value = "<script>" +
             "SELECT\n" +
             "gc.id,\n" +
@@ -126,17 +126,14 @@ public interface GuideMapper {
             "gc.contact_phone\n" +
             "FROM\n" +
             "guide_collection gc,dictionary dic" +
-            "<where>\n" +
-            "gc.domain=dic.id and gc.id in\t" +
+            "where gc.domain=dic.id and and gc.id in" +
             "<foreach collection=\"list\" item=\"gcId\" separator=\",\" open=\"(\"close=\")\">" +
             "#{gcId,jdbcType=INTEGER}\n" +
             "</foreach>\n" +
-            "</where>" +
             "</script>")
-     */
     List<Map> getCollectionByid(@Param("gcId") List<Integer> gcId);
     /**
-     * 分页查询指南申报
+     * 分页查询指南申报(内网)--汇总1
      * @param guideName
      * @param domain
      * @param category
@@ -190,14 +187,14 @@ public interface GuideMapper {
     List<Map> getCollectionByParam(String guideName, Integer domain, Integer category, String fillUnit, String fillContacts, String contactPhone);
 
     /**
-     * 获取所属领域和所属类别
+     * 获取所属领域和所属类别（内外网）
      * @return
      */
     @Select(value = "SELECT classification,content FROM dictionary WHERE classification IN ('所属类别','所属领域')")
     List<Dictionary> getCategoryAndDomain();
 
     /**
-     * 更新限制时间
+     * 更新限制时间(内网)
      * @param guideCollectionLimitTime
      * @return
      */
@@ -208,11 +205,11 @@ public interface GuideMapper {
 
 
     /**
-     * 新增汇总信息
-     * @param guideSummaryV2
+     * 新增全部汇总信息(内网)--汇总3
+     * @param guideSummary
      * @return
      */
-    @Insert(value = "INSERT INTO guide_summary_v2 (" +
+    @Insert(value = "INSERT INTO guide_summary (" +
             "category," +
             "guide_collection_id," +
             "guide_summary_title," +
@@ -230,10 +227,10 @@ public interface GuideMapper {
             "#{note}," +
             "#{checkBackResult}," +
             "#{checkBackNote})")
-    int insertSummary(GuideSummaryV2 guideSummaryV2);
+    int insertSummary(com.xdmd.environment.guidemanagement.pojo.GuideSummary guideSummary);
 
     /**
-     * 查询全部汇总信息(有bug)
+     * 查询全部汇总信息(要修改)--汇总4
      * @return
      */
     @Select(value = "<script>" +
@@ -280,13 +277,6 @@ public interface GuideMapper {
             "</if>\n" +
             "</script>")
     List<Map> getSummaryByParam(@Param("guideSummaryTitle") String guideSummaryTitle,@Param("fillUnit")String fillUnit,@Param("domain") Integer domain,@Param("category") Integer category,@Param("projectTime") String projectTime,@Param("researchContentTechnology") String researchContentTechnology);
-
-    /**
-     * 获取所有汇总表里的关联gcid
-     * @return
-     */
-    @Select(value = "SELECT guide_collection_id FROM guide_summary_v2")
-    List<String> getGCid();
 
 }
 // 查询全部汇总信息sql
