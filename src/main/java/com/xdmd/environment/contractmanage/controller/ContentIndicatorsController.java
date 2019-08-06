@@ -6,11 +6,7 @@ import com.xdmd.environment.contractmanage.service.ContentIndicatorsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,8 +15,8 @@ import java.util.List;
  * @createDate: 2019/8/6
  * @description: 课题进度及考核指标接口
  */
-@Api(tags = "课题进度及考核指标接口【合同子表一】")
-@Controller
+@Api(tags = "课题进度及考核指标【合同子表一】")
+@RestController
 @RequestMapping(value = "environment/contentindicators")
 public class ContentIndicatorsController {
     @Autowired
@@ -31,9 +27,8 @@ public class ContentIndicatorsController {
      * @param contentIndicatorsDTO
      * @return
      */
-    @ResponseBody
-    @ApiOperation(value = "新增计划内容信息")
-    @PostMapping(value = "insertContentInfo")
+    @ApiOperation(value = "添加",notes="新增计划内容信息")
+    @PostMapping(value = "addContentInfo")
     public ResultMap insert(ContentIndicatorsDTO contentIndicatorsDTO) {
         return contentIndicatorsService.insert(contentIndicatorsDTO)>0?resultMap.success().message("新增成功"):resultMap.fail().message("新增失败");
 
@@ -44,8 +39,7 @@ public class ContentIndicatorsController {
      * @param id
      * @return
      */
-    @ResponseBody
-    @ApiOperation(value = "根据id单查计划内容信息")
+    @ApiOperation(value = "获取计划内容信息",notes = "根据id查询")
     @GetMapping (value = "getInfoById")
     public ResultMap getInfoById(int id) {
         ContentIndicatorsDTO indicatorsDTO=contentIndicatorsService.getInfoById(id);
@@ -56,8 +50,7 @@ public class ContentIndicatorsController {
      * 全部查询
      * @return
      */
-    @ResponseBody
-    @ApiOperation(value = "全部查询计划内容信息）")
+    @ApiOperation(value = "获取计划内容信息",notes = "查询全部")
     @GetMapping (value = "getAllnfo")
     public ResultMap getAllnfo() {
         List<ContentIndicatorsDTO> dtoList=contentIndicatorsService.getAllInfo();

@@ -17,7 +17,7 @@ import java.util.List;
  * @createDate: 2019/08/06
  * @description: 课题承担单位、参加单位及主要研究开发人员接口
  */
-@Api(tags = "课题承担单位、参加单位及主要研究开发人员接口【合同子表二】")
+@Api(tags = "课题承担单位、参加单位及主要研究开发人员【合同子表二】")
 @RestController
 @RequestMapping(value = "environment/contract/subjectkeydev")
 public class SubjectKeyResearchDevelopersController {

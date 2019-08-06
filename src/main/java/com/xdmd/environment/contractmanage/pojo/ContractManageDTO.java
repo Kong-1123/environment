@@ -10,15 +10,15 @@ import lombok.Data;
  * @description: 合同管理主表
  */
 @Data
-@ApiModel("合同管理主表")
+@ApiModel(value = "合同管理主表")
 public class ContractManageDTO {
-    @ApiModelProperty("主键")
+    @ApiModelProperty("主键【注:id为默认,新增时不用填】")
     private Integer id;
 
     @ApiModelProperty("课题类别")
     private String subjectCategory;
 
-    @ApiModelProperty("课题编号")
+    @ApiModelProperty("课题编号【注:课题编号后台已设定,新增时不用填】")
     private String projectNo;
 
     @ApiModelProperty("课题名称")

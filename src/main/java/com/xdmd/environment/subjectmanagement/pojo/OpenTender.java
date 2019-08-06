@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 public class OpenTender{
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("id")
+    @ApiModelProperty("id【注:id为默认,新增时不用填】")
     private int id;
 
     @ApiModelProperty("项目名称")
@@ -57,7 +57,7 @@ public class OpenTender{
     @ApiModelProperty("审核状态(1：企业的普通员工已提交2：企业的管理员已提交3：科室工作人员通过审核4：审核未通过)")
     private Integer auditStatus;
 
-    @ApiModelProperty("课题编号")
+    @ApiModelProperty(name = "课题编号",required = false)
     private String projectNo;
 
     public OpenTender() {

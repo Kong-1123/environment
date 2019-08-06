@@ -15,7 +15,7 @@ import java.util.List;
  * @createDate: 2019/8/4
  * @description: 合同管理接口
  */
-@Api(tags="合同管理接口【合同主表】")
+@Api(tags="合同管理【合同主表】")
 @RestController
 @RequestMapping(value = "environment/contract")
 public class ContractManageController {

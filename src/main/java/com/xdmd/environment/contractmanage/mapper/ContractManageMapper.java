@@ -38,7 +38,7 @@ public interface ContractManageMapper {
             "#{subjectSupervisorDepartment},\n" +
             "#{openBank},\n" +
             "#{openBankAccount},\n" +
-            "#{eMail},\n" +
+            "#{email},\n" +
             "#{guaranteedUnits},\n" +
             "#{guaranteedUnitContact},\n" +
             "#{guaranteedContactPhone},\n" +

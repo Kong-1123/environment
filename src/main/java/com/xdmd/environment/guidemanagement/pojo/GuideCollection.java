@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Kong 2019-07-15
  */
 @Data
-@ApiModel(description="指南申报实体类")
+@ApiModel(value="指南申报实体类")
 public class GuideCollection {
 
     @ApiModelProperty("主键")
