@@ -3,6 +3,7 @@ package com.xdmd.environment.contractmanage.controller;
 import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.contractmanage.pojo.ContentIndicatorsDTO;
 import com.xdmd.environment.contractmanage.service.ContentIndicatorsService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,9 @@ import java.util.List;
 /**
  * @author: Kong
  * @createDate: 2019/8/6
- * @description: url接口
+ * @description: 课题进度及考核指标接口
  */
+@Api(tags = "课题进度及考核指标接口【合同子表一】")
 @Controller
 @RequestMapping(value = "environment/contentindicators")
 public class ContentIndicatorsController {
@@ -29,8 +31,8 @@ public class ContentIndicatorsController {
      * @param contentIndicatorsDTO
      * @return
      */
-    @ApiOperation(value = "新增计划内容信息（合同子表）")
     @ResponseBody
+    @ApiOperation(value = "新增计划内容信息")
     @PostMapping(value = "insertContentInfo")
     public ResultMap insert(ContentIndicatorsDTO contentIndicatorsDTO) {
         return contentIndicatorsService.insert(contentIndicatorsDTO)>0?resultMap.success().message("新增成功"):resultMap.fail().message("新增失败");
@@ -42,21 +44,23 @@ public class ContentIndicatorsController {
      * @param id
      * @return
      */
-    @ApiOperation(value = "根据id单查计划内容信息（合同子表）")
     @ResponseBody
+    @ApiOperation(value = "根据id单查计划内容信息")
     @GetMapping (value = "getInfoById")
-    public ContentIndicatorsDTO getInfoById(int id) {
-        return contentIndicatorsService.getInfoById(id);
+    public ResultMap getInfoById(int id) {
+        ContentIndicatorsDTO indicatorsDTO=contentIndicatorsService.getInfoById(id);
+        return indicatorsDTO!=null?resultMap.success().message(indicatorsDTO):resultMap.fail().message("查询失败");
     }
 
     /**
      * 全部查询
      * @return
      */
-    @ApiOperation(value = "全部查询计划内容信息（合同子表）")
     @ResponseBody
-    @GetMapping (value = "全部查询")
-    public List<ContentIndicatorsDTO> 全部查询() {
-        return contentIndicatorsService.getAllInfo();
+    @ApiOperation(value = "全部查询计划内容信息）")
+    @GetMapping (value = "getAllnfo")
+    public ResultMap getAllnfo() {
+        List<ContentIndicatorsDTO> dtoList=contentIndicatorsService.getAllInfo();
+        return dtoList.size()>0?resultMap.success().message(dtoList):resultMap.fail().message("查询失败");
     }
 }

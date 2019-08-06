@@ -4,8 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
-
 /**
  * @author: Administrator
  * @createDate: 2019/07/22
@@ -13,7 +11,7 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel("指南申报限制时间")
-public class GuideCollectionLimitTime implements Serializable {
+public class GuideCollectionLimitTime{
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("id")

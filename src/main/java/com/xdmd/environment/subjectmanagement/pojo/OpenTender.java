@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -13,7 +12,7 @@ import java.math.BigDecimal;
  */
 @Data
 @ApiModel("公开招标实体类")
-public class OpenTender implements Serializable{
+public class OpenTender{
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("id")
