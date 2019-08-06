@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -14,7 +13,7 @@ import java.util.Date;
  */
 @Data
 @ApiModel(description="指南申报实体类")
-public class GuideCollection implements Serializable {
+public class GuideCollection {
 
     @ApiModelProperty("主键")
     private Integer id;

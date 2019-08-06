@@ -7,13 +7,13 @@ import lombok.Data;
 /**
  * @author: Kong
  * @createDate: 2019/8/4
- * @description: 课题承担单位、参加单位及主要研究开发人员（合同子表）
+ * @description: 课题承担单位、参加单位及主要研究开发人员【合同子表二】
  */
 @Data
-@ApiModel("课题承担单位、参加单位及主要研究开发人员")
+@ApiModel("课题承担单位、参加单位及主要研究开发人员【合同子表二】")
 public class SubjectKeyResearchDevelopersDTO {
 
-    @ApiModelProperty("合同管理主表id")
+    @ApiModelProperty("合同管理子表id")
     private Integer id;
 
     @ApiModelProperty("课题承担单位")
@@ -57,9 +57,6 @@ public class SubjectKeyResearchDevelopersDTO {
 
     @ApiModelProperty("是否为课题负责人")
     private String isLeader;
-
-    @ApiModelProperty("合同id")
-    private Integer contractId;
 
     public SubjectKeyResearchDevelopersDTO() {
     }

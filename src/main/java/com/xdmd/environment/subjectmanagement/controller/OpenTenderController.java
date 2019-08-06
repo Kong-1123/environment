@@ -3,13 +3,10 @@ package com.xdmd.environment.subjectmanagement.controller;
 import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.subjectmanagement.pojo.OpenTender;
 import com.xdmd.environment.subjectmanagement.service.OpenTenderService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +15,8 @@ import java.util.List;
  * @createDate: 2019/07/26
  * @description: 招标接口
  */
-@Controller
+@Api(tags="招标公告接口")
+@RestController
 @RequestMapping(value = "/environment/tender")
 public class OpenTenderController  {
     @Autowired
@@ -30,7 +28,6 @@ public class OpenTenderController  {
      * @return
      */
     @ApiOperation(value = "新增招标信息")
-    @ResponseBody
     @PostMapping(value = "insertTender")
     ResultMap insertTender(OpenTender openTender){
         return openTenderService.insertTender(openTender);
@@ -43,7 +40,6 @@ public class OpenTenderController  {
      * @return
      */
     @ApiOperation(value = "根据单位的id查询招标信息（不是招标公告的id）")
-    @ResponseBody
     @GetMapping(value = "getTenderById")
     ResultMap getTenderById(int id){
        return openTenderService.getTenderById(id);
@@ -58,23 +54,9 @@ public class OpenTenderController  {
      * @return
      */
     @ApiOperation(value = "分页展示招标信息")
-    @ResponseBody
     @GetMapping(value = "getAllTender")
     ResultMap getAllTender(String projectName, String subjectName, String subjectLeader, String leaderContact, int pageNum, int pageSize){
       List<OpenTender> openTenderList=openTenderService.getTenderPageList(projectName, subjectName, subjectLeader, leaderContact, pageNum, pageSize);
         return openTenderList.size()>0?resultMap.success().message(openTenderList):resultMap.fail().message("查询失败");
     }
-
-    /**
-     * 获取最新数据(测试)
-     * @param
-     * @return
-
-    @ApiOperation(value = "获取最新数据")
-    @ResponseBody
-    @GetMapping(value = "getNewData")
-    OpenTender getNewData(){
-        return openTenderService.getNewData();
-    }
-    */
 }

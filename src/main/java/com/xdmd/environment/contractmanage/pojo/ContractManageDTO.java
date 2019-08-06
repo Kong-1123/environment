@@ -61,7 +61,7 @@ public class ContractManageDTO {
     private String openBankAccount;
 
     @ApiModelProperty("电子信箱")
-    private String eMail;
+    private String email;
 
     @ApiModelProperty("保证单位")
     private String guaranteedUnits;
@@ -126,22 +126,22 @@ public class ContractManageDTO {
     @ApiModelProperty("课题验收内容和考核指标")
     private String subjectAcceptanceAssessment;
 
-    @ApiModelProperty("课题进度及考核指标(外键)")
-    private String subjectProgressMetrics;
+    @ApiModelProperty("课题进度及考核指标(关联子表)")
+    private Integer subjectProgressMetrics;
 
-    @ApiModelProperty("课题承担单位、参加单位及主要研究开发人员(外键)")
-    private String undertakeParticipateResearchers;
+    @ApiModelProperty("课题承担单位、参加单位及主要研究开发人员(关联子表)")
+    private Integer undertakeParticipateResearchers;
 
-    @ApiModelProperty("课题经费来源预算(外键)")
+    @ApiModelProperty("课题经费来源预算(关联子表)")
     private Integer budgetSourceFunding;
 
-    @ApiModelProperty("课题总经费支出预算(外键)")
+    @ApiModelProperty("课题总经费支出预算(关联子表)")
     private Integer subjectTotalExpenditure;
 
-    @ApiModelProperty("合同表文件存放地址\r\n")
+    @ApiModelProperty("合同表文件存放地址")
     private String contractAnnexAddress;
 
-    @ApiModelProperty("\r\n其他条款\r\n")
+    @ApiModelProperty("其他条款")
     private String otherTerms;
 
     public ContractManageDTO() {

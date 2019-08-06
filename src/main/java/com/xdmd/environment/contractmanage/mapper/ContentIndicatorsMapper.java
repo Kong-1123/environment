@@ -1,6 +1,7 @@
 package com.xdmd.environment.contractmanage.mapper;
 
 import com.xdmd.environment.contractmanage.pojo.ContentIndicatorsDTO;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -19,13 +20,15 @@ public interface ContentIndicatorsMapper {
      * @author Kong
      * @date 2019/08/06
      **/
-    int insert(@Param("contentIndicators") ContentIndicatorsDTO contentIndicatorsDTO);
+    @Insert(value = "insert into content_indicators VALUES(DEFAULT,#{time},#{programContentAssessmentIndicators})")
+    int insert(ContentIndicatorsDTO contentIndicatorsDTO);
 
     /**
      * [查詢] 根據主鍵 id 查詢
      * @author Kong
      * @date 2019/08/06
      **/
+    @Select(value = "select * from content_indicators where id=#{id}")
     ContentIndicatorsDTO getInfoById(@Param("id") int id);
 
     /**
