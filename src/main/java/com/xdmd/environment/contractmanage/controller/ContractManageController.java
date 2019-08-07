@@ -31,7 +31,8 @@ public class ContractManageController {
     @ApiOperation(value = "新增合同信息")
     @PostMapping(value = "addContractInfo")
     public ResultMap insertContractInfo(ContractManageDTO contractManageDTO) {
-        return contractManageService.insert(contractManageDTO)>0?resultMap.success().message("新增成功"):resultMap.fail().message("新增失败");
+        int cm=contractManageService.insert(contractManageDTO);
+        return cm>0?resultMap.success().message("新增成功"):resultMap.fail().message("新增失败");
     }
 
     /**
@@ -42,7 +43,8 @@ public class ContractManageController {
     @ApiOperation(value = "根据id查询")
     @GetMapping (value = "getInfoById")
     public ResultMap getContractInfoInfoById(int id) {
-        return contractManageService.getInfoById(id)!=null?resultMap.success().message(contractManageService.getInfoById(id)):resultMap.fail().message("查询失败");
+            ContractManageDTO cmDTO=contractManageService.getInfoById(id);
+        return cmDTO!=null?resultMap.success().message(cmDTO):resultMap.fail().message("查询失败");
     }
 
     /**

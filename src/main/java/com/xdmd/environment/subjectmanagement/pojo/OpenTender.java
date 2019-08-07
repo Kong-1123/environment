@@ -57,7 +57,7 @@ public class OpenTender{
     @ApiModelProperty("审核状态(1：企业的普通员工已提交2：企业的管理员已提交3：科室工作人员通过审核4：审核未通过)")
     private Integer auditStatus;
 
-    @ApiModelProperty(name = "课题编号",required = false)
+    @ApiModelProperty("课题编号【注:系统默认生成,新增时可不用填】")
     private String projectNo;
 
     public OpenTender() {

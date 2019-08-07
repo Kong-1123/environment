@@ -61,8 +61,8 @@ public class OpenTenderController  {
             @ApiImplicitParam(name="subjectName",value = "课题名称",required = false,dataType ="string"),
             @ApiImplicitParam(name="subjectLeader",value = "课题负责人",required = false,dataType ="string"),
             @ApiImplicitParam(name="leaderContact",value = "课题负责人联系方式",required = false,dataType ="string"),
-            @ApiImplicitParam(name="pageNum",value = "当前页数",required =true,dataType ="Long",defaultValue= "1"),
-            @ApiImplicitParam(name="pageSize",value = "每页显示条数",required = true,dataType ="Long",defaultValue= "10")
+            @ApiImplicitParam(name="pageNum",value = "当前页数",required =true,dataType ="Long"),
+            @ApiImplicitParam(name="pageSize",value = "每页显示条数",required = true,dataType ="Long")
     })
     @GetMapping(value = "getAllTender")
     ResultMap getAllTender(String projectName, String subjectName, String subjectLeader, String leaderContact,int pageNum, int pageSize){

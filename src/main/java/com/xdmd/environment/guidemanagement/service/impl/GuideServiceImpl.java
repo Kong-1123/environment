@@ -40,10 +40,22 @@ public class GuideServiceImpl implements GuideService {
      * @return
      */
     @Override
-    public List<Map> getCollectionByParam(String guideName, Integer domain, Integer category, String fillUnit, String fillContacts, String contactPhone, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<Map> guideCollectionList = guideMapper.getCollectionByParam(guideName, domain, category, fillUnit, fillContacts, contactPhone);
-        return guideCollectionList;
+    public ResultMap getCollectionByParam(String guideName, Integer domain, Integer category, String fillUnit, String fillContacts, String contactPhone, int pageNum, int pageSize) {
+
+        try{
+            PageHelper.startPage(pageNum, pageSize);
+            List<Map> guideCollectionList = guideMapper.getCollectionByParam(guideName, domain, category, fillUnit, fillContacts, contactPhone);
+            if(guideCollectionList.size()>0){
+                resultMap.success().message(guideCollectionList);
+            }else if(guideCollectionList.size()==0){
+                resultMap.success().message("没有查到相关信息");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.success().message("系统异常");
+        }
+
+        return resultMap;
     }
 
     /**
@@ -54,7 +66,7 @@ public class GuideServiceImpl implements GuideService {
     @Override
     public ResultMap getCategoryAndDomain() {
         List<Dictionary> getCategoryAndDomains = guideMapper.getCategoryAndDomain();
-        return getCategoryAndDomains.size() > 0 ? resultMap.success().message(getCategoryAndDomains) : resultMap.fail().message("查询失败");
+        return getCategoryAndDomains.size()>0? resultMap.success().message(getCategoryAndDomains) : resultMap.fail().message("查询失败");
     }
 
     /**
@@ -65,11 +77,8 @@ public class GuideServiceImpl implements GuideService {
      */
     @Override
     public ResultMap insertGuideInfo(GuideCollection guideCollection) {
-        try {
-            guideMapper.insertGuideInfo(guideCollection);
-        } catch (Exception e) {
-            return resultMap.fail().message("新增失败");
-        }
+
+           int gm=guideMapper.insertGuideInfo(guideCollection);
         return resultMap.success().message("新增成功");
     }
 
@@ -145,13 +154,25 @@ public class GuideServiceImpl implements GuideService {
     }
 
     /**
-     * 实现根据汇总获取的id查询申报
+     * 根据勾选的指南id获取选相应指南申报信息
      *
      * @param
      * @return
      */
     @Override
-    public List<Map> getCollectionById(List<Integer> idList) {
-        return guideMapper.getCollectionByid(idList);
+    public ResultMap getCollectionByIds(List<Integer> ids) {
+        ids.forEach(id -> System.out.println("id-->" + id));
+        List<Map> guideMap=guideMapper.getCollectionByIds(ids);
+        try{
+            if(guideMap.size()>0){
+                resultMap.success().message(guideMap);
+            }else if(guideMap.size()==0){
+                resultMap.success().message("没有查到相关信息");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.success().message("系统异常");
+        }
+        return resultMap;
     }
 }

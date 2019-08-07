@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @ApiModel("gue_summary")
 public class GuideSummary {
-    @ApiModelProperty("主键")
+    @ApiModelProperty("主键【注:系统默认生成,新增时不用填】")
     private Integer id;
 
     @ApiModelProperty("指南汇总标题")
@@ -48,7 +48,7 @@ public class GuideSummary {
     @ApiModelProperty("拟出标准、技术规范、法规名称")
     private String standardsSpecificationsRegulatory;
 
-    @ApiModelProperty("研究经费测算")
+    @ApiModelProperty("研究经费预算")
     private Integer researchFund;
 
     @ApiModelProperty("示范工程规模")

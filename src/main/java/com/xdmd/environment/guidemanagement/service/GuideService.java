@@ -24,7 +24,7 @@ public interface GuideService {
      * @param pageSize
      * @return
      */
-    List<Map> getCollectionByParam(String guideName, Integer domain, Integer category, String fillUnit, String fillContacts, String contactPhone, int pageNum, int pageSize);
+    ResultMap getCollectionByParam(String guideName, Integer domain, Integer category, String fillUnit, String fillContacts, String contactPhone, int pageNum, int pageSize);
 
     /**
      * 获取类别和领域
@@ -68,10 +68,10 @@ public interface GuideService {
 
 
     /**
-     * 根据汇总获取的id查询申报
+     * 根据勾选的指南id获取选相应指南申报信息
      * @param
      * @return
      */
-    List<Map> getCollectionById(List<Integer> idList);
+    ResultMap getCollectionByIds(List<Integer> ids);
 }
 

@@ -27,34 +27,24 @@ public class GuideController {
     @Autowired
     GuideService guideService;
     ResultMap resultMap=new ResultMap();
-    private List<Integer> idList;
 
-    /**
-     * 分页展示所有信息
-     * @return
-     */
-    @ApiOperation(notes="分页查询指南申报信息",value = "获取指南申报信息" )
-    @GetMapping(value = "getCollectionByParam")
-    public ResultMap getGuideInfoPageList(String guideName, Integer domain, Integer category,String fillUnit,String fillContacts,String contactPhone, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize")int pageSize){
-        List<Map> guideCollectionList= guideService.getCollectionByParam(guideName,domain,category,fillUnit,fillContacts,contactPhone,pageNum,pageSize);
-        return guideCollectionList.size()>0?resultMap.success().message(guideCollectionList):resultMap.fail().message("查询失败");
-    }
-
-    /**
-     * 新增信息
-     * @param guideCollection
-     * @return
-     */
     @ApiOperation(notes="新增指南申报信息", value = "新增信息")
     @PostMapping(value = "insertGuideInfo")
     public ResultMap insertGuideInfo(GuideCollection guideCollection){
-        return resultMap= guideService.insertGuideInfo(guideCollection);
+        return resultMap=guideService.insertGuideInfo(guideCollection);
+    }
+
+    @ApiOperation(notes="分页查询指南申报信息",value = "获取指南申报信息" )
+    @GetMapping(value = "getCollectionByParam")
+    public ResultMap getGuideInfoPageList(String guideName, Integer domain, Integer category,String fillUnit,String fillContacts,String contactPhone, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize")int pageSize){
+       return resultMap= guideService.getCollectionByParam(guideName,domain,category,fillUnit,fillContacts,contactPhone,pageNum,pageSize);
+       // return guideCollectionList.size()>0?resultMap.success().message(guideCollectionList):resultMap.fail().message("查询失败");
     }
 
     @ApiOperation(notes="显示类别和领域信息",value = "获取类别和领域信息")
     @GetMapping(value = "getCategoryAndDomain")
     public ResultMap getCategoryAndDomain(){
-        return guideService.getCategoryAndDomain().size()>0?resultMap.success().message(guideService.getCategoryAndDomain()):resultMap.fail().message("查询失败");
+        return resultMap=guideService.getCategoryAndDomain();
     }
 
     @ApiOperation(notes = "更新限制指南申报时间",value = "更新时间")
@@ -64,7 +54,31 @@ public class GuideController {
     }
 
     /**
-     * 汇总新增信息
+     * 根据单位id查询
+     * @param Uid
+     * @return
+     */
+    @ApiOperation(value = "根据单位id展示相应单位指南(注意:传的是单位id,不是指南申报id)")
+    @GetMapping(value = "getCollectionByUid")
+    public  ResultMap getCollectionByUid(int Uid) {
+        List<Map> getCollectionList=guideService.getCollectionByUid(Uid);
+        return getCollectionList.size()>0?resultMap.success().message(getCollectionList):resultMap.fail().message("查询失败");
+    }
+
+    /**
+     * 根据勾选获取的id查询指南申报
+     * @param
+     * @param ids
+     * @return
+     */
+    @GetMapping(value = "getCollectionByIds")
+    @ApiOperation(value = "根据指南申报的id集合查询申报(注意:传的是指南申报id,不是汇总表id)--存在bug,暂时不测")
+    public ResultMap getCollectionByIds(@RequestBody List<Integer> ids){
+        return resultMap=guideService.getCollectionByIds(ids);
+    }
+
+    /**
+     * 新增汇总信息
      * @param guideSummary
      * @return
      */
@@ -90,31 +104,18 @@ public class GuideController {
     @GetMapping(value = "getAllSummary")
     @ApiOperation(value = "分页展示汇总信息(有bug)")
     @ApiImplicitParams({
-            @ApiImplicitParam(name="pageNum",value = "当前页数",required =true,dataType ="Long"),
-            @ApiImplicitParam(name="pageSize",value = "每页显示条数",required = true,dataType ="Long")
+            @ApiImplicitParam(name="guideSummaryTitle",value = "汇总标题",dataType ="String"),
+            @ApiImplicitParam(name="fillUnit",value = "填报单位",dataType ="String"),
+            @ApiImplicitParam(name="domain",value = "所属领域",dataType ="int"),
+            @ApiImplicitParam(name="category",value = "所属类别",dataType ="int"),
+            @ApiImplicitParam(name="projectTime",value = "立项时间",required =true,dataType ="int"),
+            @ApiImplicitParam(name="researchContentTechnology",value = "主要研究内容和关键技术(300字以内)",dataType ="String"),
+            @ApiImplicitParam(name="pageNum",value = "当前页数",required =true,dataType ="int"),
+            @ApiImplicitParam(name="pageSize",value = "每页显示条数",required = true,dataType ="int")
     })
     public ResultMap getSummaryByParam(String guideSummaryTitle,String fillUnit,Integer domain, Integer category, String projectTime, String researchContentTechnology,@RequestParam("pageNum") int pageNum,@RequestParam("pageSize") int pageSize){
         List<Map> guideSummaryList=guideService.getSummaryByParam(guideSummaryTitle,fillUnit,domain,category,projectTime,researchContentTechnology,pageNum,pageSize);
         return guideSummaryList.size()>0?resultMap.success().message(guideSummaryList):resultMap.fail().message("查询失败");
     }
 
-    @ApiOperation(value = "根据单位id展示相应单位指南(注意:传的是单位id,不是指南申报id)")
-    @ApiImplicitParam(name="单位id",value = "id",required = true,dataType ="integer")
-    @GetMapping(value = "getCollectionByUd")
-    public  ResultMap getCollectionByUid(int id) {
-        List<Map> getCollectionList=guideService.getCollectionByUid(id);
-        return getCollectionList.size()>0?resultMap.success().message(getCollectionList):resultMap.fail().message("查询失败");
-    }
-
-    /**
-     * 根据汇总获取的id查询申报
-     * @param
-     * @return
-     */
-    @GetMapping(value = "getCollectionById")
-    @ApiOperation(value = "根据汇总获取的id查询申报(注意:传的是指南申报id,不是汇总表id)--存在bug")
-    @ApiImplicitParam(name="单位id",value = "id",required = true,paramType = "")
-    public List<Map> getCollectionById(@RequestBody List<Integer> idList){
-        return guideService.getCollectionById(idList);
-    }
 }

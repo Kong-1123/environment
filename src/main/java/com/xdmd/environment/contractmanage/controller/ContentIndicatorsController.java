@@ -30,7 +30,8 @@ public class ContentIndicatorsController {
     @ApiOperation(value = "添加",notes="新增计划内容信息")
     @PostMapping(value = "addContentInfo")
     public ResultMap insert(ContentIndicatorsDTO contentIndicatorsDTO) {
-        return contentIndicatorsService.insert(contentIndicatorsDTO)>0?resultMap.success().message("新增成功"):resultMap.fail().message("新增失败");
+        int ci=contentIndicatorsService.insert(contentIndicatorsDTO);
+        return ci>0?resultMap.success().message("新增成功"):resultMap.fail().message("新增失败");
 
     }
 

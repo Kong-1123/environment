@@ -13,9 +13,6 @@ import lombok.Data;
 @ApiModel(value = "课题承担单位、参加单位及主要研究开发人员【合同子表二】")
 public class SubjectKeyResearchDevelopersDTO {
 
-    @ApiModelProperty("合同管理子表id")
-    private Integer id;
-
     @ApiModelProperty("课题承担单位")
     private String bearingUnits;
 
@@ -38,7 +35,7 @@ public class SubjectKeyResearchDevelopersDTO {
     private String gender;
 
     @ApiModelProperty("年龄")
-    private String age;
+    private int age;
 
     @ApiModelProperty("职称")
     private String professionalTitle;

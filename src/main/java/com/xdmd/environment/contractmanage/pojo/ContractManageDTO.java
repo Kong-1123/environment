@@ -90,7 +90,7 @@ public class ContractManageDTO {
     @ApiModelProperty("承担单位法定代表人")
     private String responsibilityLegalRepresentativeB;
 
-    @ApiModelProperty("承担单位地址\r\n\r\n")
+    @ApiModelProperty("承担单位地址")
     private String commitUnitAddressB;
 
     @ApiModelProperty("承担单位邮政编码")
@@ -117,7 +117,7 @@ public class ContractManageDTO {
     @ApiModelProperty("保证单位邮编")
     private String guaranteedUnitZipC;
 
-    @ApiModelProperty("课题签订说明\r\n")
+    @ApiModelProperty("课题签订说明")
     private String subjectSigningDescription;
 
     @ApiModelProperty("课题的目标和主要研究内容")

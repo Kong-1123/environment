@@ -15,6 +15,14 @@ import java.util.List;
  */
 @Repository
 public interface ContractManageMapper {
+
+    /**
+     * 获取最新的id用于保持最新课题编号
+     * @return
+     */
+    @Select(value = "SELECT id,project_no FROM contract_manage ORDER BY id DESC LIMIT 1")
+    ContractManageDTO getNewData();
+
     /**
      * [新增]
      * @param contractManageDTO

@@ -12,10 +12,10 @@ import java.util.Date;
  * @author Kong 2019-07-15
  */
 @Data
-@ApiModel(value="指南申报实体类")
+@ApiModel(description="指南申报实体类")
 public class GuideCollection {
 
-    @ApiModelProperty("主键")
+    @ApiModelProperty(name="主键【注:系统默认生成,新增时不用填】",required = false)
     private Integer id;
 
     @ApiModelProperty("指南建议申报")
@@ -66,11 +66,16 @@ public class GuideCollection {
     @ApiModelProperty("联系电话(手机)")
     private String contactPhone;
 
-    @ApiModelProperty("申报状态（0 未审核 1 审核通过 2 审核未通过）")
+    @ApiModelProperty(name="申报状态（0 未审核 1 审核通过 2 审核未通过）【注:系统默认生成,新增时不用填】",required = false)
     private Integer declarationStatus;
 
-    @ApiModelProperty("创建时间")
+    @ApiModelProperty(name="是否选中（0-未选中；1-已选中）【注:系统默认生成,新增时不用填】",required = false)
+    private Integer isSelect;
+
+    @ApiModelProperty(name="创建时间【注:系统默认生成,新增时不用填】",required = false)
     private Date createTime;
+
+
 
     public GuideCollection() {
     }
