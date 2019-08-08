@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  * @author Kong 2019-07-15
  */
 @Data
-@ApiModel("公开招标实体类")
+@ApiModel(description ="公开招标实体类")
 public class OpenTender{
     private static final long serialVersionUID = 1L;
 

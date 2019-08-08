@@ -3,6 +3,7 @@ package com.xdmd.environment.guidemanagement.mapper;
 import com.xdmd.environment.common.Dictionary;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -107,12 +108,12 @@ public interface GuideMapper {
             "FROM\n" +
             "guide_collection AS gc,dictionary AS dic,dictionary AS d\n" +
             "where gc.domain=dic.id AND gc.category=d.id AND gc.id in\n" +
-            "<foreach collection='list' item='gcId' open='(' separator=',' close=')'>" +
+            "<foreach\tcollection='list'\titem='gcId'\topen='(' separator=',' close=')'>" +
             "#{gcId}\n" +
             "</foreach>\n" +
             "</script>")
     @Results(value = { @Result(column = "id", property = "id") })
-    List<Map> getCollectionByIds(List<Integer> ids);
+    List<Map> getCollectionByIds(List<Long> ids);
     /**
      * 分页查询指南申报(内网)--汇总1
      * @param guideName
@@ -188,29 +189,45 @@ public interface GuideMapper {
 
 
     /**
-     * 新增全部汇总信息(内网)--汇总3
+     * 新增汇总信息【单条插入】(内网)--汇总3
      * @param guideSummary
      * @return
      */
-    @Insert(value = "INSERT INTO guide_summary (" +
-            "category," +
-            "guide_collection_id," +
-            "guide_summary_title," +
-            "unit_category," +
-            "project_time," +
-            "note," +
-            "check_back_result," +
-            "check_back_note)\t" +
-            "VALUES(" +
-            "#{category}," +
-            "#{guideCollectionId}," +
-            "#{guideSummaryTitle}," +
-            "#{unitCategory}," +
-            "#{projectTime}," +
-            "#{note}," +
-            "#{checkBackResult}," +
-            "#{checkBackNote})")
-    int insertSummary(com.xdmd.environment.guidemanagement.pojo.GuideSummary guideSummary);
+    @Insert(value = "INSERT INTO guide_summary\n" +
+            "VALUES(\n" +
+            "DEFAULT,\n" +
+            "#{guideSummaryTitle},\n" +
+            "#{guideName},\n" +
+            "#{domain},\n" +
+            "#{category},\n" +
+            "#{unitCategory},\n" +
+            "#{fillUnit},\n" +
+            "#{fillContacts},\n" +
+            "#{researchPeriod},\n" +
+            "#{reasonBasis},\n" +
+            "#{researchContentTechnology},\n" +
+            "#{expectedTargetOutcome},\n" +
+            "#{standardsSpecificationsRegulatory},\n" +
+            "#{researchFund},\n" +
+            "#{demonstrationScale},\n" +
+            "#{demonstrationPoint},\n" +
+            "#{provinceDomainMechanism},\n" +
+            "#{contactPhone},\n" +
+            "#{projectTime},\n" +
+            "#{note},\n" +
+            "#{checkBackResult},\n" +
+            "#{checkBackNote},\n" +
+            "#{ownershipCategory},\n" +
+            "DEFAULt)")
+    int insertSummary(GuideSummary guideSummary);
+
+    /**
+     * 新增汇总信息【批量插入】
+     * @param guideSummary
+     * @return
+     */
+    @InsertProvider(type = GuideCollectionProvider.class, method = "batchInsertSummary")
+    int batchInsertSummary(List<GuideSummary> guideSummary);
 
     /**
      * 查询全部汇总信息(要修改)--汇总4

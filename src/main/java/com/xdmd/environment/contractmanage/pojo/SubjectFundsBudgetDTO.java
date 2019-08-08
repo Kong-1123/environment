@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @description: 课题经费预算【合同子表三】
  */
 @Data
-@ApiModel(value = "课题经费预算【合同子表三】")
+@ApiModel(description = "课题经费预算【合同子表三】")
 public class SubjectFundsBudgetDTO {
 
     @ApiModelProperty("id")

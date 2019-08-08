@@ -10,7 +10,7 @@ import lombok.Data;
  * @description: 课题承担单位、参加单位及主要研究开发人员【合同子表二】
  */
 @Data
-@ApiModel(value = "课题承担单位、参加单位及主要研究开发人员【合同子表二】")
+@ApiModel(description = "课题承担单位、参加单位及主要研究开发人员【合同子表二】")
 public class SubjectKeyResearchDevelopersDTO {
 
     @ApiModelProperty("课题承担单位")

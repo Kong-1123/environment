@@ -10,7 +10,7 @@ import lombok.Data;
  * @description: 合同管理主表
  */
 @Data
-@ApiModel(value = "合同管理主表")
+@ApiModel(description = "合同管理主表")
 public class ContractManageDTO {
     @ApiModelProperty("主键【注:id为默认,新增时不用填】")
     private Integer id;

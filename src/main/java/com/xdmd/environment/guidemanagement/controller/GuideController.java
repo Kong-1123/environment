@@ -5,15 +5,11 @@ import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
 import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
 import com.xdmd.environment.guidemanagement.service.GuideService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author: Kong
@@ -28,7 +24,7 @@ public class GuideController {
     GuideService guideService;
     ResultMap resultMap=new ResultMap();
 
-    @ApiOperation(notes="新增指南申报信息", value = "新增信息")
+    @ApiOperation(value = "新增指南申报信息")
     @PostMapping(value = "insertGuideInfo")
     public ResultMap insertGuideInfo(GuideCollection guideCollection){
         return resultMap=guideService.insertGuideInfo(guideCollection);
@@ -61,32 +57,46 @@ public class GuideController {
     @ApiOperation(value = "根据单位id展示相应单位指南(注意:传的是单位id,不是指南申报id)")
     @GetMapping(value = "getCollectionByUid")
     public  ResultMap getCollectionByUid(int Uid) {
-        List<Map> getCollectionList=guideService.getCollectionByUid(Uid);
-        return getCollectionList.size()>0?resultMap.success().message(getCollectionList):resultMap.fail().message("查询失败");
+        return  resultMap=guideService.getCollectionByUid(Uid);
     }
 
     /**
      * 根据勾选获取的id查询指南申报
-     * @param
      * @param ids
      * @return
      */
-    @GetMapping(value = "getCollectionByIds")
-    @ApiOperation(value = "根据指南申报的id集合查询申报(注意:传的是指南申报id,不是汇总表id)--存在bug,暂时不测")
-    public ResultMap getCollectionByIds(@RequestBody List<Integer> ids){
-        return resultMap=guideService.getCollectionByIds(ids);
+    @PostMapping(value = "getCollectionByIds")
+    @ApiOperation(value = "根据勾选的指南申报的id集合查询申报信息(注意:传的是指南申报id,不是汇总表id)")
+    public ResultMap getCollectionByIds(@RequestBody List<Long> ids){
+        if(ids != null && !ids.equals("") && !ids.equals("null")){
+             resultMap=guideService.getCollectionByIds(ids);
+        }
+        return resultMap;
     }
 
     /**
-     * 新增汇总信息
+     * 新增汇总信息【单条插入】
      * @param guideSummary
      * @return
      */
-    @ApiOperation(value = "新增汇总信息")
+    @ApiOperation(value = "新增汇总信息",notes = "【单条插入】")
     @PostMapping(value = "insertSummary")
-    public ResultMap insertSummary(GuideSummary guideSummary
-    ){
+    public ResultMap insertSummary(GuideSummary guideSummary){
         return resultMap= guideService.insertSummary(guideSummary);
+    }
+
+    /**
+     * 新增汇总信息实现【批量插入】
+     * @param guideSummary
+     * @return
+     */
+    @PostMapping(value = "batchInsertSummary")
+    @ApiOperation(value = "新增汇总信息",notes = "【批量插入】")
+    public ResultMap batchInsertSummary(@RequestBody @ApiParam(value="指南汇总列表") List<GuideSummary> guideSummary){
+        if(guideSummary != null && !guideSummary.equals("") && !guideSummary.equals("null")){
+            resultMap=guideService.batchInsertSummary(guideSummary);
+        }
+        return resultMap;
     }
 
     /**
@@ -114,8 +124,7 @@ public class GuideController {
             @ApiImplicitParam(name="pageSize",value = "每页显示条数",required = true,dataType ="int")
     })
     public ResultMap getSummaryByParam(String guideSummaryTitle,String fillUnit,Integer domain, Integer category, String projectTime, String researchContentTechnology,@RequestParam("pageNum") int pageNum,@RequestParam("pageSize") int pageSize){
-        List<Map> guideSummaryList=guideService.getSummaryByParam(guideSummaryTitle,fillUnit,domain,category,projectTime,researchContentTechnology,pageNum,pageSize);
-        return guideSummaryList.size()>0?resultMap.success().message(guideSummaryList):resultMap.fail().message("查询失败");
+        return resultMap=guideService.getSummaryByParam(guideSummaryTitle,fillUnit,domain,category,projectTime,researchContentTechnology,pageNum,pageSize);
     }
 
 }
