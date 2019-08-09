@@ -91,8 +91,8 @@ public interface GuideMapper {
             "SELECT\n" +
             "gc.id,\n" +
             "gc.guide_name,\n" +
-            "dic.content as domain,\n" +
-            "d.content as category,\n" +
+            "dic.content As domain,\n" +
+            "d.content As category,\n" +
             "gc.fill_unit,\n" +
             "gc.fill_contacts,\n" +
             "gc.reason_basis,\n" +
@@ -227,7 +227,7 @@ public interface GuideMapper {
      * @return
      */
     @InsertProvider(type = GuideCollectionProvider.class, method = "batchInsertSummary")
-    int batchInsertSummary(List<GuideSummary> guideSummary);
+    int batchInsertSummary(@Param("list") List<GuideSummary> guideSummary);
 
     /**
      * 查询全部汇总信息(要修改)--汇总4

@@ -112,13 +112,13 @@ public class GuideController {
      * @return
      */
     @GetMapping(value = "getAllSummary")
-    @ApiOperation(value = "分页展示汇总信息(有bug)")
+    @ApiOperation(value = "分页展示汇总信息(bug:模糊查询立项时间有问题)")
     @ApiImplicitParams({
             @ApiImplicitParam(name="guideSummaryTitle",value = "汇总标题",dataType ="String"),
             @ApiImplicitParam(name="fillUnit",value = "填报单位",dataType ="String"),
             @ApiImplicitParam(name="domain",value = "所属领域",dataType ="int"),
             @ApiImplicitParam(name="category",value = "所属类别",dataType ="int"),
-            @ApiImplicitParam(name="projectTime",value = "立项时间",required =true,dataType ="int"),
+            @ApiImplicitParam(name="projectTime",value = "立项时间",dataType ="String"),
             @ApiImplicitParam(name="researchContentTechnology",value = "主要研究内容和关键技术(300字以内)",dataType ="String"),
             @ApiImplicitParam(name="pageNum",value = "当前页数",required =true,dataType ="int"),
             @ApiImplicitParam(name="pageSize",value = "每页显示条数",required = true,dataType ="int")

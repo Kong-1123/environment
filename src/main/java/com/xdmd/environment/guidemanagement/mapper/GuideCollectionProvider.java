@@ -19,24 +19,24 @@ public class GuideCollectionProvider {
      * @return
      */
     public String batchInsertSummary(Map map) {
-        List<GuideSummary> students = (List<GuideSummary>) map.get("list");
+        List<GuideSummary> summaryList = (List<GuideSummary>) map.get("list");
         StringBuilder sb = new StringBuilder();
         sb.append("INSERT INTO guide_summary VALUES");
         MessageFormat mf = new MessageFormat(
-                "(DEFAULt," +
-                        "#'{'list[{0}].guideSummaryTitle},#'{'list[{0}].guideName},#'{'list[{0}].domain}" +
-                        "#'{'list[{0}].category},#'{'list[{0}].unitCategory},#'{'list[{0}].fillUnit}" +
-                        "#'{'list[{0}].fillContacts},#'{'list[{0}].researchPeriod},#'{'list[{0}].reasonBasis}" +
-                        "#'{'list[{0}].researchContentTechnology},#'{'list[{0}].expectedTargetOutcome},#'{'list[{0}].standardsSpecificationsRegulatory}" +
-                        "#'{'list[{0}].researchFund},#'{'list[{0}].demonstrationScale},#'{'list[{0}].demonstrationPoint}" +
-                        "#'{'list[{0}].provinceDomainMechanism},#'{'list[{0}].contactPhone},#'{'list[{0}].projectTime}" +
-                        "#'{'list[{0}].note},#'{'list[{0}].checkBackResult},#'{'list[{0}].checkBackNote}" +
-                        "#'{'list[{0}].checkBackNote},DEFAULt)"
+                "(DEFAULT," +
+                        "#'{'list[{0}].guideSummaryTitle},#'{'list[{0}].guideName},#'{'list[{0}].domain}," +
+                        "#'{'list[{0}].category},#'{'list[{0}].unitCategory},#'{'list[{0}].fillUnit}," +
+                        "#'{'list[{0}].fillContacts},#'{'list[{0}].researchPeriod},#'{'list[{0}].reasonBasis}," +
+                        "#'{'list[{0}].researchContentTechnology},#'{'list[{0}].expectedTargetOutcome},#'{'list[{0}].standardsSpecificationsRegulatory}," +
+                        "#'{'list[{0}].researchFund},#'{'list[{0}].demonstrationScale},#'{'list[{0}].demonstrationPoint}," +
+                        "#'{'list[{0}].provinceDomainMechanism},#'{'list[{0}].contactPhone},#'{'list[{0}].projectTime}," +
+                        "#'{'list[{0}].note},#'{'list[{0}].checkBackResult},#'{'list[{0}].checkBackNote}," +
+                        "#'{'list[{0}].ownershipCategory},DEFAULT)"
         );
 
-        for (int i = 0; i < students.size(); i++) {
+        for (int i = 0; i < summaryList.size(); i++) {
             sb.append(mf.format(new Object[]{i}));
-            if (i < students.size() - 1) {
+            if (i < summaryList.size() - 1) {
                 sb.append(",");
             }
 
