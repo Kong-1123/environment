@@ -3,10 +3,8 @@ package com.xdmd.environment.guidemanagement.mapper;
 import com.xdmd.environment.common.Dictionary;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollectionLimitTime;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,30 +23,12 @@ public interface GuideMapper {
      * @param guideCollection
      * @return
      */
-        @Insert(value = "INSERT INTO guide_collection (\n" +
-                "guide_name,\n" +
-                "domain,\n" +
-                "category,\n" +
-                "fill_unit,\n" +
-                "fill_contacts,\n" +
-                "unit_principal,\n" +
-                "reason_basis,\n" +
-                "research_content_technology,\n" +
-                "expected_target_outcome,\n" +
-                "standards_specifications_regulatory,\n" +
-                "research_period,\n" +
-                "research_fund,\n" +
-                "demonstration_scale,\n" +
-                "demonstration_point,\n" +
-                "province_domain_mechanism,\n" +
-                "contact_phone,\n" +
-                "declaration_status,\n" +
-                ")\n" +
-                "VALUES\n" +
-                "\t(\n" +
+        @Insert(value = "INSERT INTO guide_collection\t"+
+                "VALUES(" +
+                "DEFAULT,\n" +
                 "#{guideName},\n" +
-                "#{domain},\n" +
                 "#{category},\n" +
+                "#{domain},\n" +
                 "#{fillUnit},\n" +
                 "#{fillContacts},\n" +
                 "#{unitPrincipal},\n" +
@@ -62,7 +42,7 @@ public interface GuideMapper {
                 "#{demonstrationPoint},\n" +
                 "#{provinceDomainMechanism},\n" +
                 "#{contactPhone},\n" +
-                "#{declarationStatus})")
+                "DEFAULT,DEFAULT,DEFAULT)")
     int insertGuideInfo(GuideCollection guideCollection);
 
     /**
@@ -103,15 +83,16 @@ public interface GuideMapper {
 
 
     /**
-     * 根据勾选的id获取选相应征集信息(内网)--汇总2
-     * @param
+     * 根据勾选的指南id获取选相应指南申报信息(内网)--汇总2
+     * @param ids
      * @return
     */
-    @Select(value = "<script>" +
+    @Select(value ="<script>\n" +
             "SELECT\n" +
             "gc.id,\n" +
             "gc.guide_name,\n" +
-            "dic.content as domain,\n" +
+            "dic.content As domain,\n" +
+            "d.content As category,\n" +
             "gc.fill_unit,\n" +
             "gc.fill_contacts,\n" +
             "gc.reason_basis,\n" +
@@ -125,13 +106,14 @@ public interface GuideMapper {
             "gc.province_domain_mechanism,\n" +
             "gc.contact_phone\n" +
             "FROM\n" +
-            "guide_collection gc,dictionary dic" +
-            "where gc.domain=dic.id and and gc.id in" +
-            "<foreach collection='idList' item='gcid' open='(' separator=',' close=')'>" +
-            "#{gcid}\n" +
+            "guide_collection AS gc,dictionary AS dic,dictionary AS d\n" +
+            "where gc.domain=dic.id AND gc.category=d.id AND gc.id in\n" +
+            "<foreach\tcollection='list'\titem='gcId'\topen='(' separator=',' close=')'>" +
+            "#{gcId}\n" +
             "</foreach>\n" +
             "</script>")
-    List<Map> getCollectionByid(List<Integer> idList);
+    @Results(value = { @Result(column = "id", property = "id") })
+    List<Map> getCollectionByIds(List<Long> ids);
     /**
      * 分页查询指南申报(内网)--汇总1
      * @param guideName
@@ -194,6 +176,7 @@ public interface GuideMapper {
     @Select(value = "SELECT classification,content FROM dictionary WHERE classification IN ('所属类别','所属领域')")
     List<Dictionary> getCategoryAndDomain();
 
+
     /**
      * 更新限制时间(内网)
      * @param guideCollectionLimitTime
@@ -206,29 +189,45 @@ public interface GuideMapper {
 
 
     /**
-     * 新增全部汇总信息(内网)--汇总3
+     * 新增汇总信息【单条插入】(内网)--汇总3
      * @param guideSummary
      * @return
      */
-    @Insert(value = "INSERT INTO guide_summary (" +
-            "category," +
-            "guide_collection_id," +
-            "guide_summary_title," +
-            "unit_category," +
-            "project_time," +
-            "note," +
-            "check_back_result," +
-            "check_back_note)\t" +
-            "VALUES(" +
-            "#{category}," +
-            "#{guideCollectionId}," +
-            "#{guideSummaryTitle}," +
-            "#{unitCategory}," +
-            "#{projectTime}," +
-            "#{note}," +
-            "#{checkBackResult}," +
-            "#{checkBackNote})")
-    int insertSummary(com.xdmd.environment.guidemanagement.pojo.GuideSummary guideSummary);
+    @Insert(value = "INSERT INTO guide_summary\n" +
+            "VALUES(\n" +
+            "DEFAULT,\n" +
+            "#{guideSummaryTitle},\n" +
+            "#{guideName},\n" +
+            "#{domain},\n" +
+            "#{category},\n" +
+            "#{unitCategory},\n" +
+            "#{fillUnit},\n" +
+            "#{fillContacts},\n" +
+            "#{researchPeriod},\n" +
+            "#{reasonBasis},\n" +
+            "#{researchContentTechnology},\n" +
+            "#{expectedTargetOutcome},\n" +
+            "#{standardsSpecificationsRegulatory},\n" +
+            "#{researchFund},\n" +
+            "#{demonstrationScale},\n" +
+            "#{demonstrationPoint},\n" +
+            "#{provinceDomainMechanism},\n" +
+            "#{contactPhone},\n" +
+            "#{projectTime},\n" +
+            "#{note},\n" +
+            "#{checkBackResult},\n" +
+            "#{checkBackNote},\n" +
+            "#{ownershipCategory},\n" +
+            "DEFAULt)")
+    int insertSummary(GuideSummary guideSummary);
+
+    /**
+     * 新增汇总信息【批量插入】
+     * @param guideSummary
+     * @return
+     */
+    @InsertProvider(type = GuideCollectionProvider.class, method = "batchInsertSummary")
+    int batchInsertSummary(@Param("list") List<GuideSummary> guideSummary);
 
     /**
      * 查询全部汇总信息(要修改)--汇总4

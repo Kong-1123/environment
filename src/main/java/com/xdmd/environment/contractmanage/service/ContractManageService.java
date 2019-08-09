@@ -10,13 +10,20 @@ import java.util.List;
  * @description: 合同管理业务层
  */
 public interface ContractManageService {
+
+
+    /**
+     * 获取最新的id用于保持最新课题编号
+     * @return
+     */
+    ContractManageDTO getNewData();
+
     /**
      * [新增合同主表]
      * @param contractManageDTO
      * @return
      */
     int insert(ContractManageDTO contractManageDTO);
-
 
     /**
      * [查詢合同主表] 根據主鍵 id 查詢

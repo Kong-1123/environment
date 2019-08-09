@@ -4,28 +4,34 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 /**
  * @author: Kong
  * @createDate: 2019/8/1
  * @description: 指南汇总实体
  */
 @Data
-@ApiModel("gue_summary")
+@ApiModel(description ="指南汇总信息")
 public class GuideSummary {
-    @ApiModelProperty("主键")
+    @ApiModelProperty("主键【注:系统默认生成,新增时不用填】")
     private Integer id;
 
     @ApiModelProperty("指南汇总标题")
-    private String gueSummaryTitle;
+    private String guideSummaryTitle;
 
     @ApiModelProperty("指南建议名称")
-    private String gueName;
+    private String guideName;
 
     @ApiModelProperty("所属领域")
-    private String domain;
+    private Integer domain;
 
     @ApiModelProperty("填报类别（所属类别）")
-    private String category;
+    private Integer category;
+
+    @ApiModelProperty("单位类别")
+    private String unitCategory;
 
     @ApiModelProperty("填报单位")
     private String fillUnit;
@@ -48,8 +54,8 @@ public class GuideSummary {
     @ApiModelProperty("拟出标准、技术规范、法规名称")
     private String standardsSpecificationsRegulatory;
 
-    @ApiModelProperty("研究经费测算")
-    private Integer researchFund;
+    @ApiModelProperty("研究经费预算")
+    private BigDecimal researchFund;
 
     @ApiModelProperty("示范工程规模")
     private String demonstrationScale;
@@ -76,7 +82,10 @@ public class GuideSummary {
     private String checkBackNote;
 
     @ApiModelProperty("归属大类")
-    private String ownershipCategory;
+    private Integer ownershipCategory;
+
+    @ApiModelProperty("创建时间【注:系统默认生成,新增时不用填】")
+    private Date createTime;
 
     public GuideSummary() {
     }

@@ -10,7 +10,7 @@ import lombok.Data;
  * @description: 指南申报限制时间
  */
 @Data
-@ApiModel("指南申报限制时间")
+@ApiModel(description = "指南申报限制时间")
 public class GuideCollectionLimitTime{
     private static final long serialVersionUID = 1L;
 

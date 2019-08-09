@@ -10,9 +10,9 @@ import lombok.Data;
  * @description: 计划内容及考核（合同子表一）
  */
 @Data
-@ApiModel("计划内容及考核【合同子表一】")
+@ApiModel(description = "计划内容及考核【合同子表一】")
 public class ContentIndicatorsDTO {
-    @ApiModelProperty("合同管理子表")
+    @ApiModelProperty("合同管理子表【注:id为默认,新增时不用填】")
     private Integer id;
 
     @ApiModelProperty("日期")

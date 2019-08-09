@@ -7,7 +7,6 @@ import com.xdmd.environment.guidemanagement.pojo.GuideSummary;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 
 public interface GuideService {
@@ -24,7 +23,7 @@ public interface GuideService {
      * @param pageSize
      * @return
      */
-    List<Map> getCollectionByParam(String guideName, Integer domain, Integer category, String fillUnit, String fillContacts, String contactPhone, int pageNum, int pageSize);
+    ResultMap getCollectionByParam(String guideName, Integer domain, Integer category, String fillUnit, String fillContacts, String contactPhone, int pageNum, int pageSize);
 
     /**
      * 获取类别和领域
@@ -47,31 +46,37 @@ public interface GuideService {
     ResultMap updateLimitTime(GuideCollectionLimitTime guideCollectionLimitTime);
 
     /**
-     * 新增汇总信息
+     * 新增汇总信息【单条插入】
      * @param guideSummary
      * @return
      */
     ResultMap insertSummary(GuideSummary guideSummary);
+    /**
+     * 新增汇总信息【批量插入】
+     * @param guideSummary
+     * @return
+     */
+    ResultMap batchInsertSummary(List<GuideSummary> guideSummary);
 
     /**
      * 分页查询出所有汇总信息
      * @return
      */
-    List<Map> getSummaryByParam(String guideSummaryTitle, String fillUnit,Integer domain,Integer category,String projectTime,String researchContentTechnology,@Param("pageNum") int pageNum,@Param("pageSize") int pageSize);
+    ResultMap getSummaryByParam(String guideSummaryTitle, String fillUnit,Integer domain,Integer category,String projectTime,String researchContentTechnology,@Param("pageNum") int pageNum,@Param("pageSize") int pageSize);
 
     /**
      * 根據单位id查詢相应单位的指南申报
      * @param Uid
      * @return
      */
-    List<Map> getCollectionByUid(int Uid);
+    ResultMap getCollectionByUid(int Uid);
 
 
     /**
-     * 根据汇总获取的id查询申报
+     * 根据勾选的指南id获取选相应指南申报信息
      * @param
      * @return
      */
-    List<Map> getCollectionById(List<Integer> idList);
+    ResultMap getCollectionByIds(List<Long> ids);
 }
 

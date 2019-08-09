@@ -33,7 +33,7 @@ public class OpenTenderServiceImpl implements OpenTenderService {
         openTender.setProjectNo(setProjectNo());
         try {
             int no=openTenderMapper.insertTender(openTender);
-            System.out.println("影响行数"+no);
+
         }catch (Exception e){
             resultMap.fail().message("新增失败");
         }
@@ -73,8 +73,7 @@ public class OpenTenderServiceImpl implements OpenTenderService {
         return finalResult;
     }
     /**
-     * 根據id查詢相应单位招标
-     *
+     * 根據id查詢相应单位的招标公告
      * @param id
      * @return
      */

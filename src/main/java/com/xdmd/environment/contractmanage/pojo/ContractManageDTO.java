@@ -10,15 +10,15 @@ import lombok.Data;
  * @description: 合同管理主表
  */
 @Data
-@ApiModel("合同管理主表")
+@ApiModel(description = "合同管理主表")
 public class ContractManageDTO {
-    @ApiModelProperty("主键")
+    @ApiModelProperty("主键【注:id为默认,新增时不用填】")
     private Integer id;
 
     @ApiModelProperty("课题类别")
     private String subjectCategory;
 
-    @ApiModelProperty("课题编号")
+    @ApiModelProperty("课题编号【注:课题编号后台已设定,新增时不用填】")
     private String projectNo;
 
     @ApiModelProperty("课题名称")
@@ -90,7 +90,7 @@ public class ContractManageDTO {
     @ApiModelProperty("承担单位法定代表人")
     private String responsibilityLegalRepresentativeB;
 
-    @ApiModelProperty("承担单位地址\r\n\r\n")
+    @ApiModelProperty("承担单位地址")
     private String commitUnitAddressB;
 
     @ApiModelProperty("承担单位邮政编码")
@@ -117,7 +117,7 @@ public class ContractManageDTO {
     @ApiModelProperty("保证单位邮编")
     private String guaranteedUnitZipC;
 
-    @ApiModelProperty("课题签订说明\r\n")
+    @ApiModelProperty("课题签订说明")
     private String subjectSigningDescription;
 
     @ApiModelProperty("课题的目标和主要研究内容")

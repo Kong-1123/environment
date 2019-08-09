@@ -17,7 +17,7 @@ import java.util.List;
  * @createDate: 2019/08/06
  * @description: 课题承担单位、参加单位及主要研究开发人员接口
  */
-@Api(tags = "课题承担单位、参加单位及主要研究开发人员接口【合同子表二】")
+@Api(tags = "课题承担单位、参加单位及主要研究开发人员【合同子表二】")
 @RestController
 @RequestMapping(value = "environment/contract/subjectkeydev")
 public class SubjectKeyResearchDevelopersController {
@@ -32,8 +32,9 @@ public class SubjectKeyResearchDevelopersController {
      */
     @ApiOperation(value = "新增课题预算信息")
     @GetMapping(value = "insertInfo")
-    public int insert(SubjectKeyResearchDevelopersDTO subjectKeyResearchDevelopersDTO) {
-        return subjectKeyResearchDevelopersService.insert(subjectKeyResearchDevelopersDTO);
+    public ResultMap insert(SubjectKeyResearchDevelopersDTO subjectKeyResearchDevelopersDTO) {
+        int skrd=subjectKeyResearchDevelopersService.insert(subjectKeyResearchDevelopersDTO);
+        return skrd>0?resultMap.success().message("新增成功"):resultMap.fail().message("新增失败");
     }
     /**
      * [查詢] 根據主鍵 id 查詢
@@ -42,8 +43,9 @@ public class SubjectKeyResearchDevelopersController {
      */
     @ApiOperation(value = "根据id查询")
     @GetMapping(value = "getInfoById")
-    public SubjectKeyResearchDevelopersDTO getInfoById(int id) {
-        return subjectKeyResearchDevelopersService.getInfoById(id);
+    public ResultMap getInfoById(int id) {
+        SubjectKeyResearchDevelopersDTO skrdDTO= subjectKeyResearchDevelopersService.getInfoById(id);
+        return skrdDTO!=null?resultMap.success().message(skrdDTO):resultMap.fail().message("查询失败");
     }
     /**
      * [查询] 全部查询

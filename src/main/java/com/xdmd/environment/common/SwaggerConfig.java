@@ -1,6 +1,7 @@
 package com.xdmd.environment.common;
 
 import com.google.common.base.Predicates;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -14,6 +15,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
+/**
+ * @ConditionalOnExpression为Spring的注解,用户是否实例化本类
+ * 用于是否启用Swagger的判断,生产环境需要屏蔽Swagger【swagger.enable:false】
+ */
+@ConditionalOnExpression("${swagger.enable:true}")
 public class SwaggerConfig {
     /**
      * 配置docket以配置Swagger具体参数
@@ -26,7 +32,7 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 /**
-                 * // 错误路径不监控
+                 *  错误路径不监控
                  */
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .paths(PathSelectors.any())

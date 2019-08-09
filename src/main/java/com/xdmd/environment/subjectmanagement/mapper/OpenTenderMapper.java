@@ -18,22 +18,9 @@ public interface OpenTenderMapper {
      * @param openTender
      * @return
      */
-    @Select(value = "INSERT INTO open_tender (\n" +
-            "project_name,\n" +
-            "tender_no,\n" +
-            "subcontracting_no,\n" +
-            "subject_name,\n" +
-            "bidders,\n" +
-            "subject_leader,\n" +
-            "leader_contact,\n" +
-            "join_tender_units,\n" +
-            "operator,\n" +
-            "operator_contact,\n" +
-            "winning_amount,\n" +
-            "supporting_funds,\n" +
-            "audit_status,\n" +
-            "project_no)\n" +
-            "VALUES(\n" +
+    @Select(value = "INSERT INTO open_tender"+
+            "VALUES(" +
+            "DEFAULT," +
             "#{projectName},\n" +
             "#{tenderNo},\n" +
             "#{subcontractingNo},\n" +

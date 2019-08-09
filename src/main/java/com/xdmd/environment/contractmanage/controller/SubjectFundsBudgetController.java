@@ -15,7 +15,7 @@ import java.util.List;
  * @createDate: 2019/08/06
  * @description: 课题经费预算接口
  */
-@Api(tags = "课题经费预算接口【合同子表三】")
+@Api(tags = "课题经费预算【合同子表三】")
 @RestController
 @RequestMapping(value = "environment/contract/subjectfundbudget")
 public class SubjectFundsBudgetController {
