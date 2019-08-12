@@ -1,9 +1,7 @@
 package com.xdmd.environment.contractmanage.mapper;
 
 import com.xdmd.environment.contractmanage.pojo.ContractManageDTO;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -68,27 +66,40 @@ public interface ContractManageMapper {
             "#{subjectSigningDescription},\n" +
             "#{subjectObjectivesResearch},\n" +
             "#{subjectAcceptanceAssessment},\n" +
-            "#{subjectProgressMetrics},\n" +
-            "#{undertakeParticipateResearchers},\n" +
-            "#{budgetSourceFunding},\n" +
-            "#{subjectTotalExpenditure},\n" +
-            "#{contractAnnexAddress},\n" +
+            "#{isMidCheck}" +
             "#{otherTerms})")
     int insert(ContractManageDTO contractManageDTO);
 
     /**
-     * [查詢] 根據主鍵 id 查詢
+     * [查詢] 根據合同管理id查詢
      * @param id
      * @return
      */
     @Select(value = "select * from contract_manage where id=#{id}")
-    ContractManageDTO getInfoById(@Param("id") int id);
+    ContractManageDTO getManageInfoById(@Param("id") int id);
 
     /**
-     * [查詢] 查詢全部合同
+     * [查詢] 查詢全部合同主表
      * @param
      * @return
      */
     @Select(value = "select * from contract_manage")
     List<ContractManageDTO> getAllInfo();
+
+    /**
+     * 根据勾选的合同主表id修改相应的中期检查状态(内网)--中期检查
+     * @param ids
+     * @return
+     */
+    @Update(value ="<script>" +
+            "UPDATE contract_manage \n" +
+            "SET is_mid_check = 1 \n" +
+            "WHERE\n" +
+            "\tid IN" +
+            "<foreach\tcollection='list'\titem='cId'\topen='(' separator=',' close=')'>" +
+            "#{cId}\n" +
+            "</foreach>\n" +
+            "</script>")
+    @Results(value = {@Result(column = "id", property = "id")})
+    int updateContractByIds(List<Long> ids);
 }

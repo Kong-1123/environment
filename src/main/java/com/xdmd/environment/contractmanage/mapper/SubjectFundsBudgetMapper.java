@@ -23,6 +23,7 @@ public interface SubjectFundsBudgetMapper {
     @Insert(value = "insert into subject_funds_budget\n" +
             "VALUES(\n" +
             "DEFAULT," +
+            "#{contractId},+" +
             "#{budget},\n" +
             "#{currentYear},\n" +
             "#{nextYear},\n" +
@@ -85,13 +86,14 @@ public interface SubjectFundsBudgetMapper {
             "#{dailySupportingBudget},\n" +
             "#{dailyNoteBudget})\n")
     int insert(SubjectFundsBudgetDTO subjectFundsBudgetDTO);
+
     /**
-     * [查詢] 根據主鍵 id 查詢
+     * [查詢] 根據合同管理id查詢
      * @author Kong
      * @date 2019/08/06
      **/
-    @Select(value = "select * from subject_funds_budget where id=#{id}")
-    SubjectFundsBudgetDTO getInfoById(@Param("id") int id);
+    @Select(value = "select ci.* from subject_funds_budget as sfb,contract_manage as cm where sfb.contract_id=cm.id and cm.id=#{id}")
+    SubjectFundsBudgetDTO getBudgetInfoById(@Param("id") int id);
 
     /**
      * [查詢] 获取全部预算信息

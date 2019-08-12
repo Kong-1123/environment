@@ -68,13 +68,13 @@ public class ContractManageServiceImpl implements ContractManageService {
         return finalResult;
     }
     /**
-     * 根据id查询
+     * 根据合同主表id查询
      * @param id
      * @return
      */
     @Override
-    public ContractManageDTO getInfoById(int id) {
-        return contractManageMapper.getInfoById(id);
+    public ContractManageDTO getManageInfoById(int id) {
+        return contractManageMapper.getManageInfoById(id);
     }
 
     /**
@@ -85,4 +85,15 @@ public class ContractManageServiceImpl implements ContractManageService {
     public List<ContractManageDTO> getAllInfo() {
         return contractManageMapper.getAllInfo();
     }
+
+    /**
+     * 根据勾选的合同主表id修改相应的中期检查状态(内网)--中期检查
+     * @param ids
+     * @return
+     */
+    @Override
+    public int updateContractByIds(List<Long> ids) {
+        return contractManageMapper.updateContractByIds(ids);
+    }
+
 }

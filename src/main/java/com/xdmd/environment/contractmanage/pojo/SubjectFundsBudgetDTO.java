@@ -18,6 +18,9 @@ public class SubjectFundsBudgetDTO {
     @ApiModelProperty("id")
     private Integer id;
 
+    @ApiModelProperty("合同主表id")
+    private Integer contractId;
+
     @ApiModelProperty("预算数")
     private BigDecimal budget;
 

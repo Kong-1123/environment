@@ -41,9 +41,9 @@ public class ContractManageController {
      * @return
      */
     @ApiOperation(value = "根据id查询")
-    @GetMapping (value = "getInfoById")
-    public ResultMap getContractInfoInfoById(int id) {
-            ContractManageDTO cmDTO=contractManageService.getInfoById(id);
+    @GetMapping (value = "getManageInfoById")
+    public ResultMap getManageInfoById(int id) {
+         ContractManageDTO cmDTO=contractManageService.getManageInfoById(id);
         return cmDTO!=null?resultMap.success().message(cmDTO):resultMap.fail().message("查询失败");
     }
 
@@ -57,4 +57,14 @@ public class ContractManageController {
         return contractManageService.getAllInfo();
     }
 
+    /**
+     * 根据勾选的合同主表id修改相应的中期检查状态(内网)--中期检查
+     * @param ids
+     * @return
+     */
+    @ApiOperation(value = "根据勾选的合同主表id修改相应的中期检查状态")
+    @PostMapping (value = "updateContractByIds")
+    public int updateContractByIds(@RequestBody List<Long> ids) {
+        return contractManageService.updateContractByIds(ids);
+    }
 }

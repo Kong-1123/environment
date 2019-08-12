@@ -33,8 +33,8 @@ public class SubjectKeyResearchDevelopersServiceImpl implements SubjectKeyResear
      * @return
      */
     @Override
-    public SubjectKeyResearchDevelopersDTO getInfoById(int id) {
-        return subjectKeyResearchDevelopersMapper.getInfoById(id);
+    public SubjectKeyResearchDevelopersDTO getDeveloperInfoById(int id) {
+        return subjectKeyResearchDevelopersMapper.getDeveloperInfoById(id);
     }
     /**
      * [查询] 全部查询

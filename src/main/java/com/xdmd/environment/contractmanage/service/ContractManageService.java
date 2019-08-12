@@ -26,15 +26,22 @@ public interface ContractManageService {
     int insert(ContractManageDTO contractManageDTO);
 
     /**
-     * [查詢合同主表] 根據主鍵 id 查詢
+     * [查詢合同主表] 根据合同主表id查询
      * @param id
      * @return
      */
-    ContractManageDTO getInfoById(int id);
+    ContractManageDTO getManageInfoById(int id);
 
     /**
-     * [查詢合同主表] 查詢全部
+     * [查詢合同主表] 查詢主表全部
      * @return
      */
     List<ContractManageDTO> getAllInfo();
+
+    /**
+     * 根据勾选的合同主表id修改相应的中期检查状态(内网)--中期检查
+     * @param ids
+     * @return
+     */
+    int updateContractByIds(List<Long> ids);
 }

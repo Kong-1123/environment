@@ -126,23 +126,11 @@ public class ContractManageDTO {
     @ApiModelProperty("课题验收内容和考核指标")
     private String subjectAcceptanceAssessment;
 
-    @ApiModelProperty("课题进度及考核指标(关联子表)")
-    private Integer subjectProgressMetrics;
-
-    @ApiModelProperty("课题承担单位、参加单位及主要研究开发人员(关联子表)")
-    private Integer undertakeParticipateResearchers;
-
-    @ApiModelProperty("课题经费来源预算(关联子表)")
-    private Integer budgetSourceFunding;
-
-    @ApiModelProperty("课题总经费支出预算(关联子表)")
-    private Integer subjectTotalExpenditure;
-
-    @ApiModelProperty("合同表文件存放地址")
-    private String contractAnnexAddress;
-
     @ApiModelProperty("其他条款")
     private String otherTerms;
+
+    @ApiModelProperty("是否进行中期检查（0--不检查 1--检查）")
+    private Integer isMidCheck;
 
     public ContractManageDTO() {
     }

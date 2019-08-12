@@ -21,32 +21,34 @@ public interface SubjectKeyResearchDevelopersMapper {
      * @date 2019/08/06
      **/
     @Insert(value = "insert into subject_key_research_developers\n" +
-            "values(\n" +
-            "DEFAULT,\n" +
-            "#{bearingUnits},\n" +
-            "#{participatingUnits},\n" +
-            "#{overseasCooperationUnits},\n" +
-            "#{country},\n" +
-            "#{leaderName},\n" +
-            "#{unitName},\n" +
-            "#{gender},\n" +
-            "#{age},\n" +
-            "#{professionalTitle},\n" +
-            "#{professional},\n" +
-            "#{workTask},\n" +
-            "#{workingTime},\n" +
-            "#{keyResearchDevelopers},\n" +
+            "values(" +
+            "DEFAULT," +
+            "#{contractId}," +
+            "#{bearingUnits}," +
+            "#{participatingUnits}," +
+            "#{overseasCooperationUnits}," +
+            "#{country}," +
+            "#{leaderName}," +
+            "#{unitName}," +
+            "#{gender}," +
+            "#{age}," +
+            "#{professionalTitle}," +
+            "#{professional}," +
+            "#{workTask}," +
+            "#{workingTime}," +
+            "#{keyResearchDevelopers}," +
             "#{isLeader})")
     int insert(SubjectKeyResearchDevelopersDTO subjectKeyResearchDevelopersDTO);
 
 
     /**
-     * [查詢] 根據主鍵 id 查詢
+     * [查詢] 根據合同管理id查詢
      * @author Kong
      * @date 2019/08/06
      **/
-    @Select(value = "select * from subject_key_research_developers where id=#{id}")
-    SubjectKeyResearchDevelopersDTO getInfoById(@Param("id") int id);
+    @Select(value = "select ci.* from subject_key_research_developers skrd,contract_manage cm\n" +
+            "where skrd.contract_id=cm.id and cm.id=#{id}")
+    SubjectKeyResearchDevelopersDTO getDeveloperInfoById(@Param("id") int id);
 
     /**
      * [查詢] 全部查詢

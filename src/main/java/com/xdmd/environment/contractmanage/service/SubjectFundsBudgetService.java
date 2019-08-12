@@ -1,6 +1,6 @@
 package com.xdmd.environment.contractmanage.service;
 
-        import com.xdmd.environment.contractmanage.pojo.SubjectFundsBudgetDTO;
+import com.xdmd.environment.contractmanage.pojo.SubjectFundsBudgetDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -19,11 +19,11 @@ public interface SubjectFundsBudgetService {
     int insert(SubjectFundsBudgetDTO subjectFundsBudgetDTO);
 
     /**
-     * [查詢] 根據主鍵 id 查詢
+     * [查詢] 根據合同管理id查詢
      * @param id
      * @return
      */
-    SubjectFundsBudgetDTO getInfoById(@Param("id") int id);
+    SubjectFundsBudgetDTO getBudgetInfoById(@Param("id") int id);
     /**
      * [查詢] 获取全部预算信息
      * @return
