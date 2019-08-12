@@ -12,6 +12,8 @@ import lombok.Data;
 @Data
 @ApiModel(description = "课题承担单位、参加单位及主要研究开发人员【合同子表二】")
 public class SubjectKeyResearchDevelopersDTO {
+    @ApiModelProperty(name="主键【注:系统默认生成,新增时不用填】",required = false,example ="1")
+    private Integer id;
 
     @ApiModelProperty("合同管理的子表二")
     private Integer id;

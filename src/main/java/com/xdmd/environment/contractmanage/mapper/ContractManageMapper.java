@@ -102,4 +102,13 @@ public interface ContractManageMapper {
             "</script>")
     @Results(value = {@Result(column = "id", property = "id")})
     int updateContractByIds(List<Long> ids);
+
+    /**
+     * [查詢] 根据中期检查状态查詢相应合同主表
+     * @param
+     * @return
+     */
+    @Select(value = "select subject_name,contract_start_time,subject_objectives_research from contract_manage where is_mid_check=1")
+    List<ContractManageDTO> getInfoByMidState();
+
 }

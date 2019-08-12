@@ -35,7 +35,7 @@ public class GuideCollectionProvider {
         );
 
         for (int i = 0; i < summaryList.size(); i++) {
-            sb.append(mf.format(new Object[]{i}));
+            sb.append(mf.format(new Object[]{0}));
             if (i < summaryList.size() - 1) {
                 sb.append(",");
             }

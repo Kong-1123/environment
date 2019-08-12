@@ -235,7 +235,6 @@ public class GuideServiceImpl implements GuideService {
                 resultMap.success().message("没有查到相关信息");
             }
         }catch (Exception e){
-            e.printStackTrace();
             resultMap.success().message("系统异常");
         }
         return resultMap;

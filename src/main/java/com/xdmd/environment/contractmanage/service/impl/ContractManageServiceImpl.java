@@ -96,4 +96,13 @@ public class ContractManageServiceImpl implements ContractManageService {
         return contractManageMapper.updateContractByIds(ids);
     }
 
+    /**
+     * [查詢] 根据中期检查状态查詢相应合同主表
+     * @return
+     */
+    @Override
+    public List<ContractManageDTO> getInfoByMidState() {
+        return contractManageMapper.getInfoByMidState();
+    }
+
 }

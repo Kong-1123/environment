@@ -44,4 +44,10 @@ public interface ContractManageService {
      * @return
      */
     int updateContractByIds(List<Long> ids);
+
+    /**
+     * [查詢] 根据中期检查状态查詢相应合同主表
+     * @return
+     */
+    List<ContractManageDTO> getInfoByMidState();
 }

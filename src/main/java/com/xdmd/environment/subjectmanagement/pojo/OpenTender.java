@@ -13,9 +13,8 @@ import java.math.BigDecimal;
 @Data
 @ApiModel(description ="公开招标实体类")
 public class OpenTender{
-    private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("id【注:id为默认,新增时不用填】")
+    @ApiModelProperty(name="主键【注:系统默认生成,新增时不用填】",required = false,example ="1")
     private int id;
 
     @ApiModelProperty("项目名称")

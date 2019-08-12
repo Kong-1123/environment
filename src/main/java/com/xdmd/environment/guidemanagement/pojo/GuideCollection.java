@@ -15,7 +15,7 @@ import java.util.Date;
 @ApiModel(description="指南申报实体类")
 public class GuideCollection {
 
-    @ApiModelProperty(value="主键【注:系统默认生成,新增时不用填】",required = false,example = "1")
+    @ApiModelProperty(name="主键【注:系统默认生成,新增时不用填】",required = false,example ="1")
     private Integer id;
 
     @ApiModelProperty("指南建议申报")

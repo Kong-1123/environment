@@ -67,4 +67,14 @@ public class ContractManageController {
     public int updateContractByIds(@RequestBody List<Long> ids) {
         return contractManageService.updateContractByIds(ids);
     }
+
+    /**
+     * 根据中期检查状态查詢相应合同主表
+     * @return
+     */
+    @ApiOperation(value = "根据中期检查状态查詢相应合同主表")
+    @GetMapping (value = "getInfoByMidState")
+    public List<ContractManageDTO> getInfoByMidState() {
+        return contractManageService.getInfoByMidState();
+    }
 }

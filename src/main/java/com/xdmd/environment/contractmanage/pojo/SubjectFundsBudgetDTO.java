@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @ApiModel(description = "课题经费预算【合同子表三】")
 public class SubjectFundsBudgetDTO {
 
-    @ApiModelProperty("id")
+    @ApiModelProperty(name="主键【注:系统默认生成,新增时不用填】",required = false,example ="1")
     private Integer id;
 
     @ApiModelProperty("合同主表id")
