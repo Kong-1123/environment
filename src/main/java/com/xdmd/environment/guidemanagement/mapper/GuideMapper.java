@@ -278,28 +278,7 @@ public interface GuideMapper {
             "</script>")
     List<Map> getSummaryByParam(@Param("guideSummaryTitle") String guideSummaryTitle,@Param("fillUnit")String fillUnit,@Param("domain") Integer domain,@Param("category") Integer category,@Param("projectTime") String projectTime,@Param("researchContentTechnology") String researchContentTechnology);
 
+
+
+
 }
-// 查询全部汇总信息sql
-// SELECT
-// gc.guide_name,
-// dic.content as domain,
-// gc.fill_unit,
-// gc.fill_contacts,
-// gc.reason_basis,
-// gc.research_content_technology,
-// gc.expected_target_outcome,
-// gc.standards_specifications_regulatory,
-// gc.research_period,
-// gc.research_fund,
-// gc.demonstration_scale,
-// gc.demonstration_point,
-// gc.province_domain_mechanism,
-// gc.contact_phone,
-// gsv.guide_summary_title,
-// d.content as category,
-// gsv.unit_category,
-// gsv.project_time,
-// gsv.note,gsv.check_back_result,gsv.check_back_note
-// FROM
-// guide_collection gc,dictionary dic,guide_summary_v2 gsv,dictionary d
-// where gc.domain = dic.id and gsv.category=d.id and gc.id in (1,3,5,7,9)

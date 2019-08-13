@@ -3,6 +3,7 @@ package com.xdmd.environment.contractmanage.service;
 import com.xdmd.environment.contractmanage.pojo.ContractManageDTO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: Kong
@@ -49,5 +50,12 @@ public interface ContractManageService {
      * [查詢] 根据中期检查状态查詢相应合同主表
      * @return
      */
-    List<ContractManageDTO> getInfoByMidState();
+    List<Map> getInfoByMidState();
+
+    /**
+     * [查詢] 根据单位id查詢本单位的课题合同
+     * @param Uid
+     * @return
+     */
+    List<Map> getContractByUid(int Uid);
 }

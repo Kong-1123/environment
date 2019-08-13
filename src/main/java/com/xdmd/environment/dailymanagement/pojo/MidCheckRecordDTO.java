@@ -7,7 +7,7 @@ import lombok.Data;
 /**
  * @author: Kong
  * @createDate: 2019/8/12
- * @description: 中期检查记录
+ * @description: 中期检查记录(备用)
  */
 @Data
 @ApiModel("mid_check_record")
@@ -22,14 +22,8 @@ public class MidCheckRecordDTO {
     @ApiModelProperty("中期检查发起时间")
     private String midCheckInitiateTime;
 
-    @ApiModelProperty("抽查课题")
-    private String spotCheckSubject;
-
     @ApiModelProperty("中期检查状态（0--未完成 1--已完成）")
     private String midCheckState;
-
-    @ApiModelProperty("附件id")
-    private String annexId;
 
     public MidCheckRecordDTO() {
     }

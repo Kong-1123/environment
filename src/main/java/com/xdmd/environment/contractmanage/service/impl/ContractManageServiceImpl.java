@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: Kong
@@ -101,8 +102,17 @@ public class ContractManageServiceImpl implements ContractManageService {
      * @return
      */
     @Override
-    public List<ContractManageDTO> getInfoByMidState() {
+    public List<Map> getInfoByMidState() {
         return contractManageMapper.getInfoByMidState();
     }
 
+    /**
+     * [查詢] 根据单位id查詢本单位的课题合同
+     * @param Uid
+     * @return
+     */
+    @Override
+    public List<Map> getContractByUid(int Uid) {
+        return contractManageMapper.getContractByUid(Uid);
+    }
 }

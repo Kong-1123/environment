@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: Kong
@@ -108,7 +109,22 @@ public interface ContractManageMapper {
      * @param
      * @return
      */
-    @Select(value = "select subject_name,contract_start_time,subject_objectives_research from contract_manage where is_mid_check=1")
-    List<ContractManageDTO> getInfoByMidState();
+    @Select(value = "select id subject_name,contract_start_time,subject_objectives_research from contract_manage where is_mid_check=1")
+    List<Map> getInfoByMidState();
 
+    /**
+     * [查詢] 根据单位id查詢本单位的课题合同
+     * @param Uid
+     * @return
+     */
+    @Select(value = "SELECT\n" +
+            "cm.id,\n" +
+            "uc.contract_id,\n" +
+            "cm.subject_name,\n" +
+            "cm.contract_start_time,\n" +
+            "cm.subject_objectives_research \n" +
+            "FROM\n" +
+            "contract_manage cm,unit_contract uc\n" +
+            "where cm.id=uc.contract_id and uc.unit_id=#{Uid} and cm.id in (select id from contract_manage where is_mid_check=1)")
+    List<Map> getContractByUid(int Uid);
 }

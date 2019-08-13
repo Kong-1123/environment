@@ -15,9 +15,6 @@ public class SubjectKeyResearchDevelopersDTO {
     @ApiModelProperty(name="主键【注:系统默认生成,新增时不用填】",required = false,example ="1")
     private Integer id;
 
-    @ApiModelProperty("合同管理的子表二")
-    private Integer id;
-
     @ApiModelProperty("合同主表id")
     private Integer contractId;
 

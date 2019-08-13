@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: Kong
@@ -40,7 +41,7 @@ public class ContractManageController {
      * @param id
      * @return
      */
-    @ApiOperation(value = "根据id查询")
+    @ApiOperation(value = "根据合同id查询")
     @GetMapping (value = "getManageInfoById")
     public ResultMap getManageInfoById(int id) {
          ContractManageDTO cmDTO=contractManageService.getManageInfoById(id);
@@ -51,7 +52,7 @@ public class ContractManageController {
      * 全查
      * @return
      */
-    @ApiOperation(value = "查询全部合同")
+    @ApiOperation(value = "查询合同主表信息")
     @GetMapping (value = "getAllInfo")
     public List<ContractManageDTO> getAllInfo() {
         return contractManageService.getAllInfo();
@@ -74,7 +75,19 @@ public class ContractManageController {
      */
     @ApiOperation(value = "根据中期检查状态查詢相应合同主表")
     @GetMapping (value = "getInfoByMidState")
-    public List<ContractManageDTO> getInfoByMidState() {
+    public List<Map> getInfoByMidState() {
         return contractManageService.getInfoByMidState();
+    }
+
+
+    /**
+     * [查詢] 根据单位id查詢本单位的课题合同
+     * @param Uid
+     * @return
+     */
+    @ApiOperation(value = "根据单位id查詢本单位的课题合【提示:传的是单位id,不是合同id】")
+    @GetMapping (value = "getContractByUid")
+    public List<Map> getContractByUid(int Uid) {
+        return contractManageService.getContractByUid(Uid);
     }
 }

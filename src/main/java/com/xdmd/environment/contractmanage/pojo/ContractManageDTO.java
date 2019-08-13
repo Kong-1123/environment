@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @ApiModel(description = "合同管理主表")
 public class ContractManageDTO {
-    @ApiModelProperty(name="主键【注:系统默认生成,新增时不用填】",required = false,example ="1")
+    @ApiModelProperty(name="主键【注:系统默认生成,新增时不用填】",required = false)
     private Integer id;
 
     @ApiModelProperty("课题类别")
@@ -75,46 +75,46 @@ public class ContractManageDTO {
     @ApiModelProperty("委托单位（甲方）")
     private String commissioningUnit;
 
-    @ApiModelProperty("委托单位法定代表人")
+    @ApiModelProperty("委托单位（甲方）法定代表人")
     private String legalRepresentativeEntrustingA;
 
-    @ApiModelProperty("委托单位地址")
+    @ApiModelProperty("委托单位（甲方）地址")
     private String commissionedUnitAddressA;
 
-    @ApiModelProperty("委托单位邮政编码")
+    @ApiModelProperty("委托单位（甲方）邮政编码")
     private String commissionedUnitZipA;
 
     @ApiModelProperty("承担单位（乙方）")
     private String responsibilityUnitB;
 
-    @ApiModelProperty("承担单位法定代表人")
+    @ApiModelProperty("承担单位（乙方）法定代表人")
     private String responsibilityLegalRepresentativeB;
 
-    @ApiModelProperty("承担单位地址")
+    @ApiModelProperty("承担单位（乙方）地址")
     private String commitUnitAddressB;
 
-    @ApiModelProperty("承担单位邮政编码")
+    @ApiModelProperty("承担单位（乙方）邮政编码")
     private String commitUnitZipB;
 
-    @ApiModelProperty("承担单位课题负责人")
+    @ApiModelProperty("承担单位（乙方）课题负责人")
     private String commitUnitLeaderB;
 
-    @ApiModelProperty("承担单位课题负责人电话（手机号）")
+    @ApiModelProperty("承担单位（乙方）课题负责人电话（手机号）")
     private String commitunitLeadersPhoneB;
 
-    @ApiModelProperty("承担单位课题负责人电子邮件")
+    @ApiModelProperty("承担单位（乙方）课题负责人电子邮件")
     private String commitmentUnitEmailB;
 
     @ApiModelProperty("保证单位（丙方）")
     private String guaranteedUnitC;
 
-    @ApiModelProperty("保证单位法定代表人/部门负责人")
+    @ApiModelProperty("保证单位（丙方）法定代表人/部门负责人")
     private String guaranteedUnitLeaderC;
 
-    @ApiModelProperty("保证单位地址")
+    @ApiModelProperty("保证单位（丙方）地址")
     private String guaranteedUnitAddressC;
 
-    @ApiModelProperty("保证单位邮编")
+    @ApiModelProperty("保证单位（丙方）邮编")
     private String guaranteedUnitZipC;
 
     @ApiModelProperty("课题签订说明")

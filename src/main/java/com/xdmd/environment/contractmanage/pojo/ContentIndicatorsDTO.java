@@ -24,7 +24,6 @@ public class ContentIndicatorsDTO {
     @ApiModelProperty("计划内容及考核指标")
     private String programContentAssessmentIndicators;
 
-
     public ContentIndicatorsDTO() {
     }
 

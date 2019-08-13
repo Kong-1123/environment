@@ -21,8 +21,8 @@ public class SubjectFundsBudgetDTO {
     @ApiModelProperty("合同主表id")
     private Integer contractId;
 
-    @ApiModelProperty("预算数")
-    private BigDecimal budget;
+    @ApiModelProperty("经费来源合计预算数")
+    private BigDecimal fundingSourcesBudget;
 
     @ApiModelProperty("当前年")
     private String currentYear;
@@ -36,6 +36,9 @@ public class SubjectFundsBudgetDTO {
     @ApiModelProperty("备注")
     private String note;
 
+    @ApiModelProperty("省环保科研课题经费预算数")
+    private BigDecimal provincialBudget;
+
     @ApiModelProperty("省环保科研课题经费当前年预算")
     private BigDecimal provincialCurrentBudget;
 
@@ -47,6 +50,9 @@ public class SubjectFundsBudgetDTO {
 
     @ApiModelProperty("省环保科研课题经费预算备注")
     private String provincialNoteBudget;
+
+    @ApiModelProperty("部门、地方配套预算数")
+    private BigDecimal departmentBudget;
 
     @ApiModelProperty("部门、地方配套当前年预算")
     private BigDecimal departmentCurrentBudget;
@@ -60,6 +66,9 @@ public class SubjectFundsBudgetDTO {
     @ApiModelProperty("部门、地方配套预算备注")
     private String departmentNoteBudget;
 
+    @ApiModelProperty("承担单位自筹预算数")
+    private BigDecimal bearBudget;
+
     @ApiModelProperty("承担单位自筹当前年预算")
     private BigDecimal bearCurrentBudget;
 
@@ -72,6 +81,9 @@ public class SubjectFundsBudgetDTO {
     @ApiModelProperty("承担单位自筹预算备注")
     private String bearNoteBudget;
 
+    @ApiModelProperty("其他来源预算数")
+    private BigDecimal otherBudget;
+
     @ApiModelProperty("其他来源当前年预算")
     private BigDecimal otherCurrentBudget;
 
@@ -83,6 +95,12 @@ public class SubjectFundsBudgetDTO {
 
     @ApiModelProperty("其他来源预算备注")
     private String otherNoteBudget;
+
+    @ApiModelProperty("经费支出合计预算数")
+    private BigDecimal expenditureBudget;
+
+    @ApiModelProperty("设备费支出预算数")
+    private BigDecimal equipmentBudget;
 
     @ApiModelProperty("设备费支出当前年预算")
     private BigDecimal equipmentCurrentBudget;
@@ -99,6 +117,9 @@ public class SubjectFundsBudgetDTO {
     @ApiModelProperty("设备费支出预算备注")
     private String equipmentNoteBudget;
 
+    @ApiModelProperty("材料费支出预算数")
+    private BigDecimal materialBudget;
+
     @ApiModelProperty("材料费支出当前年预算")
     private BigDecimal materialCurrentBudget;
 
@@ -113,6 +134,9 @@ public class SubjectFundsBudgetDTO {
 
     @ApiModelProperty("材料费支出预算备注")
     private String materialNoteBudget;
+
+    @ApiModelProperty("测试化验加工费支出预算数")
+    private BigDecimal testBudget;
 
     @ApiModelProperty("测试化验加工费支出当前年预算")
     private String testCurrentBudget;
@@ -129,6 +153,9 @@ public class SubjectFundsBudgetDTO {
     @ApiModelProperty("测试化验加工费支出预算备注")
     private String testNoteBudget;
 
+    @ApiModelProperty("燃料动力费支出预算数")
+    private BigDecimal fuelBudget;
+
     @ApiModelProperty("燃料动力费支出当前年预算")
     private BigDecimal fuelCurrentBudget;
 
@@ -143,6 +170,9 @@ public class SubjectFundsBudgetDTO {
 
     @ApiModelProperty("燃料动力费支出预算备注")
     private String fuelNoteBudget;
+
+    @ApiModelProperty("会议差旅费支出预算数")
+    private BigDecimal mettingBudget;
 
     @ApiModelProperty("会议差旅费支出当前年预算")
     private BigDecimal mettingCurrentBudget;
@@ -159,6 +189,9 @@ public class SubjectFundsBudgetDTO {
     @ApiModelProperty("会议差旅费支出预算备注")
     private String mettingNoteBudget;
 
+    @ApiModelProperty("劳务费支出预算数")
+    private BigDecimal laborBudget;
+
     @ApiModelProperty("劳务费支出当前年预算")
     private BigDecimal laborCurrentBudget;
 
@@ -174,6 +207,9 @@ public class SubjectFundsBudgetDTO {
     @ApiModelProperty("劳务费支出预算备注")
     private String laborNoteBudget;
 
+    @ApiModelProperty("专家咨询费预算数")
+    private BigDecimal expertsBudget;
+
     @ApiModelProperty("专家咨询费支出当前年预算")
     private BigDecimal expertsCurrentBudget;
 
@@ -188,6 +224,9 @@ public class SubjectFundsBudgetDTO {
 
     @ApiModelProperty("专家咨询费支出预算备注")
     private String expertsNoteBudget;
+
+    @ApiModelProperty("日常水、电、气、暖消耗等支出预算数")
+    private BigDecimal dailyBudget;
 
     @ApiModelProperty("日常水、电、气、暖消耗等支出当前年预算")
     private BigDecimal dailyCurrentBudget;
