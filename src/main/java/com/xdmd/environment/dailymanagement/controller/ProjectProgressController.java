@@ -35,11 +35,11 @@ public class ProjectProgressController {
     }
 
     /**
-     *  [查詢] 根據主鍵 id 查詢
+     *  [查詢] 根據id查詢课题进展主体
      * @param id
      * @return
      */
-    @ApiOperation(value = "根據主鍵 id 查詢")
+    @ApiOperation(value = "根據id查詢课题进展主体")
     @PostMapping("getInfoById")
     public ResultMap getInfoById(int id) {
         return resultMap=projectProgressService.getInfoById(id);
@@ -52,7 +52,7 @@ public class ProjectProgressController {
      * @param progress
      * @return
      */
-    @ApiOperation(value = "根據参数查詢")
+    @ApiOperation(value = "根據参数查詢课题进展主体")
     @PostMapping("getInfoByParam")
     public ResultMap getInfoByParam(String subjectName, String bearerUnit, Integer progress) {
         return  resultMap=projectProgressService.getInfoByParam(subjectName,bearerUnit,progress);
