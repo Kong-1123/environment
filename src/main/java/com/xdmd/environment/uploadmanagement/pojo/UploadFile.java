@@ -11,7 +11,7 @@ import java.util.Date;
  * @description: 上传文件实体类
  */
 @Data
-public class FileUpload implements Serializable {
+public class UploadFile implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
@@ -57,7 +57,7 @@ public class FileUpload implements Serializable {
 
 
 
-    public FileUpload() {
+    public UploadFile() {
     }
 
 }

@@ -1,13 +1,10 @@
 package com.xdmd.environment.common;
 
-import com.xdmd.environment.company.exception.FileSuffixJudgeException;
-import com.xdmd.environment.company.exception.FileUploadException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -38,9 +35,6 @@ public class FileUploadUtil {
         String originalFilename = file.getOriginalFilename();
         //判断文件的后缀名是否有误
         Boolean Flag = FileSuffixJudgeUtil.SuffixJudge(originalFilename,suffixList);
-        if(Flag == false){
-            throw new FileSuffixJudgeException("请上传正确的文件格式");
-        }
 
         //设置日期格式
         Date date = new Date();
@@ -57,14 +51,6 @@ public class FileUploadUtil {
             dest.getParentFile().mkdirs();
         }
 
-        try {
-            //文件上传
-            file.transferTo(dest);
-        } catch (IOException e) {
-            e.printStackTrace();
-            log.error("AcceptApplyController -- AddAcceptApply 中 FileUpload 文件上传失败");
-            throw new FileUploadException("文件上传失败");
-        }
 
         return  FilePath + originalFilename;
     }

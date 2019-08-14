@@ -1,13 +1,16 @@
-package com.xdmd.environment.uploadmanagement.controller;
+package com.xdmd.environment.contractmanage.controller;
 
+import com.xdmd.environment.contractmanage.pojo.ContractManageDTO;
 import com.xdmd.environment.uploadmanagement.mapper.UploadMapper;
-import com.xdmd.environment.uploadmanagement.pojo.FileUpload;
+import com.xdmd.environment.uploadmanagement.pojo.UploadFile;
 import com.xdmd.environment.uploadmanagement.uploadutil.FileSuffixJudge;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -17,13 +20,16 @@ import java.text.SimpleDateFormat;
 /**
  * @author: Kong
  * @createDate: 2019/07/31
- * @description: 文件上传
+ * @description: 中期检查附件上传
  */
+@Api(tags = "中期检查附件上传")
+@RestController
 @Controller
 public class FileUploadController {
     @Autowired
     UploadMapper uploadMapper;
-    FileUpload fileUpload;
+    UploadFile uploadFile=new UploadFile();
+    ContractManageDTO contractManageDTO=new ContractManageDTO();
     /**
      * 获取file.html页面
      * @return
@@ -34,10 +40,12 @@ public class FileUploadController {
     }
 
     /**
-     * 实现单文件上传
-     * */
+     * @param file
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("fileUpload")
-    @ResponseBody
+    @ApiOperation(value = "中期检查附件上传")
     public String fileUpload(@RequestParam("fileName") MultipartFile file) throws IOException {
         //判断文件是否为空
         if (file.isEmpty()) {
@@ -50,7 +58,8 @@ public class FileUploadController {
         String fileName =pinjiefileName.toString();
 
         //获取文件上传绝对路径
-        StringBuilder initPath = new StringBuilder("D:/xdmd/subject-1/");
+        String FilePath = "D:/xdmd/environment/" + contractManageDTO.getSubjectName() + "/文件类型/";
+        StringBuilder initPath = new StringBuilder(FilePath);
         String filePath=initPath.append(fileName).toString();
         System.out.println("文件路径-->"+filePath);
         File dest = new File(filePath);
@@ -76,13 +85,14 @@ public class FileUploadController {
             String fileSize = String.valueOf(file1.length());
             System.out.println(fileName+"的文件大小-->"+fileSize);
             //封装到uploadfile
-            fileUpload.setUploadFilePath(String.valueOf(dest));
-            fileUpload.setFileSize(fileSize);
-            fileUpload.setUploadFileName(fileName);
-            fileUpload.setUploadFileType(contentType);
-            fileUpload.setUploadSuffixName(suffixName);
-            fileUpload.setCreateAuthor("创建者");
-            Integer affectNo=uploadMapper.insertUpload(fileUpload);
+            uploadFile.setUploadFilePath(String.valueOf(dest));
+            uploadFile.setFileSize(fileSize);
+            uploadFile.setUploadFileName(fileName);
+            uploadFile.setUploadFileType(contentType);
+            uploadFile.setUploadSuffixName(suffixName);
+            uploadFile.setCreateAuthor("创建者");
+            //文件信息保存到数据库
+            uploadMapper.insertUpload(uploadFile);
             return "上传成功";
         } catch (Exception e) {
              e.printStackTrace();

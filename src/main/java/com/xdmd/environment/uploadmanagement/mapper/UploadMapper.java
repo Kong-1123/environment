@@ -1,6 +1,6 @@
 package com.xdmd.environment.uploadmanagement.mapper;
 
-import com.xdmd.environment.uploadmanagement.pojo.FileUpload;
+import com.xdmd.environment.uploadmanagement.pojo.UploadFile;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 public interface UploadMapper {
     /**
      *
-     * @param fileUpload
+     * @param uploadFile
      * @return
      */
     @Select(value = "INSERT INTO upload_file (upload_file_path,upload_file_name, upload_file_type,upload_suffix_name,file_size,create_time,create_author)\n" +
@@ -27,7 +27,7 @@ public interface UploadMapper {
             "#{fileSize},"+
             "NOW(),"+
             "#{createAuthor})")
-    Integer insertUpload(FileUpload fileUpload);
+    Integer insertUpload(UploadFile uploadFile);
 
     /**
      * 根据文件名查询文件路径
@@ -35,5 +35,6 @@ public interface UploadMapper {
      * @return
      */
     @Select(value = "select upload_file_path,upload_file_name from upload_file where id= #{id}")
-    FileUpload getFilePath(int id);
+    UploadFile getFilePath(int id);
+
 }
