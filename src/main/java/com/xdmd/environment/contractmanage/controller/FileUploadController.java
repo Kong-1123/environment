@@ -8,7 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,20 +31,11 @@ public class FileUploadController {
     UploadFile uploadFile=new UploadFile();
     ContractManageDTO contractManageDTO=new ContractManageDTO();
     /**
-     * 获取file.html页面
-     * @return
-     */
-    @RequestMapping("file")
-    public String file(){
-        return "/file";
-    }
-
-    /**
      * @param file
      * @return
      * @throws IOException
      */
-    @RequestMapping("fileUpload")
+    @PostMapping("fileUpload")
     @ApiOperation(value = "中期检查附件上传")
     public String fileUpload(@RequestParam("fileName") MultipartFile file) throws IOException {
         //判断文件是否为空
@@ -58,7 +49,7 @@ public class FileUploadController {
         String fileName =pinjiefileName.toString();
 
         //获取文件上传绝对路径
-        String FilePath = "D:/xdmd/environment/" + contractManageDTO.getSubjectName() + "/文件类型/";
+        String FilePath = "D:/xdmd/environment/" + contractManageDTO.getSubjectName() + "/中期检查附件/";
         StringBuilder initPath = new StringBuilder(FilePath);
         String filePath=initPath.append(fileName).toString();
         System.out.println("文件路径-->"+filePath);

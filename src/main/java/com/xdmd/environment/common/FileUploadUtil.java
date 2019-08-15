@@ -34,7 +34,7 @@ public class FileUploadUtil {
         //获取文件名
         String originalFilename = file.getOriginalFilename();
         //判断文件的后缀名是否有误
-        Boolean Flag = FileSuffixJudgeUtil.SuffixJudge(originalFilename,suffixList);
+        //Boolean Flag = FileSuffixJudgeUtil.SuffixJudge(originalFilename,suffixList);
 
         //设置日期格式
         Date date = new Date();

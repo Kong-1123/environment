@@ -6,8 +6,6 @@ import com.xdmd.environment.contractmanage.service.ContractManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -33,41 +31,9 @@ public class ContractManageServiceImpl implements ContractManageService {
      */
     @Override
     public int insert(ContractManageDTO contractManageDTO) {
-        contractManageDTO.setProjectNo(setProjectNo());
         return contractManageMapper.insert(contractManageDTO);
     }
 
-    /**
-     * 课题编号自增设置
-     * @param
-     */
-    public String setProjectNo(){
-        getNewData();
-        String subString = new String(contractManageMapper.getNewData().getProjectNo());
-        /**
-         * 分离出数字并转换成int类型
-         */
-        int num = Integer.parseInt(subString.substring(4));
-        if (num<=20190000) {
-            /**
-             * 获取当前年份
-             */
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-            Date date = new Date();
-            String sDate = date.toString();
-            sDate = sdf.format(date);
-            /**
-             * 拼接课题编号和年份
-             */
-            StringBuilder number = new StringBuilder(sDate);
-            number.append("0000");
-            num = Integer.parseInt(number.toString());
-        }
-            num += 1;
-        StringBuilder sBuilder = new StringBuilder("xdmd");
-        String finalResult=sBuilder.insert(sBuilder.length(), num).toString();
-        return finalResult;
-    }
     /**
      * 根据合同主表id查询
      * @param id
@@ -88,31 +54,52 @@ public class ContractManageServiceImpl implements ContractManageService {
     }
 
     /**
-     * 根据勾选的合同主表id修改相应的中期检查状态(内网)--中期检查
+     * 根据勾选的合同主表id修改相应的中期检查记录【内网中检】
      * @param ids
      * @return
      */
     @Override
-    public int updateContractByIds(List<Long> ids) {
-        return contractManageMapper.updateContractByIds(ids);
+    public int updateContractByIds(int mid,List<Long> ids) {
+        return contractManageMapper.updateContractByIds(mid,ids);
     }
 
     /**
-     * [查詢] 根据中期检查状态查詢相应合同主表
+     * [查詢] 根据中期检查记录查詢相应合同主表
      * @return
      */
     @Override
-    public List<Map> getInfoByMidState() {
-        return contractManageMapper.getInfoByMidState();
+    public List<Map> getInfoByMidRecord(int mId) {
+        return contractManageMapper.getInfoByMidRecord(mId);
     }
 
     /**
-     * [查詢] 根据单位id查詢本单位的课题合同
+     * [查詢] 根据单位id和中检记录id 查詢本单位的课题合同
      * @param Uid
+     * @param Mid
      * @return
      */
     @Override
-    public List<Map> getContractByUid(int Uid) {
-        return contractManageMapper.getContractByUid(Uid);
+    public List<Map> getContractByUid(int Uid,int Mid) {
+        return contractManageMapper.getContractByUid(Uid,Mid);
+    }
+
+    /**
+     * 根据合同id更新相应的附件id
+     * @param cid
+     * @param midCheckAnnexId
+     * @param expertAssessmentAnnexId
+     * @param openReportAnnexId
+     * @param subjectProgressAnnexId
+     * @param fundProgressAnnexId
+     * @param expertSuggestAnnexId
+     * @return
+     */
+    @Override
+    public int updateContractByCid(int midCheckAnnexId,int expertAssessmentAnnexId,
+                                   int openReportAnnexId,int subjectProgressAnnexId,int fundProgressAnnexId,
+                                   int expertSuggestAnnexId,int cid) {
+        int num= contractManageMapper.updateContractByCid(cid, midCheckAnnexId, expertAssessmentAnnexId, openReportAnnexId, subjectProgressAnnexId, fundProgressAnnexId, expertSuggestAnnexId);
+        System.out.println("影响行数"+num);
+        return num;
     }
 }

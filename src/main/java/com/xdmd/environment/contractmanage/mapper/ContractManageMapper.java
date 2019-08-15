@@ -67,8 +67,8 @@ public interface ContractManageMapper {
             "#{subjectSigningDescription},\n" +
             "#{subjectObjectivesResearch},\n" +
             "#{subjectAcceptanceAssessment},\n" +
-            "#{isMidCheck}" +
-            "#{otherTerms})")
+            "#{otherTerms}," +
+            "DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT)")
     int insert(ContractManageDTO contractManageDTO);
 
     /**
@@ -88,32 +88,15 @@ public interface ContractManageMapper {
     List<ContractManageDTO> getAllInfo();
 
     /**
-     * 根据勾选的合同主表id修改相应的中期检查状态(内网)--中期检查
-     * @param ids
-     * @return
-     */
-    @Update(value ="<script>" +
-            "UPDATE contract_manage \n" +
-            "SET is_mid_check = 1 \n" +
-            "WHERE\n" +
-            "\tid IN" +
-            "<foreach\tcollection='list'\titem='cId'\topen='(' separator=',' close=')'>" +
-            "#{cId}\n" +
-            "</foreach>\n" +
-            "</script>")
-    @Results(value = {@Result(column = "id", property = "id")})
-    int updateContractByIds(List<Long> ids);
-
-    /**
-     * [查詢] 根据中期检查状态查詢相应合同主表
+     * [查詢] 根据中期检查记录id查詢相应合同主表【中期检查记录id--第几次检查】
      * @param
      * @return
      */
-    @Select(value = "select id subject_name,contract_start_time,subject_objectives_research from contract_manage where is_mid_check=1")
-    List<Map> getInfoByMidState();
+    @Select(value = "select id subject_name,contract_start_time,subject_objectives_research from contract_manage where mid_record_id=1")
+    List<Map> getInfoByMidRecord(@Param("mId")int mId);
 
     /**
-     * [查詢] 根据单位id查詢本单位的课题合同
+     * [查詢] 根据单位id && 中检记录id查詢本单位的课题合同【外网查看中检】
      * @param Uid
      * @return
      */
@@ -125,6 +108,44 @@ public interface ContractManageMapper {
             "cm.subject_objectives_research \n" +
             "FROM\n" +
             "contract_manage cm,unit_contract uc\n" +
-            "where cm.id=uc.contract_id and uc.unit_id=#{Uid} and cm.id in (select id from contract_manage where is_mid_check=1)")
-    List<Map> getContractByUid(int Uid);
+            "where cm.id=uc.contract_id and uc.unit_id=#{Uid} and cm.id in (select id from contract_manage where mid_record_id=#{Mid})")
+    List<Map> getContractByUid(@Param("Uid") int Uid,@Param("Mid")int Mid);
+
+    /**
+     * 根据勾选的合同主表id修改相应的中期检查记录【内网中检】
+     * @param ids
+     * @return
+     */
+    @Update(value ="<script>" +
+            "UPDATE contract_manage \n" +
+            "SET midRecordId = #{mid} \n" +
+            "WHERE\n" +
+            "\tid IN" +
+            "<foreach\tcollection='list'\titem='cId'\topen='(' separator=',' close=')'>" +
+            "#{cId}\n" +
+            "</foreach>\n" +
+            "</script>")
+    @Results(value = {@Result(column = "id", property = "id")})
+    int updateContractByIds(int mid,List<Long> ids);
+
+    /**
+     * 根据合同id更新相应的附件id
+     * @param cid
+     * @param midCheckAnnexId
+     * @param expertAssessmentAnnexId
+     * @param openReportAnnexId
+     * @param subjectProgressAnnexId
+     * @param fundProgressAnnexId
+     * @param expertSuggestAnnexId
+     * @return
+     */
+    @Update(value = "UPDATE contract_manage \n" +
+            "SET mid_check_annex_id = #{midCheckAnnexId},\n" +
+            "expert_assessment_annex_id = #{expertAssessmentAnnexId},\n" +
+            "open_report_annex_id = #{openReportAnnexId}, \"\n" +
+            "subject_progress_annex_id = #{subjectProgressAnnexId},\n" +
+            "fund_progress_annex_id = #{fundProgressAnnexId},\n" +
+            "expert_suggest_annex_id = #{expertSuggestAnnexId},\n" +
+            "WHERE id = #{cid}")
+    int updateContractByCid(int midCheckAnnexId,int expertAssessmentAnnexId, int openReportAnnexId,int subjectProgressAnnexId,int fundProgressAnnexId, int expertSuggestAnnexId,int cid);
 }

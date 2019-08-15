@@ -18,7 +18,7 @@ public class ContractManageDTO {
     @ApiModelProperty("课题类别")
     private String subjectCategory;
 
-    @ApiModelProperty("课题编号【注:课题编号后台已设定,新增时不用填】")
+    @ApiModelProperty("课题编号")
     private String projectNo;
 
     @ApiModelProperty("课题名称")
@@ -129,8 +129,33 @@ public class ContractManageDTO {
     @ApiModelProperty("其他条款")
     private String otherTerms;
 
-    @ApiModelProperty("是否进行中期检查（0--不检查 1--检查）")
-    private Integer isMidCheck;
+    @ApiModelProperty("中期检查记录（关联表）")
+    private Integer midRecordId;
+
+    @ApiModelProperty("中期检查表附件id")
+    private Integer midCheckAnnexId;
+
+    @ApiModelProperty("专家评估表附件id")
+    private Integer expertAssessmentAnnexId;
+
+    @ApiModelProperty("开题报告附件id")
+    private Integer openReportAnnexId;
+
+    @ApiModelProperty("课题进展附件id")
+    private Integer subjectProgressAnnexId;
+
+    @ApiModelProperty("进度情况经费使用情况附件id")
+    private Integer fundProgressAnnexId;
+
+    @ApiModelProperty("合同附件id")
+    private Integer contractAnnexId;
+
+    @ApiModelProperty("专家意见附件id")
+    private Integer expertSuggestAnnexId;
+
+    @ApiModelProperty("专家总意见附件id")
+    private Integer expertTotalSuggestAnnexId;
+
 
     public ContractManageDTO() {
     }

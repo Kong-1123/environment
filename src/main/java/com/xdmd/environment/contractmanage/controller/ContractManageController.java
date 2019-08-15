@@ -4,6 +4,8 @@ import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.contractmanage.pojo.ContractManageDTO;
 import com.xdmd.environment.contractmanage.service.ContractManageService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -59,35 +61,71 @@ public class ContractManageController {
     }
 
     /**
-     * 根据勾选的合同主表id修改相应的中期检查状态(内网)--中期检查
+     * 根据勾选的合同主表id修改相应的中期检查状态【内网中检】
      * @param ids
      * @return
      */
-    @ApiOperation(value = "根据勾选的合同主表id修改相应的中期检查状态")
+    @ApiOperation(value = "根据勾选的合同主表id修改相应的中期检查记录【内网中检】")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="mid",value = "中检id"),
+            @ApiImplicitParam(name="ids",value = "合同id集合")
+    })
     @PostMapping (value = "updateContractByIds")
-    public int updateContractByIds(@RequestBody List<Long> ids) {
-        return contractManageService.updateContractByIds(ids);
+    public int updateContractByIds(@RequestParam("mid") int mid,@RequestBody List<Long> ids) {
+        return contractManageService.updateContractByIds(mid,ids);
     }
 
     /**
-     * 根据中期检查状态查詢相应合同主表
+     * 根据中期检查记录查詢相应合同主表
      * @return
      */
-    @ApiOperation(value = "根据中期检查状态查詢相应合同主表")
-    @GetMapping (value = "getInfoByMidState")
-    public List<Map> getInfoByMidState() {
-        return contractManageService.getInfoByMidState();
+    @ApiOperation(value = "根据中期检查记录查詢相应合同主表")
+    @GetMapping (value = "getInfoByMidRecord")
+    public List<Map> getInfoByMidRecord(@RequestParam("mId") int mId) {
+        return contractManageService.getInfoByMidRecord(mId);
     }
 
 
     /**
-     * [查詢] 根据单位id查詢本单位的课题合同
+     * [查詢] 根据单位id & 中检记录id查詢本单位的课题【外网中检】
      * @param Uid
      * @return
      */
-    @ApiOperation(value = "根据单位id查詢本单位的课题合【提示:传的是单位id,不是合同id】")
+    @ApiOperation(value = "根据单位id & 中检记录id查詢本单位的课题【外网中检】")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="Uid",value = "单位id",dataType = "Long"),
+            @ApiImplicitParam(name="Mid",value = "中检记录id",dataType = "Long"),
+    })
     @GetMapping (value = "getContractByUid")
-    public List<Map> getContractByUid(int Uid) {
-        return contractManageService.getContractByUid(Uid);
+    public List<Map> getContractByUid(@RequestParam("Uid")int Uid,@RequestParam("Mid") int Mid) {
+        return contractManageService.getContractByUid(Uid,Mid);
+    }
+
+    /**
+     * 根据合同id更新相应的附件id
+     * @param cid
+     * @param midCheckAnnexId
+     * @param expertAssessmentAnnexId
+     * @param openReportAnnexId
+     * @param subjectProgressAnnexId
+     * @param fundProgressAnnexId
+     * @param expertSuggestAnnexId
+     * @return
+     */
+    @ApiOperation(value = "根据合同id更新相应的附件id【外网中检】")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="cid",value = "合同主表id",required = true),
+            @ApiImplicitParam(name="midCheckAnnexId",value = "中期检查附件id",required = true),
+            @ApiImplicitParam(name="expertAssessmentAnnexId",value = "专家评估附件id",required = true),
+            @ApiImplicitParam(name="openReportAnnexId",value = "开题报告附件id",required = true),
+            @ApiImplicitParam(name="subjectProgressAnnexId",value = "课题进展附件id",required = true),
+            @ApiImplicitParam(name="fundProgressAnnexId",value = "进度情况经费使用情况附件id",required = true),
+            @ApiImplicitParam(name="expertSuggestAnnexId",value = "专家意见附件id",required = true)
+    })
+    @PostMapping (value = "updateContractByCid")
+    public int updateContractByCid(int midCheckAnnexId,int expertAssessmentAnnexId,
+                                   int openReportAnnexId,int subjectProgressAnnexId,int fundProgressAnnexId,
+                                   int expertSuggestAnnexId,int cid) {
+        return contractManageService.updateContractByCid(cid, midCheckAnnexId, expertAssessmentAnnexId, openReportAnnexId, subjectProgressAnnexId, fundProgressAnnexId, expertSuggestAnnexId);
     }
 }

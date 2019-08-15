@@ -62,8 +62,11 @@ public class ExpertAssessmentDTO {
     @ApiModelProperty("专家名称，用、分开")
     private String expertName;
 
-    @ApiModelProperty("填写日期\r\n")
+    @ApiModelProperty("填写日期")
     private String fillDate;
+
+    @ApiModelProperty("专家评估附件")
+    private Integer expertAssessmentAnnexId;
 
     public ExpertAssessmentDTO() {
     }
