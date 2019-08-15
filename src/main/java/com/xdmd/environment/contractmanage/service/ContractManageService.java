@@ -74,4 +74,13 @@ public interface ContractManageService {
     int updateContractByCid(int midCheckAnnexId,int expertAssessmentAnnexId,
                             int openReportAnnexId,int subjectProgressAnnexId,int fundProgressAnnexId,
                             int expertSuggestAnnexId,int cid);
+
+
+    /**
+     * 根据合同id更新合同附件id
+     * @param contractAnnexId
+     * @param cid
+     * @return
+     */
+    int updateContractAnnexIdByCid(int contractAnnexId,int cid);
 }

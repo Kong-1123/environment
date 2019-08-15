@@ -2,7 +2,7 @@ package com.xdmd.environment.dailymanagement.service.impl;
 
 import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.dailymanagement.mapper.ProjectProgressMapper;
-import com.xdmd.environment.dailymanagement.pojo.ProjectProgressDTO;
+import com.xdmd.environment.dailymanagement.pojo.*;
 import com.xdmd.environment.dailymanagement.service.ProjectProgressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,6 +78,173 @@ public class ProjectProgressServiceImpl implements ProjectProgressService {
             if(progressDTOList.size()>0){
                 resultMap.success().message(progressDTOList);
             }else if(progressDTOList.size()==0){
+                resultMap.success().message("没有查到相关信息");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.success().message("系统异常");
+        }
+        return resultMap;
+    }
+
+    /**
+     * [新增] 合同要求研发任务【课题进展第一部分】
+     * @author Kong
+     * @date 2019/08/14
+     **/
+    @Override
+    public ResultMap insertCRDT(ContractResearchDevelopmentTasksDTO contractResearchDevelopmentTasksDTO) {
+        try{
+            int insertNo=projectProgressMapper.insertCRDT(contractResearchDevelopmentTasksDTO);
+            if(insertNo>0){
+                resultMap.success().message("新增成功");
+            }else if(insertNo==0){
+                resultMap.success().message("新增失败");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.success().message("系统异常");
+        }
+        return resultMap;
+    }
+
+    /**
+     * [查詢] 根據课题进展id查詢【课题进展第一部分】
+     * @param Pid
+     * @return
+     */
+    @Override
+    public ResultMap getCRDTByPid(int Pid) {
+        try{
+            List<ContractResearchDevelopmentTasksDTO> crdt = projectProgressMapper.getCRDTByPid(Pid);
+            if(crdt!=null){
+                resultMap.success().message(crdt);
+            }else if(crdt==null){
+                resultMap.success().message("没有查到相关信息");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.success().message("系统异常");
+        }
+        return resultMap;
+    }
+
+    /**
+     * [新增]目前进展情况【课题进展第二部分】
+     * @param currentProgress
+     * @return
+     */
+    @Override
+    public ResultMap insertCP(CurrentProgressDTO currentProgress) {
+        try{
+            int insertNo=projectProgressMapper.insertCP(currentProgress);
+            if(insertNo>0){
+                resultMap.success().message("新增成功");
+            }else if(insertNo==0){
+                resultMap.success().message("新增失败");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.success().message("系统异常");
+        }
+        return resultMap;
+    }
+    /**
+     * [查詢] 根據课题进展id查詢【课题进展第二部分】
+     * @param Pid
+     * @return
+     */
+    @Override
+    public ResultMap getCPByPid(int Pid) {
+        try{
+            List<CurrentProgressDTO> cp = projectProgressMapper.getCPByPid(Pid);
+            if(cp!=null){
+                resultMap.success().message(cp);
+            }else if(cp==null){
+                resultMap.success().message("没有查到相关信息");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.success().message("系统异常");
+        }
+        return resultMap;
+    }
+
+    /**
+     * [新增] 课题实施中存在的主要问题【课题进展第四部分】
+     * @param projectMainProblemsDTO
+     * @return
+     */
+    @Override
+    public ResultMap insertPMP(ProjectMainProblemsDTO projectMainProblemsDTO) {
+        try{
+            int insertNo=projectProgressMapper.insertPMP(projectMainProblemsDTO);
+            if(insertNo>0){
+                resultMap.success().message("新增成功");
+            }else if(insertNo==0){
+                resultMap.success().message("新增失败");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.success().message("系统异常");
+        }
+        return resultMap;
+    }
+
+    /**
+     * [查詢] 根據课题进展id查詢【课题进展第四部分】
+     * @param Pid
+     * @return
+     */
+    @Override
+    public ResultMap getPMPByPid(int Pid) {
+        try{
+            List<ProjectMainProblemsDTO> pmp = projectProgressMapper.getPMPByPid(Pid);
+            if(pmp!=null){
+                resultMap.success().message(pmp);
+            }else if(pmp==null){
+                resultMap.success().message("没有查到相关信息");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.success().message("系统异常");
+        }
+        return resultMap;
+    }
+
+    /**
+     * [新增] 下一步工作计划【课题进展第五部分】
+     * @param nextWorkPlanDTO
+     * @return
+     */
+    @Override
+    public ResultMap insertNWP(NextWorkPlanDTO nextWorkPlanDTO) {
+        try{
+            int insertNo=projectProgressMapper.insertNWP(nextWorkPlanDTO);
+            if(insertNo>0){
+                resultMap.success().message("新增成功");
+            }else if(insertNo==0){
+                resultMap.success().message("新增失败");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.success().message("系统异常");
+        }
+        return resultMap;
+    }
+
+    /**
+     *  [查詢] 根據课题进展id查詢【课题进展第四部分】
+     * @param Pid
+     * @return
+     */
+    @Override
+    public ResultMap getNWPByPid(int Pid) {
+        try{
+            List<NextWorkPlanDTO> nwp = projectProgressMapper.getNWPByPid(Pid);
+            if(nwp!=null){
+                resultMap.success().message(nwp);
+            }else if(nwp==null){
                 resultMap.success().message("没有查到相关信息");
             }
         }catch (Exception e){

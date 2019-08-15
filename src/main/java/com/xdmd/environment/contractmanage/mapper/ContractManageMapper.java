@@ -118,15 +118,15 @@ public interface ContractManageMapper {
      */
     @Update(value ="<script>" +
             "UPDATE contract_manage \n" +
-            "SET midRecordId = #{mid} \n" +
-            "WHERE\n" +
-            "\tid IN" +
-            "<foreach\tcollection='list'\titem='cId'\topen='(' separator=',' close=')'>" +
+            "SET mid_record_id = #{mid} \n" +
+            "WHERE\t" +
+            "id\tIN" +
+            "<foreach\tcollection='ids'\titem='cId'\topen='(' separator=',' close=')'>" +
             "#{cId}\n" +
             "</foreach>\n" +
             "</script>")
     @Results(value = {@Result(column = "id", property = "id")})
-    int updateContractByIds(int mid,List<Long> ids);
+    int updateContractByIds(@Param("mid")int mid,@Param("ids")List<Long> ids);
 
     /**
      * 根据合同id更新相应的附件id
@@ -142,10 +142,21 @@ public interface ContractManageMapper {
     @Update(value = "UPDATE contract_manage \n" +
             "SET mid_check_annex_id = #{midCheckAnnexId},\n" +
             "expert_assessment_annex_id = #{expertAssessmentAnnexId},\n" +
-            "open_report_annex_id = #{openReportAnnexId}, \"\n" +
+            "open_report_annex_id = #{openReportAnnexId},\n" +
             "subject_progress_annex_id = #{subjectProgressAnnexId},\n" +
             "fund_progress_annex_id = #{fundProgressAnnexId},\n" +
-            "expert_suggest_annex_id = #{expertSuggestAnnexId},\n" +
+            "expert_suggest_annex_id = #{expertSuggestAnnexId} \n" +
             "WHERE id = #{cid}")
     int updateContractByCid(int midCheckAnnexId,int expertAssessmentAnnexId, int openReportAnnexId,int subjectProgressAnnexId,int fundProgressAnnexId, int expertSuggestAnnexId,int cid);
+
+
+    /**
+     * 根据合同id更新合同附件id
+     * @param contractAnnexId
+     * @param cid
+     * @return
+     */
+    @Update(value = "update contract_manage set contract_annex_id=#{contractAnnexId} where id=#{cid}")
+    int updateContractAnnexIdByCid(int contractAnnexId,int cid);
+
 }

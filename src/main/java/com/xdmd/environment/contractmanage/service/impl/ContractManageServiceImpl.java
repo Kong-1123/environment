@@ -60,6 +60,7 @@ public class ContractManageServiceImpl implements ContractManageService {
      */
     @Override
     public int updateContractByIds(int mid,List<Long> ids) {
+        ids.forEach(id -> System.out.println("id-->" + id));
         return contractManageMapper.updateContractByIds(mid,ids);
     }
 
@@ -98,8 +99,18 @@ public class ContractManageServiceImpl implements ContractManageService {
     public int updateContractByCid(int midCheckAnnexId,int expertAssessmentAnnexId,
                                    int openReportAnnexId,int subjectProgressAnnexId,int fundProgressAnnexId,
                                    int expertSuggestAnnexId,int cid) {
-        int num= contractManageMapper.updateContractByCid(cid, midCheckAnnexId, expertAssessmentAnnexId, openReportAnnexId, subjectProgressAnnexId, fundProgressAnnexId, expertSuggestAnnexId);
-        System.out.println("影响行数"+num);
+        int num= contractManageMapper.updateContractByCid(midCheckAnnexId,expertAssessmentAnnexId ,openReportAnnexId,subjectProgressAnnexId,fundProgressAnnexId,expertSuggestAnnexId,cid);
         return num;
+    }
+
+    /**
+     * 根据合同id更新合同附件id
+     * @param contractAnnexId
+     * @param cid
+     * @return
+     */
+    @Override
+    public int updateContractAnnexIdByCid(int contractAnnexId, int cid) {
+        return contractManageMapper.updateContractAnnexIdByCid(contractAnnexId,cid);
     }
 }
