@@ -32,7 +32,7 @@ public class GuideController {
 
     @ApiOperation(notes="分页查询指南申报信息",value = "获取指南申报信息" )
     @GetMapping(value = "getCollectionByParam")
-    public ResultMap getGuideInfoPageList(String guideName, Integer domain, Integer category,String fillUnit,String fillContacts,String contactPhone, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize")int pageSize){
+    public ResultMap getGuideInfoPageList(String guideName,Integer domain,Integer category,String fillUnit,String fillContacts,String contactPhone, @RequestParam("pageNum")int pageNum, @RequestParam("pageSize")int pageSize){
        return resultMap= guideService.getCollectionByParam(guideName,domain,category,fillUnit,fillContacts,contactPhone,pageNum,pageSize);
        // return guideCollectionList.size()>0?resultMap.success().message(guideCollectionList):resultMap.fail().message("查询失败");
     }
@@ -67,7 +67,7 @@ public class GuideController {
      */
     @PostMapping(value = "getCollectionByIds")
     @ApiOperation(value = "根据勾选的指南申报的id集合查询申报信息(注意:传的是指南申报id,不是汇总表id)")
-    public ResultMap getCollectionByIds(@RequestBody List<Long> ids){
+    public ResultMap getCollectionByIds(@ApiParam("指南id集合") @RequestBody List<Long> ids){
         if(ids != null && !ids.equals("") && !ids.equals("null")){
              resultMap=guideService.getCollectionByIds(ids);
         }
@@ -114,16 +114,16 @@ public class GuideController {
     @GetMapping(value = "getAllSummary")
     @ApiOperation(value = "分页展示汇总信息(bug:模糊查询立项时间有问题)")
     @ApiImplicitParams({
-            @ApiImplicitParam(name="guideSummaryTitle",value = "汇总标题",dataType ="String"),
-            @ApiImplicitParam(name="fillUnit",value = "填报单位",dataType ="String"),
-            @ApiImplicitParam(name="domain",value = "所属领域",dataType ="int"),
-            @ApiImplicitParam(name="category",value = "所属类别",dataType ="int"),
-            @ApiImplicitParam(name="projectTime",value = "立项时间",dataType ="String"),
-            @ApiImplicitParam(name="researchContentTechnology",value = "主要研究内容和关键技术(300字以内)",dataType ="String"),
-            @ApiImplicitParam(name="pageNum",value = "当前页数",required =true,dataType ="int"),
-            @ApiImplicitParam(name="pageSize",value = "每页显示条数",required = true,dataType ="int")
+            @ApiImplicitParam(name="guideSummaryTitle",value = "汇总标题",dataType = "string"),
+            @ApiImplicitParam(name="fillUnit",value = "填报单位",dataType = "string"),
+            @ApiImplicitParam(name="domain",value = "所属领域",dataType = "int"),
+            @ApiImplicitParam(name="category",value = "所属类别",dataType = "int"),
+            @ApiImplicitParam(name="projectTime",value = "立项时间",dataType = "string"),
+            @ApiImplicitParam(name="researchContentTechnology",value = "主要研究内容和关键技术[300字以内]",dataType = "string"),
+            @ApiImplicitParam(name="pageNum",value = "当前页数",dataType = "int",required = true),
+            @ApiImplicitParam(name="pageSize",value = "每页显示条数",dataType = "int",required = true)
     })
-    public ResultMap getSummaryByParam(String guideSummaryTitle,String fillUnit,Integer domain, Integer category, String projectTime, String researchContentTechnology,@RequestParam("pageNum") int pageNum,@RequestParam("pageSize") int pageSize){
+    public ResultMap getSummaryByParam(String guideSummaryTitle,String fillUnit,Integer domain,Integer category,String projectTime,String researchContentTechnology,int pageNum,int pageSize){
         return resultMap=guideService.getSummaryByParam(guideSummaryTitle,fillUnit,domain,category,projectTime,researchContentTechnology,pageNum,pageSize);
     }
 

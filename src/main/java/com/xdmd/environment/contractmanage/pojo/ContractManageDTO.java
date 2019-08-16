@@ -2,6 +2,7 @@ package com.xdmd.environment.contractmanage.pojo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -10,6 +11,7 @@ import lombok.Data;
  * @description: 合同管理主表
  */
 @Data
+@AllArgsConstructor
 @ApiModel(description = "合同管理主表")
 public class ContractManageDTO {
     @ApiModelProperty(name="主键【注:系统默认生成,新增时不用填】",required = false)
@@ -69,7 +71,7 @@ public class ContractManageDTO {
     @ApiModelProperty("保证单位联系人")
     private String guaranteedUnitContact;
 
-    @ApiModelProperty("保证单位联系人电话\r\n")
+    @ApiModelProperty("保证单位联系人电话")
     private String guaranteedContactPhone;
 
     @ApiModelProperty("委托单位（甲方）")
@@ -129,6 +131,9 @@ public class ContractManageDTO {
     @ApiModelProperty("其他条款")
     private String otherTerms;
 
+    @ApiModelProperty("合同审批状态【0-单位员工待提交 1-单位管理员待审批 2-评估中心员工待审批 3-法规科技处待审批 4-法规科技处已审批】")
+    private Integer approvalStatus;
+
     @ApiModelProperty("中期检查记录（关联表）")
     private Integer midRecordId;
 
@@ -155,7 +160,6 @@ public class ContractManageDTO {
 
     @ApiModelProperty("专家总意见附件id")
     private Integer expertTotalSuggestAnnexId;
-
 
     public ContractManageDTO() {
     }

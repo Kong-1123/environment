@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel("project_main_problems")
-public class ProjectMainProblemsDTO {
+public class ProjectMainProblemsDTO{
 
     @ApiModelProperty("主键")
     private Integer id;

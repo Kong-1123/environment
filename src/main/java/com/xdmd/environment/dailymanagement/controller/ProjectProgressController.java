@@ -4,14 +4,13 @@ import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.dailymanagement.pojo.*;
 import com.xdmd.environment.dailymanagement.service.ProjectProgressService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author: Kong
@@ -44,7 +43,7 @@ public class ProjectProgressController {
      */
     @ApiOperation(value = "根據id查詢课题进展主体")
     @GetMapping ("getInfoById")
-    public ResultMap getInfoById(@ApiParam("课题进展主体") int id) {
+    public ResultMap getInfoById(int id) {
         return resultMap=projectProgressService.getInfoById(id);
     }
 
@@ -56,21 +55,26 @@ public class ProjectProgressController {
      * @return
      */
     @ApiOperation(value = "根據参数查詢课题进展主体")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="subjectName",value = "课题名称",dataType = "string"),
+            @ApiImplicitParam(name="bearerUnit",value = "承担单位",dataType = "string"),
+            @ApiImplicitParam(name="progress",value = "课题进展类型【45-超前 46-正常 47-滞后】",dataType = "int"),
+    })
     @GetMapping("getInfoByParam")
-    public ResultMap getInfoByParam(@ApiParam("课题名称") String subjectName,@ApiParam("承担单位") String bearerUnit,@ApiParam("进展情况类型【45-超前 46-正常 47-滞后】") Integer progress) {
+    public ResultMap getInfoByParam(String subjectName,String bearerUnit,Integer progress) {
         return  resultMap=projectProgressService.getInfoByParam(subjectName,bearerUnit,progress);
     }
 
 
     /**
      * [新增] 合同要求研发任务【课题进展第一部分】
-     * @param contractResearchDevelopmentTasksDTO
+     * @param contractResearchDevelopmentTasks
      * @return
      */
     @ApiOperation(value = "新增合同要求研发任务【课题进展第一部分】")
     @PostMapping("insertCRDT")
-    public ResultMap insertCRDT(ContractResearchDevelopmentTasksDTO contractResearchDevelopmentTasksDTO){
-        return  resultMap=projectProgressService.insertCRDT(contractResearchDevelopmentTasksDTO);
+    public ResultMap insertCRDT(@RequestBody List<ContractResearchDevelopmentTasksDTO> contractResearchDevelopmentTasks){
+        return  resultMap=projectProgressService.insertCRDT(contractResearchDevelopmentTasks);
     }
 
     /**
@@ -80,7 +84,7 @@ public class ProjectProgressController {
      */
     @ApiOperation(value = "根據id查詢【课题进展第一部分】")
     @GetMapping ("getCRDTByPid")
-    public ResultMap getCRDTByPid(@ApiParam("课题进展id")int Pid){
+    public ResultMap getCRDTByPid(int Pid){
         return  resultMap=projectProgressService.getCRDTByPid(Pid);
     }
 
@@ -92,7 +96,7 @@ public class ProjectProgressController {
      */
     @ApiOperation(value = "新增目前进展情况【课题进展第二部分】")
     @PostMapping("insertCP")
-    public ResultMap insertCP(CurrentProgressDTO currentProgress){
+    public ResultMap insertCP(@RequestBody List<CurrentProgressDTO> currentProgress){
         return  resultMap=projectProgressService.insertCP(currentProgress);
 
     }
@@ -104,7 +108,7 @@ public class ProjectProgressController {
      */
     @ApiOperation(value = "根據id查詢【课题进展第二部分】")
     @GetMapping ("getCPByPid")
-    public ResultMap getCPByPid(@ApiParam("课题进展id") @Param("Pid") int Pid){
+    public ResultMap getCPByPid(int Pid){
         return  resultMap=projectProgressService.getCPByPid(Pid);
 
     }
@@ -115,7 +119,7 @@ public class ProjectProgressController {
      */
     @ApiOperation(value = "新增课题实施中存在的主要问题【课题进展第四部分】")
     @PostMapping("insertPMP")
-    public ResultMap insertPMP(ProjectMainProblemsDTO projectMainProblemsDTO){
+    public ResultMap insertPMP(@RequestBody List<ProjectMainProblemsDTO> projectMainProblemsDTO){
         return  resultMap=projectProgressService.insertPMP(projectMainProblemsDTO);
     }
 
@@ -126,7 +130,7 @@ public class ProjectProgressController {
      */
     @ApiOperation(value = "根據id查詢【课题进展第四部分】")
     @GetMapping ("getPMPByPid")
-    public ResultMap getPMPByPid(@ApiParam("课题进展id") @Param("id") int Pid){
+    public ResultMap getPMPByPid(int Pid){
         return  resultMap=projectProgressService.getPMPByPid(Pid);
     }
 
@@ -137,7 +141,7 @@ public class ProjectProgressController {
      */
     @ApiOperation(value = "新增下一步工作计划【课题进展第五部分】")
     @PostMapping("insertNWP")
-    public ResultMap insertNWP(NextWorkPlanDTO nextWorkPlanDTO){
+    public ResultMap insertNWP(@RequestBody List<NextWorkPlanDTO> nextWorkPlanDTO){
         return  resultMap=projectProgressService.insertNWP(nextWorkPlanDTO);
     }
 
@@ -148,7 +152,7 @@ public class ProjectProgressController {
      */
     @ApiOperation(value = "根據id查詢【课题进展第五部分】")
     @GetMapping ("getNWPByPid")
-    public ResultMap getNWPByPid(@ApiParam("课题进展id") @Param("id") int Pid){
+    public ResultMap getNWPByPid(int Pid){
         return  resultMap=projectProgressService.getNWPByPid(Pid);
     }
 }

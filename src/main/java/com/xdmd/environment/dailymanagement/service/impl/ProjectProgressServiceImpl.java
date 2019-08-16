@@ -93,11 +93,11 @@ public class ProjectProgressServiceImpl implements ProjectProgressService {
      * @date 2019/08/14
      **/
     @Override
-    public ResultMap insertCRDT(ContractResearchDevelopmentTasksDTO contractResearchDevelopmentTasksDTO) {
+    public ResultMap insertCRDT(List<ContractResearchDevelopmentTasksDTO> contractResearchDevelopmentTasks) {
         try{
-            int insertNo=projectProgressMapper.insertCRDT(contractResearchDevelopmentTasksDTO);
+            int insertNo=projectProgressMapper.insertCRDT(contractResearchDevelopmentTasks);
             if(insertNo>0){
-                resultMap.success().message("新增成功");
+                resultMap.success().message("成功新增"+insertNo+"条数据");
             }else if(insertNo==0){
                 resultMap.success().message("新增失败");
             }
@@ -135,11 +135,11 @@ public class ProjectProgressServiceImpl implements ProjectProgressService {
      * @return
      */
     @Override
-    public ResultMap insertCP(CurrentProgressDTO currentProgress) {
+    public ResultMap insertCP(List<CurrentProgressDTO> currentProgress) {
         try{
             int insertNo=projectProgressMapper.insertCP(currentProgress);
             if(insertNo>0){
-                resultMap.success().message("新增成功");
+                resultMap.success().message("成功新增"+insertNo+"条数据");
             }else if(insertNo==0){
                 resultMap.success().message("新增失败");
             }
@@ -172,15 +172,15 @@ public class ProjectProgressServiceImpl implements ProjectProgressService {
 
     /**
      * [新增] 课题实施中存在的主要问题【课题进展第四部分】
-     * @param projectMainProblemsDTO
+     * @param projectMainProblems
      * @return
      */
     @Override
-    public ResultMap insertPMP(ProjectMainProblemsDTO projectMainProblemsDTO) {
+    public ResultMap insertPMP(List<ProjectMainProblemsDTO> projectMainProblems) {
         try{
-            int insertNo=projectProgressMapper.insertPMP(projectMainProblemsDTO);
+            int insertNo=projectProgressMapper.insertPMP(projectMainProblems);
             if(insertNo>0){
-                resultMap.success().message("新增成功");
+                resultMap.success().message("成功新增"+insertNo+"条数据");
             }else if(insertNo==0){
                 resultMap.success().message("新增失败");
             }
@@ -214,15 +214,15 @@ public class ProjectProgressServiceImpl implements ProjectProgressService {
 
     /**
      * [新增] 下一步工作计划【课题进展第五部分】
-     * @param nextWorkPlanDTO
+     * @param nextWorkPlan
      * @return
      */
     @Override
-    public ResultMap insertNWP(NextWorkPlanDTO nextWorkPlanDTO) {
+    public ResultMap insertNWP(List<NextWorkPlanDTO> nextWorkPlan) {
         try{
-            int insertNo=projectProgressMapper.insertNWP(nextWorkPlanDTO);
+           int insertNo= projectProgressMapper.insertNWP(nextWorkPlan);
             if(insertNo>0){
-                resultMap.success().message("新增成功");
+                resultMap.success().message("成功新增"+insertNo+"条数据");
             }else if(insertNo==0){
                 resultMap.success().message("新增失败");
             }

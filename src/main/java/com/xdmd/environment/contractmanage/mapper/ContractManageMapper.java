@@ -68,7 +68,7 @@ public interface ContractManageMapper {
             "#{subjectObjectivesResearch},\n" +
             "#{subjectAcceptanceAssessment},\n" +
             "#{otherTerms}," +
-            "DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT)")
+            "DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT)")
     int insert(ContractManageDTO contractManageDTO);
 
     /**
@@ -129,7 +129,7 @@ public interface ContractManageMapper {
     int updateContractByIds(@Param("mid")int mid,@Param("ids")List<Long> ids);
 
     /**
-     * 根据合同id更新相应的附件id
+     * 根据合同id更新相应的附件id【也可用于课题附件上传】
      * @param cid
      * @param midCheckAnnexId
      * @param expertAssessmentAnnexId
@@ -158,5 +158,48 @@ public interface ContractManageMapper {
      */
     @Update(value = "update contract_manage set contract_annex_id=#{contractAnnexId} where id=#{cid}")
     int updateContractAnnexIdByCid(int contractAnnexId,int cid);
+
+
+    /**
+     * 单位管理员审核通过
+     * @return
+     */
+    @Update(value = "update contract_manage set approval_status=2 where approval_status=1 and id=#{id}")
+    int updateApprovalStatusOne(@Param("id") int id);
+
+    /**
+     * 单位管理员审核不通过
+     * @return
+     */
+    @Update(value = "update contract_manage set approval_status=0 where approval_status=1 and id=#{id}")
+    int updateApprovalStatusTwo(@Param("id") int id);
+
+    /**
+     * 评估中心审核通过
+     * @return
+     */
+    @Update(value = "update contract_manage set approval_status=3 where approval_status=2 and id=#{id}")
+    int updateApprovalStatusThree(@Param("id") int id);
+
+    /**
+     * 评估中心审核不通过
+     * @return
+     */
+    @Update(value = "update contract_manage set approval_status=1 where approval_status=2 and id=#{id}")
+    int updateApprovalStatusFour(@Param("id") int id);
+
+    /**
+     * 法规科技处审核通过
+     * @return
+     */
+    @Update(value = "update contract_manage set approval_status=4 where approval_status=3 and id=#{id}")
+    int updateApprovalStatusF(@Param("id") int id);
+
+    /**
+     * 法规科技处审核不通过
+     * @return
+     */
+    @Update(value = "update contract_manage set approval_status=0 where approval_status=3 and id=#{id}")
+    int updateApprovalStatusiveSix(@Param("id") int id);
 
 }

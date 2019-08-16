@@ -4,6 +4,8 @@ import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.dailymanagement.pojo.*;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface ProjectProgressService {
     /**
      * [新增] 课题进展主体
@@ -31,10 +33,10 @@ public interface ProjectProgressService {
 
     /**
      * [新增] 合同要求研发任务【课题进展第一部分】
-     * @param contractResearchDevelopmentTasksDTO
+     * @param contractResearchDevelopmentTasks
      * @return
      */
-    ResultMap insertCRDT(ContractResearchDevelopmentTasksDTO contractResearchDevelopmentTasksDTO);
+    ResultMap insertCRDT(List<ContractResearchDevelopmentTasksDTO> contractResearchDevelopmentTasks);
 
     /**
      * [查詢] 根據课题进展id查詢【课题进展第一部分】
@@ -49,7 +51,7 @@ public interface ProjectProgressService {
      * @param currentProgress
      * @return
      */
-    ResultMap insertCP(CurrentProgressDTO currentProgress);
+    ResultMap insertCP(List<CurrentProgressDTO> currentProgress);
 
     /**
      * [查詢] 根據课题进展id查詢
@@ -59,10 +61,10 @@ public interface ProjectProgressService {
     ResultMap getCPByPid(@Param("Pid") int Pid);
     /**
      * [新增] 课题实施中存在的主要问题【课题进展第四部分】
-     * @param projectMainProblemsDTO
+     * @param projectMainProblems
      * @return
      */
-    ResultMap insertPMP(ProjectMainProblemsDTO projectMainProblemsDTO);
+    ResultMap insertPMP(List<ProjectMainProblemsDTO> projectMainProblems);
 
     /**
      * [查詢] 根據课题进展id查詢
@@ -73,10 +75,10 @@ public interface ProjectProgressService {
 
     /**
      * [新增] 下一步工作计划【课题进展第五部分】
-     * @param nextWorkPlanDTO
+     * @param nextWorkPlan
      * @return
      */
-    ResultMap insertNWP(NextWorkPlanDTO nextWorkPlanDTO);
+    ResultMap insertNWP(List<NextWorkPlanDTO> nextWorkPlan);
 
     /**
      * [查詢] 根據课题进展id查詢

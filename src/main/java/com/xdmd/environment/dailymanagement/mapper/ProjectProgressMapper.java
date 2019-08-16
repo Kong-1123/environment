@@ -90,15 +90,22 @@ public interface ProjectProgressMapper {
      * [新增] 合同要求研发任务【课题进展第一部分】
      * @author Kong
      * @date 2019/08/14
-     **/
-    int insertCRDT(ContractResearchDevelopmentTasksDTO contractResearchDevelopmentTasksDTO);
+     * @param contractResearchDevelopmentTasks
+     * */
+    @Insert(value = "<script>" +
+            "INSERT INTO  contract_research_development_tasks\n" +
+            "VALUES\t" +
+            "<foreach\tcollection=\"list\" item=\"item\" separator=\",\">" +
+            "(DEFAULT,#{item.progressId},#{item.requireStoddTaskContent})" +
+            "</foreach></script>")
+    int insertCRDT(List<ContractResearchDevelopmentTasksDTO> contractResearchDevelopmentTasks);
 
     /**
      * [查詢] 根據课题进展id查詢
      * @author Kong
      * @date 2019/08/14
      **/
-
+    @Select(value ="select crdt.* from contract_research_development_tasks crdt,project_progress pp WHERE crdt.progress_id=pp.id and pp.id=#{Pid}")
     List<ContractResearchDevelopmentTasksDTO> getCRDTByPid(int Pid);
 
 
@@ -107,41 +114,64 @@ public interface ProjectProgressMapper {
      * @param currentProgress
      * @return
      */
-    int insertCP(CurrentProgressDTO currentProgress);
+    @Insert(value = "<script>" +
+            "INSERT INTO  current_progress\n" +
+            "VALUES\t" +
+            "<foreach collection=\"list\" item=\"item\" separator=\",\">" +
+            "(DEFAULT,#{item.progressId},#{item.currentProgressContent})" +
+            "</foreach></script>")
+    int insertCP(List<CurrentProgressDTO> currentProgress);
 
     /**
      * [查詢] 根據课题进展id查詢
      * @param Pid
      * @return
      */
+    @Select(value ="select cp.* from current_progress cp,project_progress pp WHERE cp.progress_id=pp.id and pp.id=#{Pid}")
     List<CurrentProgressDTO> getCPByPid(@Param("Pid") int Pid);
 
 
     /**
      * [新增] 课题实施中存在的主要问题【课题进展第四部分】
-     * @param projectMainProblemsDTO
+     * @param projectMainProblems
      * @return
      */
-    int insertPMP(ProjectMainProblemsDTO projectMainProblemsDTO);
+    @Insert(value = "<script>" +
+            "INSERT INTO  project_main_problems\t" +
+            "VALUES\t" +
+            "<foreach collection=\"list\" item=\"item\" separator=\",\">" +
+            "(DEFAULT,#{item.progressId},#{item.mainProblems})" +
+            "</foreach></script>")
+    int insertPMP(List<ProjectMainProblemsDTO> projectMainProblems);
 
     /**
      * [查詢] 根據课题进展id查詢
      * @param Pid
      * @return
      */
+    @Select(value ="select pmp.* from project_main_problems pmp,project_progress pp WHERE pmp.progress_id=pp.id and pp.id=#{Pid}")
     List<ProjectMainProblemsDTO> getPMPByPid(@Param("Pid") int Pid);
 
     /**
      * [新增] 下一步工作计划【课题进展第五部分】
      * @author Kong
      * @date 2019/08/14
-     **/
-    int insertNWP(NextWorkPlanDTO nextWorkPlanDTO);
+     *
+     * @param nextWorkPlan
+     */
+    @Insert(value = "<script>" +
+            "INSERT INTO  next_work_plan\n" +
+            "VALUES\t" +
+            "<foreach\tcollection=\"list\" item=\"item\" separator=\",\">" +
+            "(DEFAULT,#{item.progressId},#{item.nextWorkPlan})\n" +
+            "</foreach></script>")
+    int insertNWP(List<NextWorkPlanDTO> nextWorkPlan);
 
     /**
      * [查詢] 根據课题进展id查詢
      * @param Pid
      * @return
      */
+    @Select(value ="select nwp.* from next_work_plan nwp,project_progress pp WHERE nwp.progress_id=pp.id and pp.id=#{Pid}")
     List<NextWorkPlanDTO> getNWPByPid(@Param("Pid") int Pid);
 }

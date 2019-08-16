@@ -77,10 +77,14 @@ public interface ContractManageService {
 
 
     /**
-     * 根据合同id更新合同附件id
+     * 根据合同id更新合同附件id【没写完】
      * @param contractAnnexId
      * @param cid
      * @return
      */
     int updateContractAnnexIdByCid(int contractAnnexId,int cid);
+
 }
+
+
+

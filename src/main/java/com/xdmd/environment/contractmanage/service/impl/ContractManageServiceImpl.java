@@ -6,6 +6,8 @@ import com.xdmd.environment.contractmanage.service.ContractManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -113,4 +115,5 @@ public class ContractManageServiceImpl implements ContractManageService {
     public int updateContractAnnexIdByCid(int contractAnnexId, int cid) {
         return contractManageMapper.updateContractAnnexIdByCid(contractAnnexId,cid);
     }
+
 }
