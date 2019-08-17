@@ -1,6 +1,7 @@
-package com.xdmd.environment.uploadmanagement.mapper;
+package com.xdmd.environment.contractmanage.mapper;
 
-import com.xdmd.environment.uploadmanagement.pojo.UploadFile;
+import com.xdmd.environment.common.UploadFile;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @author: Kong
  * @createDate: 2019/07/31
- * @description: 保存文件到数据库
+ * @description: 保存文件信息到数据库
  */
 @Mapper
 @Repository
@@ -18,7 +19,7 @@ public interface UploadMapper {
      * @param uploadFile
      * @return
      */
-    @Select(value = "INSERT INTO upload_file (upload_file_path,upload_file_name, upload_file_type,upload_suffix_name,file_size,create_time,create_author)\n" +
+    @Insert(value = "INSERT INTO upload_file (upload_file_path,upload_file_name, upload_file_type,upload_suffix_name,file_size,create_time,create_author)\n" +
             "VALUES(" +
             "#{uploadFilePath},"+
             "#{uploadFileName},"+
@@ -36,5 +37,4 @@ public interface UploadMapper {
      */
     @Select(value = "select upload_file_path,upload_file_name from upload_file where id= #{id}")
     UploadFile getFilePath(int id);
-
 }

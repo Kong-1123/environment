@@ -6,7 +6,9 @@ import com.xdmd.environment.contractmanage.service.ContractManageService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +25,10 @@ public class ContractManageController {
     ContractManageService contractManageService;
     ResultMap resultMap = new ResultMap();
 
+
     /**
      * 新增合同信息【外网提交】
+     *
      * @param contractManageDTO
      * @return
      */
@@ -37,10 +41,11 @@ public class ContractManageController {
 
     /**
      * 根据id查询
+     *
      * @param id
      * @return
      */
-    @ApiOperation(value = "根据合同id查询")
+    @ApiOperation(value = "根据合同id查询【内网查看】")
     @GetMapping(value = "getManageInfoById")
     public ResultMap getManageInfoById(int id) {
         ContractManageDTO cmDTO = contractManageService.getManageInfoById(id);
@@ -71,7 +76,7 @@ public class ContractManageController {
     }
 
     /**
-     * 根据中期检查记录查詢相应合同主表
+     * 根据中期检查记录查詢相应合同主表【内网中检】
      *
      * @return
      */
@@ -83,7 +88,7 @@ public class ContractManageController {
 
 
     /**
-     * [查詢] 根据单位id & 中检记录id查詢本单位的课题【外网中检查看】
+     * [查詢] 根据单位id & 中检记录id查詢本单位的课题【外网中检】
      *
      * @param Uid
      * @return
@@ -104,29 +109,45 @@ public class ContractManageController {
      * @param cid
      * @param midCheckAnnexId
      * @param expertAssessmentAnnexId
-     * @param openReportAnnexId
-     * @param subjectProgressAnnexId
-     * @param fundProgressAnnexId
-     * @param expertSuggestAnnexId
      * @return
      */
     @ApiOperation(value = "根据合同id更新相应的附件id【外网中检】")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "midCheckAnnexId", value = "中期检查附件id", paramType = "int"),
+            @ApiImplicitParam(name = "expertAssessmentAnnexId", value = "专家评估附件id", paramType = "int"),
+            @ApiImplicitParam(name = "subjectSuggestAnnexId", value = "课题意见附件id", paramType = "int"),
+            @ApiImplicitParam(name = "cid", value = "合同id", paramType = "int"),
+    })
     @PostMapping(value = "updateContractByCid")
-    public int updateContractByCid(@ApiParam("中期检查附件id")int midCheckAnnexId,@ApiParam("专家评估附件id")int expertAssessmentAnnexId,
-                                   @ApiParam("开题报告附件id")int openReportAnnexId, @ApiParam("课题进展附件id")int subjectProgressAnnexId, @ApiParam("进度情况经费使用情况附件id")int fundProgressAnnexId,
-                                   @ApiParam("专家意见附件id")int expertSuggestAnnexId, @ApiParam("合同id")int cid) {
-        return contractManageService.updateContractByCid(midCheckAnnexId, expertAssessmentAnnexId, openReportAnnexId, subjectProgressAnnexId, fundProgressAnnexId, expertSuggestAnnexId, cid);
+    public int updateContractByCid(int midCheckAnnexId, int expertAssessmentAnnexId, int subjectSuggestAnnexId, int cid) {
+        return contractManageService.updateContractByCid(midCheckAnnexId, expertAssessmentAnnexId, subjectSuggestAnnexId, cid);
     }
 
     /**
      * 根据合同id更新合同附件id
+     *
      * @param contractAnnexId
      * @param cid
      * @return
      */
     @ApiOperation(value = "根据合同id更新合同附件id【外网提交时上传合同附件】")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "contractAnnexId", value = "合同附件id", paramType = "int"),
+            @ApiImplicitParam(name = "cid", value = "合同id", paramType = "int")
+    })
     @PostMapping(value = "updateContractAnnexIdByCid")
-    int updateContractAnnexIdByCid(@ApiParam("合同附件id")int contractAnnexId,@ApiParam("合同id")int cid){
-        return contractManageService.updateContractAnnexIdByCid(contractAnnexId,cid);
+    int updateContractAnnexIdByCid(int contractAnnexId, @ApiParam("合同id") int cid) {
+        return contractManageService.updateContractAnnexIdByCid(contractAnnexId, cid);
+    }
+
+    @PostMapping("midFileUpload")
+    @ApiOperation(value = "中期检查附件上传")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "file", value = "上传附件", paramType = "file"),
+            @ApiImplicitParam(name = "fileType", value = "附件类型", paramType = "string"),
+            @ApiImplicitParam(name = "cid", value = "合同id", paramType = "int"),
+    })
+    public String midFileUpload(@RequestParam("fileName") MultipartFile file, @RequestParam("fileType") String fileType, @RequestParam("cid") int cid) throws IOException {
+    return contractManageService.midFileUpload(file,fileType,cid);
     }
 }

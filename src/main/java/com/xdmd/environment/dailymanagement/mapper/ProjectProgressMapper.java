@@ -4,6 +4,7 @@ import com.xdmd.environment.dailymanagement.pojo.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -174,4 +175,23 @@ public interface ProjectProgressMapper {
      */
     @Select(value ="select nwp.* from next_work_plan nwp,project_progress pp WHERE nwp.progress_id=pp.id and pp.id=#{Pid}")
     List<NextWorkPlanDTO> getNWPByPid(@Param("Pid") int Pid);
+
+    /**
+     * 根据课题进展主表id更新相应的附件id
+     * @param pid
+     * @param openReportAnnexId
+     * @param subjectProgressAnnexId
+     * @param fundProgressAnnexId
+     * @param expertSuggestAnnexId
+     * @return
+     */
+    @Update(value = "UPDATE contract_manage \n" +
+            "SET open_report_annex_id = #{openReportAnnexId},\n" +
+            "subject_progress_annex_id = #{subjectProgressAnnexId},\n" +
+            "fund_progress_annex_id = #{fundProgressAnnexId},\n" +
+            "expert_suggest_annex_id = #{expertSuggestAnnexId} \n" +
+            "WHERE id = #{pid}")
+    int updateSubjectProgressByPid(int openReportAnnexId,int subjectProgressAnnexId,int fundProgressAnnexId, int expertSuggestAnnexId,int pid);
+
+
 }

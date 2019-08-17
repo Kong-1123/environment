@@ -87,40 +87,14 @@ public interface ProjectProgressService {
      */
     ResultMap getNWPByPid(@Param("Pid") int Pid);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * 根据课题进展主表id更新上传附件id
+     * @param openReportAnnexId
+     * @param subjectProgressAnnexId
+     * @param fundProgressAnnexId
+     * @param expertSuggestAnnexId
+     * @param pid
+     * @return
+     */
+    ResultMap updateSubjectProgressByPid(int openReportAnnexId, int subjectProgressAnnexId, int fundProgressAnnexId, int expertSuggestAnnexId, int pid);
 }

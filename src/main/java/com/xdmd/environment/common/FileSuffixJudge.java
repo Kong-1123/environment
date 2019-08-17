@@ -1,4 +1,4 @@
-package com.xdmd.environment.uploadmanagement.uploadutil;
+package com.xdmd.environment.common;
 
 import java.util.ArrayList;
 

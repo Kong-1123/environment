@@ -1,4 +1,4 @@
-package com.xdmd.environment.uploadmanagement.pojo;
+package com.xdmd.environment.common;
 
 import lombok.Data;
 
@@ -12,8 +12,6 @@ import java.util.Date;
  */
 @Data
 public class UploadFile implements Serializable {
-    private static final long serialVersionUID = 1L;
-
 
     /**
      * 主键id

@@ -55,4 +55,6 @@ public class MidCheckController {
     public ResultMap update(){
         return  resultMap= midCheckService.updateMidCheck();
     }
+
+
 }

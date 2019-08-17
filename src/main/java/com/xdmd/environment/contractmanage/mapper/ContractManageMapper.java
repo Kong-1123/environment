@@ -68,7 +68,7 @@ public interface ContractManageMapper {
             "#{subjectObjectivesResearch},\n" +
             "#{subjectAcceptanceAssessment},\n" +
             "#{otherTerms}," +
-            "DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT)")
+            "DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT)")
     int insert(ContractManageDTO contractManageDTO);
 
     /**
@@ -88,7 +88,7 @@ public interface ContractManageMapper {
     List<ContractManageDTO> getAllInfo();
 
     /**
-     * [查詢] 根据中期检查记录id查詢相应合同主表【中期检查记录id--第几次检查】
+     * [查詢] 根据中期检查记录id查詢相应合同主表【内网一[第几次检查]】
      * @param
      * @return
      */
@@ -96,7 +96,7 @@ public interface ContractManageMapper {
     List<Map> getInfoByMidRecord(@Param("mId")int mId);
 
     /**
-     * [查詢] 根据单位id && 中检记录id查詢本单位的课题合同【外网查看中检】
+     * [查詢] 根据单位id && 中检记录id查詢本单位的课题合同【外网中检】
      * @param Uid
      * @return
      */
@@ -129,35 +129,33 @@ public interface ContractManageMapper {
     int updateContractByIds(@Param("mid")int mid,@Param("ids")List<Long> ids);
 
     /**
-     * 根据合同id更新相应的附件id【也可用于课题附件上传】
+     * 根据合同id更新相应的附件id【外网中检】
      * @param cid
      * @param midCheckAnnexId
      * @param expertAssessmentAnnexId
-     * @param openReportAnnexId
-     * @param subjectProgressAnnexId
-     * @param fundProgressAnnexId
-     * @param expertSuggestAnnexId
      * @return
      */
     @Update(value = "UPDATE contract_manage \n" +
             "SET mid_check_annex_id = #{midCheckAnnexId},\n" +
             "expert_assessment_annex_id = #{expertAssessmentAnnexId},\n" +
-            "open_report_annex_id = #{openReportAnnexId},\n" +
-            "subject_progress_annex_id = #{subjectProgressAnnexId},\n" +
-            "fund_progress_annex_id = #{fundProgressAnnexId},\n" +
-            "expert_suggest_annex_id = #{expertSuggestAnnexId} \n" +
+            "subject_suggest_annex_id = #{subjectSuggestAnnexId} \n" +
             "WHERE id = #{cid}")
-    int updateContractByCid(int midCheckAnnexId,int expertAssessmentAnnexId, int openReportAnnexId,int subjectProgressAnnexId,int fundProgressAnnexId, int expertSuggestAnnexId,int cid);
+    int updateContractByCid(int midCheckAnnexId,int expertAssessmentAnnexId,int subjectSuggestAnnexId,int cid);
 
 
     /**
-     * 根据合同id更新合同附件id
+     * 根据合同id更新合同附件id【外网中检】
      * @param contractAnnexId
      * @param cid
      * @return
      */
     @Update(value = "update contract_manage set contract_annex_id=#{contractAnnexId} where id=#{cid}")
     int updateContractAnnexIdByCid(int contractAnnexId,int cid);
+
+
+
+
+
 
 
     /**

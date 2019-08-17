@@ -253,4 +253,29 @@ public class ProjectProgressServiceImpl implements ProjectProgressService {
         }
         return resultMap;
     }
+
+    /**
+     * 根据课题进展主表id更新相应的附件id
+     * @param openReportAnnexId
+     * @param subjectProgressAnnexId
+     * @param fundProgressAnnexId
+     * @param expertSuggestAnnexId
+     * @param pid
+     * @return
+     */
+    @Override
+    public ResultMap updateSubjectProgressByPid(int openReportAnnexId, int subjectProgressAnnexId, int fundProgressAnnexId, int expertSuggestAnnexId, int pid) {
+        try{
+            int updateNo= projectProgressMapper.updateSubjectProgressByPid(openReportAnnexId,subjectProgressAnnexId,fundProgressAnnexId,expertSuggestAnnexId,pid);
+            if(updateNo>0){
+                resultMap.success().message("成功更新"+updateNo+"条数据");
+            }else if(updateNo==0){
+                resultMap.success().message("没有查到相关信息");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.success().message("系统异常");
+        }
+        return resultMap;
+    }
 }

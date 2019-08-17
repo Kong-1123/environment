@@ -2,7 +2,9 @@ package com.xdmd.environment.contractmanage.service;
 
 import com.xdmd.environment.contractmanage.pojo.ContractManageDTO;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -61,29 +63,32 @@ public interface ContractManageService {
     List<Map> getContractByUid(@Param("Uid") int Uid, @Param("Mid")int Mid);
 
     /**
-     * 根据合同id更新相应的附件id
-     * @param cid
+     * 根据合同id更新相应的附件id【外网上传】
      * @param midCheckAnnexId
      * @param expertAssessmentAnnexId
-     * @param openReportAnnexId
-     * @param subjectProgressAnnexId
-     * @param fundProgressAnnexId
-     * @param expertSuggestAnnexId
+     * @param subjectSuggestAnnexId
+     * @param cid
      * @return
      */
-    int updateContractByCid(int midCheckAnnexId,int expertAssessmentAnnexId,
-                            int openReportAnnexId,int subjectProgressAnnexId,int fundProgressAnnexId,
-                            int expertSuggestAnnexId,int cid);
+    int updateContractByCid(int midCheckAnnexId,int expertAssessmentAnnexId,int subjectSuggestAnnexId,int cid);
 
 
     /**
-     * 根据合同id更新合同附件id【没写完】
+     * 根据合同id更新合同附件id【外网上传】
      * @param contractAnnexId
      * @param cid
      * @return
      */
     int updateContractAnnexIdByCid(int contractAnnexId,int cid);
 
+    /**
+     * 中期文件上传
+     * @param file
+     * @param fileType
+     * @param cid
+     * @return
+     */
+    String midFileUpload(MultipartFile file,String fileType,int cid) throws IOException;
 }
 
 

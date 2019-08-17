@@ -1,4 +1,4 @@
-package com.xdmd.environment.uploadmanagement.uploadutil;
+package com.xdmd.environment.common;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

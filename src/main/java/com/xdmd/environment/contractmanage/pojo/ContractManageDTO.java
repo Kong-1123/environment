@@ -143,23 +143,11 @@ public class ContractManageDTO {
     @ApiModelProperty("专家评估表附件id")
     private Integer expertAssessmentAnnexId;
 
-    @ApiModelProperty("开题报告附件id")
-    private Integer openReportAnnexId;
-
-    @ApiModelProperty("课题进展附件id")
-    private Integer subjectProgressAnnexId;
-
-    @ApiModelProperty("进度情况经费使用情况附件id")
-    private Integer fundProgressAnnexId;
-
     @ApiModelProperty("合同附件id")
     private Integer contractAnnexId;
 
-    @ApiModelProperty("专家意见附件id")
-    private Integer expertSuggestAnnexId;
-
-    @ApiModelProperty("专家总意见附件id")
-    private Integer expertTotalSuggestAnnexId;
+    @ApiModelProperty("课题意见附件id")
+    private Integer subjectSuggestAnnexId;
 
     public ContractManageDTO() {
     }
