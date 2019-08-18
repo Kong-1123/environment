@@ -10,12 +10,12 @@ public class ResultMap extends HashMap<String, Object> {
     }
 
     public ResultMap success() {
-        this.put("resultFlag ", "0");
+        this.put("resultFlag", "0");
         return this;
     }
 
     public ResultMap fail() {
-        this.put("resultFlag ", "1");
+        this.put("resultFlag", "1");
         return this;
     }
 

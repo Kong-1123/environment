@@ -1,7 +1,6 @@
 package com.xdmd.environment.guidemanagement.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.xdmd.environment.common.Dictionary;
 import com.xdmd.environment.common.ResultMap;
 import com.xdmd.environment.guidemanagement.mapper.GuideMapper;
 import com.xdmd.environment.guidemanagement.pojo.GuideCollection;
@@ -13,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author: Administrator
@@ -42,7 +43,8 @@ public class GuideServiceImpl implements GuideService {
     @Override
     public ResultMap getCollectionByParam(String guideName, Integer domain, Integer category, String fillUnit, String fillContacts, String contactPhone, int pageNum, int pageSize) {
         try{
-            PageHelper.startPage(pageNum, pageSize);
+            String orderBy="gc.id desc";
+            PageHelper.startPage(pageNum,pageSize,orderBy);
             List<Map> guideCollectionList = guideMapper.getCollectionByParam(guideName, domain, category, fillUnit, fillContacts, contactPhone);
             if(guideCollectionList.size()>0){
                 resultMap.success().message(guideCollectionList);
@@ -65,7 +67,7 @@ public class GuideServiceImpl implements GuideService {
     @Override
     public ResultMap getCategoryAndDomain() {
         try{
-            List<Dictionary> getCategoryAndDomains = guideMapper.getCategoryAndDomain();
+            List<Map> getCategoryAndDomains = guideMapper.getCategoryAndDomain();
             if(getCategoryAndDomains.size()>0){
                 resultMap.success().message(getCategoryAndDomains);
             }else if(getCategoryAndDomains.size()==0){
@@ -182,11 +184,33 @@ public class GuideServiceImpl implements GuideService {
     @Override
     public ResultMap getSummaryByParam(String guideSummaryTitle, String fillUnit, Integer domain, Integer category, String projectTime, String researchContentTechnology, int pageNum, int pageSize) {
         try{
-            PageHelper.startPage(pageNum, pageSize);
+            String orderBy="gs.id desc";
+            PageHelper.startPage(pageNum,pageSize,orderBy);
             List<Map> guideSummaryList = guideMapper.getSummaryByParam(guideSummaryTitle, fillUnit, domain, category, projectTime, researchContentTechnology);
             if(guideSummaryList.size()>0){
                 resultMap.success().message(guideSummaryList);
             }else if(guideSummaryList.size()==0){
+                resultMap.success().message("没有查到相关信息");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.success().message("系统异常");
+        }
+        return resultMap;
+    }
+
+    /**
+     * 实现根据汇总标题查询汇总信息
+     * @param guideSummaryTitle
+     * @return
+     */
+    @Override
+    public ResultMap getSummaryByGuideSummaryTitle(String guideSummaryTitle) {
+        try{
+            List<Map> gsList = guideMapper.getSummaryByGuideSummaryTitle(guideSummaryTitle);
+            if(gsList.size()>0){
+                resultMap.success().message(gsList);
+            }else if(gsList.size()==0){
                 resultMap.success().message("没有查到相关信息");
             }
         }catch (Exception e){
@@ -203,13 +227,40 @@ public class GuideServiceImpl implements GuideService {
      * @return
      */
     @Override
-    public ResultMap getCollectionByUid(int Uid) {
-        List<Map> mapList=guideMapper.getCollectionByUid(Uid);
+    public ResultMap getCollectionByUid(String guideName, Integer domain, Integer category, String fillUnit, String fillContacts, String contactPhone,int Uid,int pageNum,int pageSize) {
         try{
+            String orderBy="gc.id desc";
+            PageHelper.startPage(pageNum,pageSize,orderBy);
+            List<Map> mapList=guideMapper.getCollectionByUid(guideName,domain,category,fillUnit,fillContacts,contactPhone,Uid);
+            //PageInfo pageResult = new PageInfo(mapList);
+            //获取到总条数
+            //pageResult.getTotal();
             if(mapList.size()>0){
                 resultMap.success().message(mapList);
             }else if(mapList.size()==0){
                 resultMap.success().message("没有查到相关信息");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.success().message("系统异常");
+        }
+        return resultMap;
+    }
+
+    /**
+     * [新增]单位关联指南征集
+     * @param unitId
+     * @param collectionId
+     * @return
+     */
+    @Override
+    public ResultMap insert(int unitId, int collectionId) {
+        try{
+            int insertNo=guideMapper.insert(unitId,collectionId);
+            if(insertNo>0){
+                resultMap.success().message("新增成功");
+            }else if(insertNo==0){
+                resultMap.success().message("新增失败");
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -235,7 +286,6 @@ public class GuideServiceImpl implements GuideService {
                 resultMap.success().message("没有查到相关信息");
             }
         }catch (Exception e){
-            e.printStackTrace();
             resultMap.success().message("系统异常");
         }
         return resultMap;
@@ -243,8 +293,6 @@ public class GuideServiceImpl implements GuideService {
 }
 
 /**
- *
- *
  try{
  if(guideCollectionList.size()>0){
  resultMap.success().message(guideCollectionList);
@@ -256,9 +304,5 @@ public class GuideServiceImpl implements GuideService {
  resultMap.success().message("系统异常");
  }
  return resultMap;
- *
- *
- *
- *
  *
  */

@@ -2,6 +2,7 @@ package com.xdmd.environment.contractmanage.pojo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -10,15 +11,16 @@ import lombok.Data;
  * @description: 合同管理主表
  */
 @Data
+@AllArgsConstructor
 @ApiModel(description = "合同管理主表")
 public class ContractManageDTO {
-    @ApiModelProperty("主键【注:id为默认,新增时不用填】")
+    @ApiModelProperty(name="主键【注:系统默认生成,新增时不用填】",required = false)
     private Integer id;
 
     @ApiModelProperty("课题类别")
     private String subjectCategory;
 
-    @ApiModelProperty("课题编号【注:课题编号后台已设定,新增时不用填】")
+    @ApiModelProperty("课题编号")
     private String projectNo;
 
     @ApiModelProperty("课题名称")
@@ -69,52 +71,52 @@ public class ContractManageDTO {
     @ApiModelProperty("保证单位联系人")
     private String guaranteedUnitContact;
 
-    @ApiModelProperty("保证单位联系人电话\r\n")
+    @ApiModelProperty("保证单位联系人电话")
     private String guaranteedContactPhone;
 
     @ApiModelProperty("委托单位（甲方）")
     private String commissioningUnit;
 
-    @ApiModelProperty("委托单位法定代表人")
+    @ApiModelProperty("委托单位（甲方）法定代表人")
     private String legalRepresentativeEntrustingA;
 
-    @ApiModelProperty("委托单位地址")
+    @ApiModelProperty("委托单位（甲方）地址")
     private String commissionedUnitAddressA;
 
-    @ApiModelProperty("委托单位邮政编码")
+    @ApiModelProperty("委托单位（甲方）邮政编码")
     private String commissionedUnitZipA;
 
     @ApiModelProperty("承担单位（乙方）")
     private String responsibilityUnitB;
 
-    @ApiModelProperty("承担单位法定代表人")
+    @ApiModelProperty("承担单位（乙方）法定代表人")
     private String responsibilityLegalRepresentativeB;
 
-    @ApiModelProperty("承担单位地址")
+    @ApiModelProperty("承担单位（乙方）地址")
     private String commitUnitAddressB;
 
-    @ApiModelProperty("承担单位邮政编码")
+    @ApiModelProperty("承担单位（乙方）邮政编码")
     private String commitUnitZipB;
 
-    @ApiModelProperty("承担单位课题负责人")
+    @ApiModelProperty("承担单位（乙方）课题负责人")
     private String commitUnitLeaderB;
 
-    @ApiModelProperty("承担单位课题负责人电话（手机号）")
+    @ApiModelProperty("承担单位（乙方）课题负责人电话（手机号）")
     private String commitunitLeadersPhoneB;
 
-    @ApiModelProperty("承担单位课题负责人电子邮件")
+    @ApiModelProperty("承担单位（乙方）课题负责人电子邮件")
     private String commitmentUnitEmailB;
 
     @ApiModelProperty("保证单位（丙方）")
     private String guaranteedUnitC;
 
-    @ApiModelProperty("保证单位法定代表人/部门负责人")
+    @ApiModelProperty("保证单位（丙方）法定代表人/部门负责人")
     private String guaranteedUnitLeaderC;
 
-    @ApiModelProperty("保证单位地址")
+    @ApiModelProperty("保证单位（丙方）地址")
     private String guaranteedUnitAddressC;
 
-    @ApiModelProperty("保证单位邮编")
+    @ApiModelProperty("保证单位（丙方）邮编")
     private String guaranteedUnitZipC;
 
     @ApiModelProperty("课题签订说明")
@@ -126,23 +128,26 @@ public class ContractManageDTO {
     @ApiModelProperty("课题验收内容和考核指标")
     private String subjectAcceptanceAssessment;
 
-    @ApiModelProperty("课题进度及考核指标(关联子表)")
-    private Integer subjectProgressMetrics;
-
-    @ApiModelProperty("课题承担单位、参加单位及主要研究开发人员(关联子表)")
-    private Integer undertakeParticipateResearchers;
-
-    @ApiModelProperty("课题经费来源预算(关联子表)")
-    private Integer budgetSourceFunding;
-
-    @ApiModelProperty("课题总经费支出预算(关联子表)")
-    private Integer subjectTotalExpenditure;
-
-    @ApiModelProperty("合同表文件存放地址")
-    private String contractAnnexAddress;
-
     @ApiModelProperty("其他条款")
     private String otherTerms;
+
+    @ApiModelProperty("合同审批状态【0-单位员工待提交 1-单位管理员待审批 2-评估中心员工待审批 3-法规科技处待审批 4-法规科技处已审批】")
+    private Integer approvalStatus;
+
+    @ApiModelProperty("中期检查记录（关联表）")
+    private Integer midRecordId;
+
+    @ApiModelProperty("中期检查表附件id")
+    private Integer midCheckAnnexId;
+
+    @ApiModelProperty("专家评估表附件id")
+    private Integer expertAssessmentAnnexId;
+
+    @ApiModelProperty("合同附件id")
+    private Integer contractAnnexId;
+
+    @ApiModelProperty("课题意见附件id")
+    private Integer subjectSuggestAnnexId;
 
     public ContractManageDTO() {
     }

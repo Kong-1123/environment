@@ -33,8 +33,8 @@ public class ContentIndicatorsServiceImpl implements ContentIndicatorsService {
      * @return
      */
     @Override
-    public ContentIndicatorsDTO getInfoById(int id) {
-        return contentIndicatorsMapper.getInfoById(id);
+    public ContentIndicatorsDTO getIndicatorById(int id) {
+        return contentIndicatorsMapper.getIndicatorById(id);
     }
 
     /**

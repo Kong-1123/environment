@@ -20,16 +20,16 @@ public interface ContentIndicatorsMapper {
      * @author Kong
      * @date 2019/08/06
      **/
-    @Insert(value = "insert into content_indicators VALUES(DEFAULT,#{time},#{programContentAssessmentIndicators})")
+    @Insert(value = "insert into content_indicators VALUES(DEFAULT,#{contractId},#{time},#{programContentAssessmentIndicators})")
     int insert(ContentIndicatorsDTO contentIndicatorsDTO);
 
     /**
-     * [查詢] 根據主鍵 id 查詢
+     * [查詢] 根據合同管理id查詢
      * @author Kong
      * @date 2019/08/06
      **/
-    @Select(value = "select * from content_indicators where id=#{id}")
-    ContentIndicatorsDTO getInfoById(@Param("id") int id);
+    @Select(value = "select ci.* from content_indicators as ci,contract_manage as cm where ci.contract_id=cm.id and cm.id=#{id}")
+    ContentIndicatorsDTO getIndicatorById(@Param("id") int id);
 
     /**
      * [查詢] 查詢全部计划内容

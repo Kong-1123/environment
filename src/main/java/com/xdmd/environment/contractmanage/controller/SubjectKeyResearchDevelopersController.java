@@ -42,9 +42,9 @@ public class SubjectKeyResearchDevelopersController {
      * @return
      */
     @ApiOperation(value = "根据id查询")
-    @GetMapping(value = "getInfoById")
-    public ResultMap getInfoById(int id) {
-        SubjectKeyResearchDevelopersDTO skrdDTO= subjectKeyResearchDevelopersService.getInfoById(id);
+    @GetMapping(value = "getDeveloperInfoById")
+    public ResultMap getDeveloperInfoById(int id) {
+        SubjectKeyResearchDevelopersDTO skrdDTO= subjectKeyResearchDevelopersService.getDeveloperInfoById(id);
         return skrdDTO!=null?resultMap.success().message(skrdDTO):resultMap.fail().message("查询失败");
     }
     /**

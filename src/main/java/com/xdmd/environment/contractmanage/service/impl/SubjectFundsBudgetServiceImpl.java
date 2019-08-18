@@ -32,8 +32,8 @@ public class SubjectFundsBudgetServiceImpl implements SubjectFundsBudgetService 
      * @return
      */
     @Override
-    public SubjectFundsBudgetDTO getInfoById(int id) {
-        return subjectFundsBudgetMapper.getInfoById(id);
+    public SubjectFundsBudgetDTO getBudgetInfoById(int id) {
+        return subjectFundsBudgetMapper.getBudgetInfoById(id);
     }
     /**
      * [查詢] 获取全部预算信息

@@ -63,15 +63,26 @@ public interface GuideService {
      * @return
      */
     ResultMap getSummaryByParam(String guideSummaryTitle, String fillUnit,Integer domain,Integer category,String projectTime,String researchContentTechnology,@Param("pageNum") int pageNum,@Param("pageSize") int pageSize);
+    /**
+     * 根据汇总标题查询出汇总指南
+     * @return
+     */
+    ResultMap getSummaryByGuideSummaryTitle(@Param("guideSummaryTitle") String guideSummaryTitle);
 
     /**
      * 根據单位id查詢相应单位的指南申报
      * @param Uid
      * @return
      */
-    ResultMap getCollectionByUid(int Uid);
+    ResultMap getCollectionByUid(String guideName, Integer domain, Integer category, String fillUnit, String fillContacts, String contactPhone,int Uid,int pageNum,int pageSize);
 
-
+    /**
+     * [新增]单位关联指南征集
+     * @param unitId
+     * @param collectionId
+     * @return
+     */
+    ResultMap insert(int unitId,int collectionId);
     /**
      * 根据勾选的指南id获取选相应指南申报信息
      * @param

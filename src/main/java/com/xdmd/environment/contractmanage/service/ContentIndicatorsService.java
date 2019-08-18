@@ -15,11 +15,11 @@ public interface ContentIndicatorsService {
     int insert(ContentIndicatorsDTO contentIndicatorsDTO);
 
     /**
-     * [查詢] 根據主鍵 id 查詢
+     * [查詢] 根據合同管理id查詢
      * @author Kong
      * @date 2019/08/06
      **/
-    ContentIndicatorsDTO getInfoById(@Param("id") int id);
+    ContentIndicatorsDTO getIndicatorById(@Param("id") int id);
 
     /**
      * [查詢] 查詢全部计划内容

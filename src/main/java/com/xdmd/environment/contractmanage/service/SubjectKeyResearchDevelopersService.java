@@ -19,11 +19,11 @@ public interface SubjectKeyResearchDevelopersService {
 
 
     /**
-     * [查詢] 根據主鍵 id 查詢
+     * [查詢] 根據合同管理id查詢
      * @param id
      * @return
      */
-    SubjectKeyResearchDevelopersDTO getInfoById(int id);
+    SubjectKeyResearchDevelopersDTO getDeveloperInfoById(int id);
 
     /**
      * [查詢] 全部查詢

@@ -41,9 +41,9 @@ public class ContentIndicatorsController {
      * @return
      */
     @ApiOperation(value = "获取计划内容信息",notes = "根据id查询")
-    @GetMapping (value = "getInfoById")
-    public ResultMap getInfoById(int id) {
-        ContentIndicatorsDTO indicatorsDTO=contentIndicatorsService.getInfoById(id);
+    @GetMapping (value = "getIndicatorById")
+    public ResultMap getIndicatorById(int id) {
+        ContentIndicatorsDTO indicatorsDTO=contentIndicatorsService.getIndicatorById(id);
         return indicatorsDTO!=null?resultMap.success().message(indicatorsDTO):resultMap.fail().message("查询失败");
     }
 

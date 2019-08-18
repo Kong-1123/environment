@@ -42,7 +42,7 @@ public class SubjectFundsBudgetController {
     @ApiOperation(value = "根据id单查课题预算信息")
     @GetMapping(value = "getInfoById")
     public ResultMap getInfoById(@RequestParam("id") int id) {
-        SubjectFundsBudgetDTO sfbDTO= subjectFundsBudgetService.getInfoById(id);
+        SubjectFundsBudgetDTO sfbDTO= subjectFundsBudgetService.getBudgetInfoById(id);
         return sfbDTO!=null?resultMap.success().message(sfbDTO):resultMap.fail().message("查询失败");
 
 

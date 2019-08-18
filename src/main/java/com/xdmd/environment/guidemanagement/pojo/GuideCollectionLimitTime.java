@@ -14,7 +14,7 @@ import lombok.Data;
 public class GuideCollectionLimitTime{
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("id")
+    @ApiModelProperty(name="主键【注:系统默认生成,新增时不用填】",required = false,example ="1")
     private Integer id;
 
     @ApiModelProperty("指南征集开始时间")
