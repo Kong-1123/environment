@@ -39,7 +39,6 @@ public class GuideCollectionProvider {
             if (i < summaryList.size() - 1) {
                 sb.append(",");
             }
-
         }
         return sb.toString();
     }

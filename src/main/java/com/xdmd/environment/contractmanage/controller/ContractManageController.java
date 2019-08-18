@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -143,11 +142,17 @@ public class ContractManageController {
     @PostMapping("midFileUpload")
     @ApiOperation(value = "中期检查附件上传")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "file", value = "上传附件", paramType = "file"),
-            @ApiImplicitParam(name = "fileType", value = "附件类型", paramType = "string"),
-            @ApiImplicitParam(name = "cid", value = "合同id", paramType = "int"),
+            @ApiImplicitParam(name = "fileType", value = "附件类型",paramType="form"),
+            @ApiImplicitParam(name = "cid", value = "合同id", paramType = "form"),
     })
-    public String midFileUpload(@RequestParam("fileName") MultipartFile file, @RequestParam("fileType") String fileType, @RequestParam("cid") int cid) throws IOException {
-    return contractManageService.midFileUpload(file,fileType,cid);
+    public String midFileUpload(@RequestParam("file") @ApiParam("附件") MultipartFile file,@RequestParam("fileType") @ApiParam("文件类型")String fileType,@RequestParam("cid") @ApiParam("合同id") int cid){
+        String OK=null;
+        try {
+               OK=contractManageService.midFileUpload(file,fileType,cid);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+            return OK;
     }
 }

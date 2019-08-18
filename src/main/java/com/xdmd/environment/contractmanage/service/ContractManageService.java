@@ -84,7 +84,6 @@ public interface ContractManageService {
     /**
      * 中期文件上传
      * @param file
-     * @param fileType
      * @param cid
      * @return
      */

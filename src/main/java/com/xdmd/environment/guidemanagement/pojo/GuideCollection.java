@@ -66,13 +66,13 @@ public class GuideCollection {
     @ApiModelProperty("联系电话(手机)")
     private String contactPhone;
 
-    @ApiModelProperty(name="申报状态（0 未审核 1 审核通过 2 审核未通过）【注:系统默认生成,新增时不用填】",required = false)
+    @ApiModelProperty(value = "申报状态（0 未审核 1 审核通过 2 审核未通过）【注:系统默认生成,新增时不用填】",required = false)
     private Integer declarationStatus;
 
-    @ApiModelProperty(name="是否选中（0-未选中；1-已选中）【注:系统默认生成,新增时不用填】",required = false)
+    @ApiModelProperty(value ="是否选中（0-未选中；1-已选中）【注:系统默认生成,新增时不用填】",required = false)
     private Integer isSelect;
 
-    @ApiModelProperty(name="创建时间【注:系统默认生成,新增时不用填】",required = false)
+    @ApiModelProperty(value ="创建时间【注:系统默认生成,新增时不用填】",required = false)
     private Date createTime;
 
 

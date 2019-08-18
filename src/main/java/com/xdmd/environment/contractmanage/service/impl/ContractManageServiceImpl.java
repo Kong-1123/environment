@@ -8,7 +8,6 @@ import com.xdmd.environment.contractmanage.pojo.ContractManageDTO;
 import com.xdmd.environment.contractmanage.service.ContractManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -128,7 +127,7 @@ public class ContractManageServiceImpl implements ContractManageService {
      * @throws IOException
      */
     @Override
-    public String midFileUpload(@RequestParam("fileName") MultipartFile file, @RequestParam("fileType")String fileType,@RequestParam("cid") int cid) throws IOException {
+    public String midFileUpload(MultipartFile file,String fileType,int cid) throws IOException {
         //判断文件是否为空
         if (file.isEmpty()) {
             return "上传文件不可为空";
@@ -141,7 +140,7 @@ public class ContractManageServiceImpl implements ContractManageService {
         //获取课题名称
         String ketiName=getManageInfoById(cid).getSubjectName();
         //获取文件上传绝对路径
-        String FilePath = "D:/xdmd/environment/" +ketiName+ "/中期检查附件/"+fileType;
+        String FilePath = "D:/xdmd/environment/" +ketiName+"/"+fileType+"/";
         StringBuilder initPath = new StringBuilder(FilePath);
         String filePath=initPath.append(fileName).toString();
         System.out.println("文件路径-->"+filePath);
@@ -173,8 +172,9 @@ public class ContractManageServiceImpl implements ContractManageService {
             uploadFile.setUploadSuffixName(suffixName);
             uploadFile.setCreateAuthor("创建者");
             //文件信息保存到数据库
-            uploadMapper.insertUpload(uploadFile);
-            return "上传成功";
+            int upNo= uploadMapper.insertUpload(uploadFile);
+            System.out.println("影响行数"+upNo);
+            return "上传成功-->"+filePath;
         } catch (Exception e) {
             e.printStackTrace();
         }

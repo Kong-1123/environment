@@ -8,8 +8,10 @@
 <body>
 <h1 th:inlines="text">文件上传</h1>
 <!--单文件上传 -->
-<form action="fileUpload" method="post" enctype="multipart/form-data">
-    <p>选择文件: <input type="file" name="fileName"/></p>
+<form action="midFileUpload" method="post" enctype="multipart/form-data">
+    <p>合同: <input type="number" name="cid"/></p>
+    <p>附件类型: <input type="text" name="fileType"/></p>
+    <p>选择文件: <input type="file" name="file"/></p>
     <p><input type="submit" value="单文件提交"/></p>
 </form>
 
