@@ -12,11 +12,19 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
+
+/**
+ * @version V1.0
+ * @Title: Swagger配置类
+ * @ClassName: com.newcapec.config.swagger.Swagger2Configuration.java
+ * @Description:
+ * @Copyright 2019/8 -- Powered By 研发部
+ * @author: Kong
+ * @date:2019-12-11
+ */
 @Configuration
 @EnableSwagger2
-/**
- * @ConditionalOnExpression为Spring的注解,用户是否实例化本类
- */
 public class SwaggerConfig {
     /**
      * 配置docket以配置Swagger具体参数

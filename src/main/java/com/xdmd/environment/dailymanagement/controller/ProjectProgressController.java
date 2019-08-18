@@ -201,6 +201,7 @@ public class ProjectProgressController {
             return "上传文件不可为空";
         }
 
+
         // 获取文件名拼接当前系统时间作为新文件名
         String nowtime =  new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis());
         StringBuilder pinjiefileName=new StringBuilder(nowtime).append(file.getOriginalFilename());

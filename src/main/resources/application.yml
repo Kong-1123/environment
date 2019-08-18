@@ -5,7 +5,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/hbkj?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
     username: root
-    password: 123456
+    password: 1123
   servlet:
     multipart:
       max-file-size: 100MB
@@ -38,3 +38,7 @@ logging:
     root: INFO
     org.springframework.web: debug
   file: D:\\xdmd_hbkj\\hbkt.log
+
+#生产环境禁用，设置为false即可
+swagger:
+  enable: true
