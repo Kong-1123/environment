@@ -255,7 +255,7 @@ public interface GuideMapper {
     int batchInsertSummary(@Param("list") List<GuideSummary> guideSummary);
 
     /**
-     * 查询全部汇总信息(要修改)--汇总4
+     * 分页查询全部汇总信息(要修改)--汇总4
      * @return
      */
     @Select(value = "<script>" +
@@ -308,7 +308,7 @@ public interface GuideMapper {
     List<Map> getSummaryByParam(@Param("guideSummaryTitle") String guideSummaryTitle,@Param("fillUnit")String fillUnit,@Param("domain") Integer domain,@Param("category") Integer category,@Param("projectTime") String projectTime,@Param("researchContentTechnology") String researchContentTechnology);
 
     /**
-     * 根据汇总标题查询出汇总指南--汇总5
+     * 根据汇总标题分页查询汇总指南--汇总5
      * @return
      */
     @Select(value = "<script>" +

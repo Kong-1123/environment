@@ -25,6 +25,7 @@ public interface OpenTenderMapper {
             "#{tenderNo},\n" +
             "#{subcontractingNo},\n" +
             "#{subjectName}," +
+            "#{responsibleUnit}," +
             "#{bidders},\n" +
             "#{subjectLeader},\n" +
             "#{leaderContact},\n" +

@@ -29,6 +29,9 @@ public class OpenTender{
     @ApiModelProperty("课题名称")
     private String subjectName;
 
+    @ApiModelProperty("责任单位")
+    private String responsibleUnit;
+
     @ApiModelProperty("投标人")
     private String bidders;
 
